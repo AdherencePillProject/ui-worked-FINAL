@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>FirstActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+FirstActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.os.Handler; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">com.parse.GetCallback; 
+</span><span class="s0">import </span><span class="s1">com.parse.Parse; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseException; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseObject; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseQuery; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseUser; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.List; 
+ 
+</span><span class="s2">/** 
+ * Created by weihanchu on 6/2/16. 
+ */</span><span class="s1"> 
+</span><span class="s0">public class </span><span class="s1">FirstActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_first); 
+ 
+        Parse.enableLocalDatastore(</span><span class="s0">this</span><span class="s1">); 
+</span><span class="s2">//        Parse.initialize(this, &quot;BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR&quot;, &quot;6exCVtTYC6JhQP6gw1OFByyP2RRq5McznAsoQ3Gq&quot;);</span><span class="s1"> 
+        ParseUser.enableAutomaticUser(); 
+</span><span class="s2">//        ParseObject testObject = new ParseObject(&quot;TestObject&quot;);</span><span class="s1"> 
+</span><span class="s2">//        testObject.put(&quot;foo&quot;, &quot;bar&quot;);</span><span class="s1"> 
+</span><span class="s2">//        testObject.saveInBackground();</span><span class="s1"> 
+</span><span class="s2">//        ParseQuery&lt;ParseObject&gt; query = ParseQuery.getQuery(&quot;Doctor&quot;);</span><span class="s1"> 
+</span><span class="s2">//        if (query==null) Toast.makeText(getApplicationContext(),&quot;query is null!&quot;,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+</span><span class="s2">//        else Toast.makeText(getApplicationContext(),&quot;query is not null&quot;,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+</span><span class="s2">//        query.getInBackground(&quot;1FLsZV9aHZ&quot;, new GetCallback&lt;ParseObject&gt;() {</span><span class="s1"> 
+</span><span class="s2">//            @Override</span><span class="s1"> 
+</span><span class="s2">//            public void done(ParseObject object, ParseException e) {</span><span class="s1"> 
+</span><span class="s2">//                if(e==null){</span><span class="s1"> 
+</span><span class="s2">//                    String str=object.getString(&quot;hospitalName&quot;);</span><span class="s1"> 
+</span><span class="s2">//           //         Toast.makeText(getApplicationContext(),str,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+</span><span class="s2">//                }</span><span class="s1"> 
+</span><span class="s2">//                else {</span><span class="s1"> 
+</span><span class="s2">//          //          Toast.makeText(getApplicationContext(),&quot;something wrong!&quot;,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+</span><span class="s2">//                }</span><span class="s1"> 
+</span><span class="s2">//            }</span><span class="s1"> 
+</span><span class="s2">//        });</span><span class="s1"> 
+        List&lt;ParseObject&gt; user = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        </span><span class="s0">try </span><span class="s1">{ 
+            ParseQuery&lt;ParseObject&gt; query = ParseQuery.getQuery(</span><span class="s3">&quot;saveUser&quot;</span><span class="s1">); 
+            query.fromLocalDatastore(); 
+            user = query.find(); 
+        } </span><span class="s0">catch </span><span class="s1">(Exception e) { 
+        } 
+        </span><span class="s0">if </span><span class="s1">(user.size() &gt; </span><span class="s4">0</span><span class="s1">) {; 
+            Intent intent = </span><span class="s0">new </span><span class="s1">Intent(); 
+            intent.setClass(FirstActivity.</span><span class="s0">this</span><span class="s1">, NextActivity.</span><span class="s0">class</span><span class="s1">); 
+</span><span class="s2">//            intent.setClass(FirstActivity.this, CalendarTestActivity.class);</span><span class="s1"> 
+ 
+            FirstActivity.</span><span class="s0">this</span><span class="s1">.startActivity(intent); 
+        } 
+ 
+        </span><span class="s0">new </span><span class="s1">Handler().postDelayed(</span><span class="s0">new </span><span class="s1">Runnable() { 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(); 
+</span><span class="s2">//                intent.setClass(FirstActivity.this, MainActivity2.class);</span><span class="s1"> 
+                intent.setClass(FirstActivity.</span><span class="s0">this</span><span class="s1">, MainActivity.</span><span class="s0">class</span><span class="s1">); 
+                </span><span class="s2">//               intent.setClass(FirstActivity.this, CalendarTestActivity.class);</span><span class="s1"> 
+                FirstActivity.</span><span class="s0">this</span><span class="s1">.startActivity(intent); 
+            } 
+        }, </span><span class="s4">2000</span><span class="s1">); 
+ 
+ 
+ 
+    } 
+} 
+ 
+</span></pre>
+</body>
+</html>

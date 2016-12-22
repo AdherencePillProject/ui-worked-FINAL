@@ -1,0 +1,272 @@
+<html>
+<head>
+<title>MedicationFragment.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MedicationFragment.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.Fragment; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.widget.LinearLayoutManager; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.widget.RecyclerView; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+</span><span class="s0">import </span><span class="s1">android.view.Gravity; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup; 
+</span><span class="s0">import </span><span class="s1">android.widget.PopupWindow; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.Activity; 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+</span><span class="s0">import </span><span class="s1">android.view.MotionEvent; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.View.OnClickListener; 
+</span><span class="s0">import </span><span class="s1">android.view.View.OnTouchListener; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup.LayoutParams; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+ 
+ 
+ 
+</span><span class="s0">import </span><span class="s1">com.parse.FindCallback; 
+</span><span class="s0">import </span><span class="s1">com.parse.Parse; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseException; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseObject; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseQuery; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.List; 
+ 
+ 
+</span><span class="s0">public class </span><span class="s1">MedicationFragment </span><span class="s0">extends </span><span class="s1">Fragment { 
+ 
+    </span><span class="s0">private static final </span><span class="s1">String ARG_MEDICINE_LIST = </span><span class="s2">&quot;medicine list&quot;</span><span class="s1">; 
+    </span><span class="s0">private static final </span><span class="s1">String ARG_MEDICINE_DETAIL = </span><span class="s2">&quot;medicine detail&quot;</span><span class="s1">; 
+    </span><span class="s0">private static final </span><span class="s1">String ARG_SECTION_NUMBER = </span><span class="s2">&quot;section_number&quot;</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">RecyclerView mRecyclerView; 
+    </span><span class="s0">private </span><span class="s1">MedicationListAdapter mAdapter; 
+    </span><span class="s0">private </span><span class="s1">RecyclerView.LayoutManager mLayoutManager; 
+ 
+    </span><span class="s0">private </span><span class="s1">String[] medicineListHardcode; 
+    </span><span class="s0">private </span><span class="s1">String[] detailListHardcode; 
+ 
+    </span><span class="s0">private </span><span class="s1">Context mContext=</span><span class="s0">null</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">TextView pop_pillname; 
+    </span><span class="s0">private </span><span class="s1">TextView pop_pillinfo; 
+    </span><span class="s0">private </span><span class="s1">TextView pop_pillinstruction; 
+ 
+    </span><span class="s3">/** 
+     * Returns a new instance of this fragment for the given section 
+     * number. 
+     */</span><span class="s1"> 
+    </span><span class="s0">public static </span><span class="s1">MedicationFragment newInstance(String[] medicineList,String[] detailList, </span><span class="s0">int </span><span class="s1">sectionNumber) { 
+        MedicationFragment fragment = </span><span class="s0">new </span><span class="s1">MedicationFragment(); 
+        Bundle args = </span><span class="s0">new </span><span class="s1">Bundle(); 
+</span><span class="s3">//        ParseQuery&lt;ParseObject&gt; query2=ParseQuery.getQuery(&quot;Prescription&quot;);</span><span class="s1"> 
+</span><span class="s3">//        query2.whereGreaterThan(&quot;numberLeft&quot;,0);</span><span class="s1"> 
+</span><span class="s3">//        query2.findInBackground(new FindCallback&lt;ParseObject&gt;() {</span><span class="s1"> 
+</span><span class="s3">//            @Override</span><span class="s1"> 
+</span><span class="s3">//            public void done(List&lt;ParseObject&gt; objects, ParseException e) {</span><span class="s1"> 
+</span><span class="s3">//                Log.i(&quot;objects.size:  &quot;,objects.size()+&quot;&quot;);</span><span class="s1"> 
+</span><span class="s3">//</span><span class="s1"> 
+</span><span class="s3">//            }</span><span class="s1"> 
+</span><span class="s3">//        });</span><span class="s1"> 
+        args.putStringArray(ARG_MEDICINE_LIST, medicineList); 
+        args.putStringArray(ARG_MEDICINE_DETAIL, detailList); 
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber); 
+        fragment.setArguments(args); 
+        </span><span class="s0">return </span><span class="s1">fragment; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        medicineListHardcode = getArguments().getStringArray(ARG_MEDICINE_LIST); 
+        detailListHardcode = getArguments().getStringArray(ARG_MEDICINE_DETAIL); 
+ 
+        mContext = </span><span class="s0">this</span><span class="s1">.getContext(); 
+ 
+ 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">View onCreateView(LayoutInflater inflater, ViewGroup container, 
+                             Bundle savedInstanceState) { 
+        </span><span class="s0">final </span><span class="s1">View rootView = inflater.inflate(R.layout.fragment_medication, container, </span><span class="s0">false</span><span class="s1">); 
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.medication_list); 
+        mLayoutManager = </span><span class="s0">new </span><span class="s1">LinearLayoutManager(getActivity()); 
+        mRecyclerView.setLayoutManager(mLayoutManager); 
+        ParseQuery&lt;ParseObject&gt; query2=ParseQuery.getQuery(</span><span class="s2">&quot;Prescription&quot;</span><span class="s1">); 
+        query2.whereNotEqualTo(</span><span class="s2">&quot;pill&quot;</span><span class="s1">,</span><span class="s0">null</span><span class="s1">); 
+        query2.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                Log.i(</span><span class="s2">&quot;objects.size another:&quot;</span><span class="s1">,objects.size()+</span><span class="s2">&quot;&quot;</span><span class="s1">); 
+                medicineListHardcode=</span><span class="s0">new </span><span class="s1">String[objects.size()]; 
+                detailListHardcode=</span><span class="s0">new </span><span class="s1">String[objects.size()]; 
+                Log.i(</span><span class="s2">&quot;medicineListHardcode&quot;</span><span class="s1">, medicineListHardcode.length+</span><span class="s2">&quot;&quot;</span><span class="s1">); 
+                Log.i(</span><span class="s2">&quot;detailListHardcode&quot;</span><span class="s1">,detailListHardcode.length+</span><span class="s2">&quot;&quot;</span><span class="s1">); 
+                </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">;i&lt;objects.size();i++){ 
+                    medicineListHardcode[i]=objects.get(i).getString(</span><span class="s2">&quot;name&quot;</span><span class="s1">); 
+                    detailListHardcode[i]=objects.get(i).getString(</span><span class="s2">&quot;note&quot;</span><span class="s1">); 
+                } 
+                mAdapter = </span><span class="s0">new </span><span class="s1">MedicationListAdapter(medicineListHardcode,detailListHardcode); 
+                mRecyclerView.setAdapter(mAdapter); 
+ 
+                mAdapter.setOnItemClickListener(</span><span class="s0">new </span><span class="s1">MedicationListAdapter.OnItemClickListener() { 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">onItemClick(</span><span class="s0">final </span><span class="s1">View view, </span><span class="s0">int </span><span class="s1">position) { 
+                        </span><span class="s3">//Toast.makeText(getActivity(),position+&quot;&quot;, Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+                        ParseQuery&lt;ParseObject&gt;query3= ParseQuery.getQuery(</span><span class="s2">&quot;Prescription&quot;</span><span class="s1">); 
+                        query3.whereEqualTo(</span><span class="s2">&quot;name&quot;</span><span class="s1">,medicineListHardcode[position]); 
+                        query3.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+                            @Override 
+                            </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                                String pillID=objects.get(</span><span class="s4">0</span><span class="s1">).getParseObject(</span><span class="s2">&quot;pill&quot;</span><span class="s1">).getObjectId(); 
+                                ParseQuery&lt;ParseObject&gt;query4=ParseQuery.getQuery(</span><span class="s2">&quot;PillLib&quot;</span><span class="s1">); 
+                                query4.whereEqualTo(</span><span class="s2">&quot;objectId&quot;</span><span class="s1">,pillID); 
+                                query4.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+                                    @Override 
+                                    </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                                        String pillname=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s2">&quot;pillName&quot;</span><span class="s1">); 
+                                        String pillinfo=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s2">&quot;pillInfo&quot;</span><span class="s1">); 
+                                        String pillinstruction=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s2">&quot;pillInstruction&quot;</span><span class="s1">); 
+                                        showPopupWindow(view,</span><span class="s2">&quot;pillName: &quot;</span><span class="s1">+pillname,</span><span class="s2">&quot;pillInfo: &quot;</span><span class="s1">+pillinfo,</span><span class="s2">&quot;pillInstruction: &quot;</span><span class="s1">+pillinstruction); 
+ 
+                                    } 
+                                }); 
+                            } 
+                        }); 
+                        </span><span class="s3">//   showPopupWindow(view);</span><span class="s1"> 
+                    } 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">onItemLongClick(</span><span class="s0">final </span><span class="s1">View view, </span><span class="s0">int </span><span class="s1">position) { 
+                        ParseQuery&lt;ParseObject&gt;query3= ParseQuery.getQuery(</span><span class="s2">&quot;Prescription&quot;</span><span class="s1">); 
+                        query3.whereEqualTo(</span><span class="s2">&quot;name&quot;</span><span class="s1">,medicineListHardcode[position]); 
+                        query3.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+                            @Override 
+                            </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                                String pillID=objects.get(</span><span class="s4">0</span><span class="s1">).getParseObject(</span><span class="s2">&quot;pill&quot;</span><span class="s1">).getObjectId(); 
+                                ParseQuery&lt;ParseObject&gt;query4=ParseQuery.getQuery(</span><span class="s2">&quot;PillLib&quot;</span><span class="s1">); 
+                                query4.whereEqualTo(</span><span class="s2">&quot;objectId&quot;</span><span class="s1">,pillID); 
+                                query4.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+                                    @Override 
+                                    </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                                        String pillname=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s2">&quot;pillName&quot;</span><span class="s1">); 
+                                        String pillinfo=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s2">&quot;pillInfo&quot;</span><span class="s1">); 
+                                        String pillinstruction=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s2">&quot;pillInstruction&quot;</span><span class="s1">); 
+                                        showPopupWindow(view,</span><span class="s2">&quot;pillName: &quot;</span><span class="s1">+pillname,</span><span class="s2">&quot;pillInfo: &quot;</span><span class="s1">+pillinfo,</span><span class="s2">&quot;pillInstruction: &quot;</span><span class="s1">+pillinstruction); 
+                                    } 
+                                }); 
+                            } 
+                        }); 
+                    } 
+                }); 
+            } 
+        }); 
+</span><span class="s3">//        mAdapter = new MedicationListAdapter(detailListHardcode,detailListHardcode);</span><span class="s1"> 
+</span><span class="s3">//        mRecyclerView.setAdapter(mAdapter);</span><span class="s1"> 
+ 
+        </span><span class="s0">return </span><span class="s1">rootView; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onAttach(Context context) { 
+        </span><span class="s0">super</span><span class="s1">.onAttach(context); 
+        </span><span class="s0">if </span><span class="s1">(context </span><span class="s0">instanceof </span><span class="s1">NextActivity){ 
+            ((NextActivity) context).onSectionAttached( 
+                    getArguments().getInt(ARG_SECTION_NUMBER)); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">showPopupWindow(View view,String pillname,String pillinfo,String pillinstruction) { 
+ 
+ 
+        View contentView = LayoutInflater.from(mContext).inflate( 
+                R.layout.pop_up_window, </span><span class="s0">null</span><span class="s1">); 
+ 
+ 
+        </span><span class="s0">final </span><span class="s1">PopupWindow popupWindow = </span><span class="s0">new </span><span class="s1">PopupWindow(contentView, 
+                RecyclerView.LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, </span><span class="s0">true</span><span class="s1">); 
+ 
+        pop_pillname= (TextView) contentView.findViewById(R.id.pop_pillname); 
+        pop_pillinfo= (TextView) contentView.findViewById(R.id.pop_pillinfo); 
+        pop_pillinstruction= (TextView) contentView.findViewById(R.id.pop_instruction); 
+        pop_pillname.setText(pillname); 
+        pop_pillinfo.setText(pillinfo); 
+        pop_pillinstruction.setText(pillinstruction); 
+        popupWindow.setTouchable(</span><span class="s0">true</span><span class="s1">); 
+ 
+        popupWindow.setTouchInterceptor(</span><span class="s0">new </span><span class="s1">OnTouchListener() { 
+ 
+            @Override 
+            </span><span class="s0">public boolean </span><span class="s1">onTouch(View v, MotionEvent event) { 
+ 
+                Log.i(</span><span class="s2">&quot;mengdd&quot;</span><span class="s1">, </span><span class="s2">&quot;onTouch : &quot;</span><span class="s1">); 
+ 
+                </span><span class="s0">return false</span><span class="s1">; 
+ 
+            } 
+        }); 
+ 
+ 
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape)); 
+</span><span class="s3">//        popupWindow.setBackgroundDrawable(null);</span><span class="s1"> 
+ 
+ 
+        View windowContentViewRoot = getView(); 
+        </span><span class="s0">int </span><span class="s1">windowPos[] = calculatePopWindowPos(view, windowContentViewRoot); 
+        </span><span class="s0">int </span><span class="s1">xOff = </span><span class="s4">20</span><span class="s1">; 
+        windowPos[</span><span class="s4">0</span><span class="s1">] -= xOff; 
+        popupWindow.showAtLocation(view, Gravity.TOP | Gravity.START, windowPos[</span><span class="s4">0</span><span class="s1">], windowPos[</span><span class="s4">1</span><span class="s1">]); 
+ 
+    } 
+ 
+    </span><span class="s0">private static int</span><span class="s1">[] calculatePopWindowPos(</span><span class="s0">final </span><span class="s1">View anchorView, </span><span class="s0">final </span><span class="s1">View contentView) { 
+        </span><span class="s0">final int </span><span class="s1">windowPos[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">2</span><span class="s1">]; 
+        </span><span class="s0">final int </span><span class="s1">anchorLoc[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">2</span><span class="s1">]; 
+ 
+        anchorView.getLocationOnScreen(anchorLoc); 
+        </span><span class="s0">final int </span><span class="s1">anchorHeight = anchorView.getHeight(); 
+ 
+        </span><span class="s0">final int </span><span class="s1">screenHeight = ScreenUtils.getScreenHeight(anchorView.getContext()); 
+        </span><span class="s0">final int </span><span class="s1">screenWidth = ScreenUtils.getScreenWidth(anchorView.getContext()); 
+        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED); 
+ 
+        </span><span class="s0">final int </span><span class="s1">windowHeight = contentView.getMeasuredHeight(); 
+        </span><span class="s0">final int </span><span class="s1">windowWidth = contentView.getMeasuredWidth(); 
+ 
+        </span><span class="s0">final boolean </span><span class="s1">isNeedShowUp = (screenHeight - anchorLoc[</span><span class="s4">1</span><span class="s1">] - anchorHeight &lt; windowHeight); 
+        </span><span class="s0">if </span><span class="s1">(isNeedShowUp) { 
+            windowPos[</span><span class="s4">0</span><span class="s1">] = screenWidth - windowWidth; 
+            windowPos[</span><span class="s4">1</span><span class="s1">] = anchorLoc[</span><span class="s4">1</span><span class="s1">] - windowHeight; 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            windowPos[</span><span class="s4">0</span><span class="s1">] = screenWidth - windowWidth; 
+            windowPos[</span><span class="s4">1</span><span class="s1">] = anchorLoc[</span><span class="s4">1</span><span class="s1">] + anchorHeight; 
+        } 
+        </span><span class="s0">return </span><span class="s1">windowPos; 
+    } 
+} 
+</span></pre>
+</body>
+</html>

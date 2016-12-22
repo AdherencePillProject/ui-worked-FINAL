@@ -1,0 +1,198 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.net.ConnectivityManager; 
+</span><span class="s0">import </span><span class="s1">android.net.NetworkInfo; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.View.OnClickListener; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.widget.EditText; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseException; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseObject; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseUser; 
+ 
+</span><span class="s0">import </span><span class="s1">java.text.SimpleDateFormat; 
+</span><span class="s0">import </span><span class="s1">java.util.Date; 
+ 
+</span><span class="s0">import static </span><span class="s1">android.R.attr.name; 
+</span><span class="s0">import static </span><span class="s1">com.adherence.adherence.R.id.pwd; 
+ 
+</span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main); 
+        Button conformButton = (Button) </span><span class="s0">this</span><span class="s1">.findViewById(R.id.conformButton); 
+        Button cancelButton= (Button) </span><span class="s0">this</span><span class="s1">.findViewById(R.id.cancelButton); 
+        OnClickListener ocl = </span><span class="s0">new </span><span class="s1">OnClickListener() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View arg0) { 
+                Login(arg0); 
+            } 
+        }; 
+        conformButton.setOnClickListener(ocl); 
+        cancelButton.setOnClickListener(ocl); 
+ 
+ 
+        </span><span class="s0">final </span><span class="s1">Button button = (Button) findViewById(R.id.button_send); 
+        button.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                </span><span class="s2">// Perform action on click</span><span class="s1"> 
+                Date now = </span><span class="s0">new </span><span class="s1">Date(); 
+                String timestamp = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s3">&quot;yyyy/MM/dd&quot;</span><span class="s1">).format(now); 
+                ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s3">&quot;TestXZ&quot;</span><span class="s1">); 
+                testObject.put(</span><span class="s3">&quot;TIME&quot;</span><span class="s1">, timestamp); 
+                testObject.put(</span><span class="s3">&quot;NAME&quot;</span><span class="s1">, </span><span class="s3">&quot;ARYAN&quot;</span><span class="s1">); 
+                testObject.saveEventually(); 
+                Toast.makeText(getApplicationContext(), </span><span class="s3">&quot;Click button&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+            } 
+        }); 
+ 
+        </span><span class="s0">final </span><span class="s1">Button button1 = (Button) findViewById(R.id.Jarandice); 
+        button1.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                </span><span class="s2">// Perform action on click</span><span class="s1"> 
+                Date now = </span><span class="s0">new </span><span class="s1">Date(); 
+                String timestamp = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s3">&quot;yyyy/MM/dd&quot;</span><span class="s1">).format(now); 
+                ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s3">&quot;TestXZ&quot;</span><span class="s1">); 
+                testObject.put(</span><span class="s3">&quot;TIME&quot;</span><span class="s1">, timestamp); 
+                testObject.put(</span><span class="s3">&quot;NAME&quot;</span><span class="s1">, </span><span class="s3">&quot;Jarandice&quot;</span><span class="s1">); 
+                testObject.saveEventually(); 
+                Toast.makeText(getApplicationContext(), </span><span class="s3">&quot;Click button&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+            } 
+        }); 
+ 
+        </span><span class="s0">final </span><span class="s1">Button button2 = (Button) findViewById(R.id.Truvada); 
+        button2.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                </span><span class="s2">// Perform action on click</span><span class="s1"> 
+                Date now = </span><span class="s0">new </span><span class="s1">Date(); 
+                String timestamp = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s3">&quot;yyyy/MM/dd&quot;</span><span class="s1">).format(now); 
+                ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s3">&quot;TestXZ&quot;</span><span class="s1">); 
+                testObject.put(</span><span class="s3">&quot;TIME&quot;</span><span class="s1">, timestamp); 
+                testObject.put(</span><span class="s3">&quot;NAME&quot;</span><span class="s1">, </span><span class="s3">&quot;Truvada&quot;</span><span class="s1">); 
+                testObject.saveEventually(); 
+                Toast.makeText(getApplicationContext(), </span><span class="s3">&quot;Click button&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+            } 
+        }); 
+ 
+        </span><span class="s0">final </span><span class="s1">Button button3 = (Button) findViewById(R.id.Asprin); 
+        button3.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                </span><span class="s2">// Perform action on click</span><span class="s1"> 
+                Date now = </span><span class="s0">new </span><span class="s1">Date(); 
+                String timestamp = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s3">&quot;yyyy/MM/dd&quot;</span><span class="s1">).format(now); 
+                ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s3">&quot;TestXZ&quot;</span><span class="s1">); 
+                testObject.put(</span><span class="s3">&quot;TIME&quot;</span><span class="s1">, timestamp); 
+                testObject.put(</span><span class="s3">&quot;NAME&quot;</span><span class="s1">, </span><span class="s3">&quot;Asprin&quot;</span><span class="s1">); 
+                testObject.saveEventually(); 
+                Toast.makeText(getApplicationContext(), </span><span class="s3">&quot;Click button&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+            } 
+        }); 
+ 
+        </span><span class="s0">final </span><span class="s1">Button button4 = (Button) findViewById(R.id.Lipitor); 
+        button4.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                </span><span class="s2">// Perform action on click</span><span class="s1"> 
+                Date now = </span><span class="s0">new </span><span class="s1">Date(); 
+                String timestamp = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s3">&quot;yyyy/MM/dd&quot;</span><span class="s1">).format(now); 
+                ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s3">&quot;TestXZ&quot;</span><span class="s1">); 
+                testObject.put(</span><span class="s3">&quot;TIME&quot;</span><span class="s1">, timestamp); 
+                testObject.put(</span><span class="s3">&quot;NAME&quot;</span><span class="s1">, </span><span class="s3">&quot;Lipitor&quot;</span><span class="s1">); 
+                testObject.saveEventually(); 
+                Toast.makeText(getApplicationContext(), </span><span class="s3">&quot;Click button&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+            } 
+        }); 
+ 
+ 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">Login(View arg0){ 
+        EditText name=(EditText)findViewById(R.id.username); 
+        EditText pwd=(EditText)findViewById(R.id.pwd); 
+        Button bt=(Button)findViewById(arg0.getId()); 
+        String text=bt.getText().toString(); 
+        String name1=name.getText().toString(); 
+        String pwd1=pwd.getText().toString(); 
+            </span><span class="s0">if </span><span class="s1">(name1.equals(</span><span class="s3">&quot;patient0@patient.com&quot;</span><span class="s1">) &amp;&amp; pwd1.equals(</span><span class="s3">&quot;1234&quot;</span><span class="s1">)){ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(); 
+                intent.setClass(MainActivity.</span><span class="s0">this</span><span class="s1">, NextActivity.</span><span class="s0">class</span><span class="s1">); 
+                MainActivity.</span><span class="s0">this</span><span class="s1">.startActivity(intent); 
+            } 
+            </span><span class="s0">else</span><span class="s1">{ 
+            name.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+            pwd.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+            } 
+    } 
+    </span><span class="s2">/* 
+    private void loginparse(String name, String password) { 
+        if (isNetworkConnected()) { 
+            ParseUser.logInInBackground(name, password, new 
+                    com.parse.LogInCallback() { 
+                        public void done(ParseUser user, ParseException e) { 
+                            if (user != null) { 
+                                // These lines are saving the user's log-in status 
+                                ParseObject saveuser = new ParseObject(&quot;saveUser&quot;); 
+                                saveuser.put(&quot;user&quot;, user); 
+                                saveuser.pinInBackground(&quot;user&quot;); 
+                                // Go to the next page after logged in 
+                                Intent intent = new Intent(); 
+                                intent.setClass(MainActivity.this, NextActivity.class); 
+                                MainActivity.this.startActivity(intent); 
+                            } else { 
+                                Context context = getApplicationContext(); 
+                                CharSequence text = &quot;Wrong password or username, please input again&quot;; 
+                                int duration = Toast.LENGTH_SHORT; 
+                                Toast toast = Toast.makeText(context, text, duration); 
+                                toast.show(); 
+                            } 
+                        } 
+                    }); 
+        } else { 
+            Context context = getApplicationContext(); 
+            CharSequence text = &quot;Network connection not available, please try again.&quot;; 
+            int duration = Toast.LENGTH_SHORT; 
+            Toast toast = Toast.makeText(context, text, duration); 
+            toast.show(); 
+        } 
+    } 
+    */</span><span class="s1"> 
+ 
+    </span><span class="s0">private boolean </span><span class="s1">isNetworkConnected() { 
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE); 
+        NetworkInfo ni = cm.getActiveNetworkInfo(); 
+        </span><span class="s0">if </span><span class="s1">(ni == </span><span class="s0">null</span><span class="s1">) { 
+            </span><span class="s2">// There are no active networks.</span><span class="s1"> 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } </span><span class="s0">else</span><span class="s1"> 
+            </span><span class="s0">return true</span><span class="s1">; 
+    } 
+} 
+</span></pre>
+</body>
+</html>

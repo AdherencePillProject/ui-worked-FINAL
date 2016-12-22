@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>MedicationListAdapter.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MedicationListAdapter.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.support.v7.widget.RecyclerView; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+ 
+</span><span class="s0">public class </span><span class="s1">MedicationListAdapter </span><span class="s0">extends </span><span class="s1">RecyclerView.Adapter&lt;MedicationListAdapter.ViewHolder&gt;{ 
+ 
+    </span><span class="s0">private </span><span class="s1">String[] medicineListHardcode; 
+    </span><span class="s0">private </span><span class="s1">String[] detailListHardcode; 
+ 
+    </span><span class="s0">public interface </span><span class="s1">OnItemClickListener 
+    { 
+        </span><span class="s0">void </span><span class="s1">onItemClick(View view, </span><span class="s0">int </span><span class="s1">position); 
+        </span><span class="s0">void </span><span class="s1">onItemLongClick(View view, </span><span class="s0">int </span><span class="s1">position); 
+    } 
+    </span><span class="s0">private </span><span class="s1">OnItemClickListener mOnItemClickListener; 
+ 
+    </span><span class="s0">public void </span><span class="s1">setOnItemClickListener(OnItemClickListener listener){ 
+        </span><span class="s0">this</span><span class="s1">.mOnItemClickListener=listener; 
+    } 
+ 
+ 
+    </span><span class="s0">public static class </span><span class="s1">ViewHolder </span><span class="s0">extends </span><span class="s1">RecyclerView.ViewHolder { 
+        </span><span class="s0">public </span><span class="s1">View listRootView; 
+ 
+        </span><span class="s0">public </span><span class="s1">TextView getMedicineName() { 
+            </span><span class="s0">return </span><span class="s1">medicineName; 
+        } 
+        </span><span class="s0">public </span><span class="s1">TextView getMedicineDetail() {</span><span class="s0">return </span><span class="s1">medicineDetail; } 
+ 
+        </span><span class="s0">private </span><span class="s1">TextView medicineName; 
+        </span><span class="s0">private </span><span class="s1">TextView medicineDetail; 
+        </span><span class="s0">public </span><span class="s1">ViewHolder(View v1) { 
+            </span><span class="s0">super</span><span class="s1">(v1); 
+            listRootView = v1; 
+            medicineName = (TextView) v1.findViewById(R.id.medicine_name); 
+            medicineDetail = (TextView) v1.findViewById(R.id.medicine_detail); 
+        } 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">MedicationListAdapter(String[] hardCode, String[] detailCode) { 
+        medicineListHardcode = hardCode; 
+        detailListHardcode=detailCode; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">MedicationListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, </span><span class="s0">int </span><span class="s1">viewType) { 
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.medication_listitem, viewGroup, </span><span class="s0">false</span><span class="s1">); 
+        ViewHolder vh = </span><span class="s0">new </span><span class="s1">ViewHolder(v); 
+        </span><span class="s0">return </span><span class="s1">vh; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onBindViewHolder(</span><span class="s0">final </span><span class="s1">MedicationListAdapter.ViewHolder vh, </span><span class="s0">final int </span><span class="s1">position) { 
+        vh.getMedicineName().setText(medicineListHardcode[position]); 
+        vh.getMedicineDetail().setText(detailListHardcode[position]); 
+        </span><span class="s0">if</span><span class="s1">(mOnItemClickListener!=</span><span class="s0">null</span><span class="s1">) { 
+            vh.itemView.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">onClick(View view) { 
+ 
+                    mOnItemClickListener.onItemClick(vh.itemView, position); 
+ 
+                } 
+            }); 
+            vh.itemView.setOnLongClickListener(</span><span class="s0">new </span><span class="s1">View.OnLongClickListener() { 
+                @Override 
+                </span><span class="s0">public boolean </span><span class="s1">onLongClick(View view) { 
+                    mOnItemClickListener.onItemLongClick(vh.itemView,position); 
+                    </span><span class="s0">return false</span><span class="s1">; 
+                } 
+            }); 
+        } 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public int </span><span class="s1">getItemCount() { 
+        </span><span class="s0">return </span><span class="s1">medicineListHardcode.length; 
+    } 
+ 
+ 
+} 
+</span></pre>
+</body>
+</html>

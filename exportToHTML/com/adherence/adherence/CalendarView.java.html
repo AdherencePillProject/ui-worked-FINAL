@@ -1,0 +1,245 @@
+<html>
+<head>
+<title>CalendarView.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,0,255); }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+CalendarView.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.util.AttributeSet; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.widget.GridView; 
+</span><span class="s0">import </span><span class="s1">android.widget.ImageView; 
+</span><span class="s0">import </span><span class="s1">android.widget.LinearLayout; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.widget.EditText; 
+ 
+</span><span class="s0">import </span><span class="s1">java.text.SimpleDateFormat; 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar; 
+</span><span class="s0">import </span><span class="s1">java.util.Date; 
+</span><span class="s0">import </span><span class="s1">java.util.HashSet; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.View.OnClickListener; 
+</span><span class="s0">import </span><span class="s1">android.widget.ImageButton; 
+ 
+ 
+</span><span class="s0">public class </span><span class="s1">CalendarView </span><span class="s0">extends </span><span class="s1">LinearLayout 
+{ 
+    </span><span class="s0">private static final int </span><span class="s1">DAYS_COUNT = </span><span class="s2">35</span><span class="s1">; 
+ 
+    </span><span class="s3">// internal components</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s1">LinearLayout header; 
+    </span><span class="s0">private </span><span class="s1">TextView txtDate; 
+    </span><span class="s0">private </span><span class="s1">GridView grid; 
+    </span><span class="s0">private </span><span class="s1">Calendar abc = Calendar.getInstance(); 
+ 
+    </span><span class="s0">public </span><span class="s1">CalendarView(Context context) 
+    { 
+        </span><span class="s0">super</span><span class="s1">(context); 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">CalendarView(Context context, AttributeSet attrs) 
+    { 
+        </span><span class="s0">super</span><span class="s1">(context, attrs); 
+        initControl(context, attrs); 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">CalendarView(Context context, AttributeSet attrs, </span><span class="s0">int </span><span class="s1">defStyleAttr) 
+    { 
+        </span><span class="s0">super</span><span class="s1">(context, attrs, defStyleAttr); 
+        initControl(context, attrs); 
+    } 
+ 
+    </span><span class="s3">/** 
+     * Load component XML layout 
+     */</span><span class="s1"> 
+    </span><span class="s0">private void </span><span class="s1">initControl(Context context, AttributeSet attrs) 
+    { 
+        LayoutInflater inflater = (LayoutInflater) 
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
+ 
+        inflater.inflate(R.layout.calendar, </span><span class="s0">this</span><span class="s1">); 
+        </span><span class="s3">/* 
+        // layout is inflated, assign local variables to components 
+        header = (LinearLayout)findViewById(R.id.calendar_header); 
+        txtDate = (TextView)findViewById(R.id.calendar_date_display); 
+        grid = (GridView)findViewById(R.id.calendar_grid); 
+ 
+        ImageButton prebutton = (ImageButton)findViewById(R.id.calendar_prev_button); 
+        ImageButton nextbutton = (ImageButton)findViewById(R.id.calendar_next_button); 
+        OnClickListener ocl1 = new OnClickListener() { 
+            @Override 
+            public void onClick(View arg1) { 
+                Login1(arg1); 
+            } 
+        }; 
+        prebutton.setOnClickListener(ocl1); 
+        nextbutton.setOnClickListener(ocl1); 
+ 
+        updateCalendar(); 
+        */</span><span class="s1"> 
+    } 
+        </span><span class="s3">/* 
+        public void Login1(View arg1){ 
+ 
+        if(arg1.getId()==2131558507){ 
+            System.out.println(&quot;11&quot;); 
+            SimpleDateFormat sdf = new SimpleDateFormat(&quot;MMM yyyy&quot;); 
+ 
+            abc.add(Calendar.MONTH,-1); 
+            txtDate.setText(sdf.format(abc.getTime())); 
+ 
+            updateCalendar2(); 
+        } 
+        else{ 
+            System.out.println(&quot;22&quot;); 
+ 
+ 
+ 
+            SimpleDateFormat sdf = new SimpleDateFormat(&quot;MMM yyyy&quot;); 
+ 
+            abc.add(Calendar.MONTH, 1); 
+            System.out.println(abc.get(Calendar.MONTH)); 
+            txtDate.setText(sdf.format(abc.getTime())); 
+            updateCalendar1(); 
+ 
+        } 
+ 
+    } 
+    */</span><span class="s1"> 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateCalendar() { 
+        updateCalendar(</span><span class="s0">null</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateCalendar1() { 
+        updateCalendar1(</span><span class="s0">null</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateCalendar2() { 
+        updateCalendar2(</span><span class="s0">null</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateCalendar(HashSet&lt;Date&gt; events) 
+    { 
+        ArrayList&lt;Date&gt; cells = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        Calendar calendar = Calendar.getInstance(); 
+ 
+        </span><span class="s3">// determine the cell for current month's beginning</span><span class="s1"> 
+        calendar.set(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+        </span><span class="s0">int </span><span class="s1">monthBeginningCell = calendar.get(Calendar.DAY_OF_WEEK) - </span><span class="s2">1</span><span class="s1">; 
+ 
+        </span><span class="s3">// move calendar backwards to the beginning of the week</span><span class="s1"> 
+        calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell); 
+ 
+        </span><span class="s3">// fill cells (42 days calendar as per our business logic)</span><span class="s1"> 
+        </span><span class="s0">while </span><span class="s1">(cells.size() &lt; DAYS_COUNT) 
+        { 
+            cells.add(calendar.getTime()); 
+            calendar.add(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+        } 
+ 
+        </span><span class="s3">// update grid</span><span class="s1"> 
+        grid.setAdapter(</span><span class="s0">new </span><span class="s1">CalendarAdapter(getContext(), cells, events)); 
+ 
+        </span><span class="s3">// update title</span><span class="s1"> 
+        SimpleDateFormat sdf = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s4">&quot;MMM yyyy&quot;</span><span class="s1">); 
+        calendar = Calendar.getInstance(); 
+        txtDate.setText(sdf.format(calendar.getTime())); 
+    } 
+ 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateCalendar1(HashSet&lt;Date&gt; events){ 
+        ArrayList&lt;Date&gt; cells = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        </span><span class="s0">int </span><span class="s1">month = abc.get(Calendar.MONTH); 
+        System.out.println(abc.get(Calendar.MONTH)); 
+        </span><span class="s3">// determine the cell for current month's beginning</span><span class="s1"> 
+        abc.set(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+        System.out.println(abc.get(Calendar.MONTH)); 
+        </span><span class="s0">int </span><span class="s1">monthBeginningCell = abc.get(Calendar.DAY_OF_WEEK) - </span><span class="s2">1</span><span class="s1">; 
+        System.out.println(abc.get(Calendar.MONTH)); 
+ 
+ 
+        </span><span class="s3">// move calendar backwards to the beginning of the week</span><span class="s1"> 
+        abc.add(Calendar.DAY_OF_MONTH, -monthBeginningCell); 
+ 
+        System.out.println(abc.get(Calendar.MONTH)); 
+ 
+        </span><span class="s3">// fill cells (42 days calendar as per our business logic)</span><span class="s1"> 
+        </span><span class="s0">while </span><span class="s1">(cells.size() &lt; DAYS_COUNT) 
+        { 
+            cells.add(abc.getTime()); 
+            abc.add(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+        } 
+        </span><span class="s0">if </span><span class="s1">(abc.get(Calendar.MONTH) == month) { 
+            </span><span class="s0">while </span><span class="s1">(cells.size() &lt; </span><span class="s2">42</span><span class="s1">) 
+            { 
+                cells.add(abc.getTime()); 
+                abc.add(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+            } 
+ 
+        } 
+ 
+        System.out.println(abc.get(Calendar.MONTH)); 
+        </span><span class="s3">// update grid</span><span class="s1"> 
+        grid.setAdapter(</span><span class="s0">new </span><span class="s1">CalendarAdapter(getContext(), cells, events)); 
+        abc.add(Calendar.MONTH, -</span><span class="s2">1</span><span class="s1">); 
+ 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateCalendar2(HashSet&lt;Date&gt; events){ 
+        ArrayList&lt;Date&gt; cells = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        </span><span class="s0">int </span><span class="s1">month = abc.get(Calendar.MONTH); 
+        System.out.println(abc.get(Calendar.MONTH)); 
+        </span><span class="s3">// determine the cell for current month's beginning</span><span class="s1"> 
+        abc.set(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+        System.out.println(abc.get(Calendar.MONTH)); 
+        </span><span class="s0">int </span><span class="s1">monthBeginningCell = abc.get(Calendar.DAY_OF_WEEK) - </span><span class="s2">1</span><span class="s1">; 
+        System.out.println(abc.get(Calendar.MONTH)); 
+ 
+ 
+        </span><span class="s3">// move calendar backwards to the beginning of the week</span><span class="s1"> 
+        abc.add(Calendar.DAY_OF_MONTH, -monthBeginningCell); 
+ 
+        System.out.println(abc.get(Calendar.MONTH)); 
+ 
+        </span><span class="s3">// fill cells (42 days calendar as per our business logic)</span><span class="s1"> 
+        </span><span class="s0">while </span><span class="s1">(cells.size() &lt; DAYS_COUNT) 
+        { 
+            cells.add(abc.getTime()); 
+            abc.add(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+        } 
+        </span><span class="s0">if </span><span class="s1">(abc.get(Calendar.MONTH) == month) { 
+            </span><span class="s0">while </span><span class="s1">(cells.size() &lt; </span><span class="s2">42</span><span class="s1">) 
+            { 
+                cells.add(abc.getTime()); 
+                abc.add(Calendar.DAY_OF_MONTH, </span><span class="s2">1</span><span class="s1">); 
+            } 
+        } 
+ 
+        System.out.println(abc.get(Calendar.MONTH)); 
+        </span><span class="s3">// update grid</span><span class="s1"> 
+        grid.setAdapter(</span><span class="s0">new </span><span class="s1">CalendarAdapter(getContext(), cells, events)); 
+        abc.add(Calendar.MONTH, -</span><span class="s2">1</span><span class="s1">); 
+    } 
+}</span></pre>
+</body>
+</html>

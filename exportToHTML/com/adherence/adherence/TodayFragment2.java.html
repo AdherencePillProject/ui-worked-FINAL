@@ -1,0 +1,408 @@
+<html>
+<head>
+<title>TodayFragment2.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+TodayFragment2.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.net.ConnectivityManager; 
+</span><span class="s0">import </span><span class="s1">android.net.NetworkInfo; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.Fragment; 
+</span><span class="s0">import </span><span class="s1">android.support.v7.widget.RecyclerView; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+</span><span class="s0">import </span><span class="s1">android.view.Gravity; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.MotionEvent; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup; 
+</span><span class="s0">import </span><span class="s1">android.widget.AdapterView; 
+</span><span class="s0">import </span><span class="s1">android.widget.ArrayAdapter; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.widget.LinearLayout; 
+</span><span class="s0">import </span><span class="s1">android.widget.ListView; 
+</span><span class="s0">import </span><span class="s1">android.widget.PopupWindow; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">com.parse.FindCallback; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseException; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseObject; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseQuery; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseRelation; 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseUser; 
+ 
+</span><span class="s0">import </span><span class="s1">org.json.JSONException; 
+</span><span class="s0">import </span><span class="s1">org.json.JSONObject; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar; 
+</span><span class="s0">import </span><span class="s1">java.util.HashMap; 
+</span><span class="s0">import </span><span class="s1">java.util.Iterator; 
+</span><span class="s0">import </span><span class="s1">java.util.List; 
+ 
+</span><span class="s0">public class </span><span class="s1">TodayFragment2 </span><span class="s0">extends </span><span class="s1">Fragment </span><span class="s0">implements </span><span class="s1">View.OnClickListener { 
+    </span><span class="s0">static </span><span class="s1">HashMap&lt;String, HashMap&lt;String, String&gt;&gt; patient = </span><span class="s0">new </span><span class="s1">HashMap&lt;String, HashMap&lt;String, String&gt;&gt;(); 
+    </span><span class="s0">private </span><span class="s1">HashMap&lt;String, HashMap&lt;String, String&gt;&gt; display = </span><span class="s0">new </span><span class="s1">HashMap&lt;String, HashMap&lt;String, String&gt;&gt;(); 
+ 
+    </span><span class="s0">private </span><span class="s1">ListView listView; 
+    </span><span class="s0">private </span><span class="s1">ArrayAdapter&lt;String&gt; arrayAdapter; 
+    </span><span class="s0">private </span><span class="s1">TextView times_text; 
+ 
+    </span><span class="s0">public </span><span class="s1">Calendar c = Calendar.getInstance(); 
+    </span><span class="s2">/** 
+     * The fragment argument representing the section number for this 
+     * fragment. 
+     */</span><span class="s1"> 
+    </span><span class="s0">private static final </span><span class="s1">String ARG_SECTION_NUMBER = </span><span class="s3">&quot;section_number&quot;</span><span class="s1">; 
+ 
+    </span><span class="s2">/** 
+     * Returns a new instance of this fragment for the given section 
+     * number. 
+     */</span><span class="s1"> 
+    </span><span class="s0">public static </span><span class="s1">TodayFragment2 newInstance(</span><span class="s0">int </span><span class="s1">sectionNumber) { 
+        TodayFragment2 fragment = </span><span class="s0">new </span><span class="s1">TodayFragment2(); 
+        Bundle args = </span><span class="s0">new </span><span class="s1">Bundle(); 
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber); 
+        fragment.setArguments(args); 
+ 
+        </span><span class="s0">return </span><span class="s1">fragment; 
+    } 
+ 
+ 
+ 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">View onCreateView(LayoutInflater inflater, ViewGroup container, 
+                             Bundle savedInstanceState) { 
+ 
+        View view = inflater.inflate(R.layout.fragment2, container, </span><span class="s0">false</span><span class="s1">); 
+        </span><span class="s0">final </span><span class="s1">Button upButton; 
+        upButton = (Button) view.findViewById(R.id.button_send); 
+        upButton.setOnClickListener(</span><span class="s0">this</span><span class="s1">); 
+        listView=(ListView) view.findViewById(R.id.PillList); 
+        arrayAdapter=</span><span class="s0">new </span><span class="s1">ArrayAdapter&lt;String&gt;(getContext(), android.R.layout.simple_list_item_1); 
+        </span><span class="s0">final </span><span class="s1">ParseQuery&lt;ParseObject&gt; query=ParseQuery.getQuery(</span><span class="s3">&quot;Prescription&quot;</span><span class="s1">); 
+        query.whereNotEqualTo(</span><span class="s3">&quot;pill&quot;</span><span class="s1">,</span><span class="s0">null</span><span class="s1">); 
+ 
+        query.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">done(</span><span class="s0">final </span><span class="s1">List&lt;ParseObject&gt; objects, ParseException e) { 
+                </span><span class="s0">if</span><span class="s1">(e==</span><span class="s0">null</span><span class="s1">){ 
+</span><span class="s2">//                    Toast.makeText(getActivity(),&quot;objects.length: &quot;+objects.size(),Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+                    </span><span class="s0">final </span><span class="s1">String[] parseObjects=</span><span class="s0">new </span><span class="s1">String[objects.size()]; 
+                    </span><span class="s0">final </span><span class="s1">ParseObject[]schedules=</span><span class="s0">new </span><span class="s1">ParseObject[objects.size()]; 
+                    </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">;i&lt;objects.size();i++){ 
+                        schedules[i]=objects.get(i).getParseObject(</span><span class="s3">&quot;schedule&quot;</span><span class="s1">); 
+                        parseObjects[i]=objects.get(i).getParseObject(</span><span class="s3">&quot;pill&quot;</span><span class="s1">).getObjectId(); 
+ </span><span class="s2">//                       arrayAdapter.add(parseObjects[i]);</span><span class="s1"> 
+                    } 
+                    </span><span class="s2">//Toast.makeText(getActivity(),objects.size()+&quot;&quot;,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+</span><span class="s2">//                    Toast.makeText(getActivity(),&quot;object[i]: &quot;+parseObjects[0],Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+                    </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">;i&lt;parseObjects.length;i++) { 
+                        ParseQuery&lt;ParseObject&gt; query1 = ParseQuery.getQuery(</span><span class="s3">&quot;PillLib&quot;</span><span class="s1">); 
+ 
+                        query1.whereEqualTo(</span><span class="s3">&quot;objectId&quot;</span><span class="s1">, parseObjects[i]); 
+                        query1.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+                            @Override 
+                            </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                                String pillName=objects.get(</span><span class="s4">0</span><span class="s1">).getString(</span><span class="s3">&quot;pillName&quot;</span><span class="s1">); 
+</span><span class="s2">//                                Toast.makeText(getActivity(),&quot;pillName: &quot;+pillName,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+                                arrayAdapter.add(pillName); 
+ 
+                            } 
+                        }); 
+                    } 
+                    listView.setAdapter(arrayAdapter); 
+                    listView.setOnItemClickListener(</span><span class="s0">new </span><span class="s1">AdapterView.OnItemClickListener() { 
+                        @Override 
+                        </span><span class="s0">public void </span><span class="s1">onItemClick(AdapterView&lt;?&gt; adapterView, </span><span class="s0">final </span><span class="s1">View view, </span><span class="s0">int </span><span class="s1">i, </span><span class="s0">long </span><span class="s1">l) { 
+</span><span class="s2">//                            Toast.makeText(getActivity(),schedules.length+&quot;&quot;,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+ 
+ 
+                            ParseQuery&lt;ParseObject&gt;query2=ParseQuery.getQuery(</span><span class="s3">&quot;Schedule&quot;</span><span class="s1">); 
+                            query2.whereEqualTo(</span><span class="s3">&quot;objectId&quot;</span><span class="s1">,schedules[i].getObjectId()); 
+                            query2.findInBackground(</span><span class="s0">new </span><span class="s1">FindCallback&lt;ParseObject&gt;() { 
+                                @Override 
+                                </span><span class="s0">public void </span><span class="s1">done(List&lt;ParseObject&gt; objects, ParseException e) { 
+                                    </span><span class="s2">//Toast.makeText(getActivity(),objects.get(0).getJSONArray(&quot;times&quot;).toString(),Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+                                    showPopupWindow(view,objects.get(</span><span class="s4">0</span><span class="s1">).getJSONArray(</span><span class="s3">&quot;times&quot;</span><span class="s1">).toString()); 
+</span><span class="s2">//                                    JSONArray jsonArray=objects.get(0).getJSONArray(&quot;times&quot;);</span><span class="s1"> 
+</span><span class="s2">//</span><span class="s1"> 
+</span><span class="s2">//                                    try {</span><span class="s1"> 
+</span><span class="s2">//                                        JSONObject jsonObject=jsonArray.getJSONObject(0);</span><span class="s1"> 
+</span><span class="s2">//                                        showPopupWindow(view,jsonObject.getString(&quot;times&quot;));</span><span class="s1"> 
+</span><span class="s2">//                                    } catch (JSONException e1) {</span><span class="s1"> 
+</span><span class="s2">//                                        e1.printStackTrace();</span><span class="s1"> 
+</span><span class="s2">//                                        Toast.makeText(getContext(),&quot;sth wrong&quot;,Toast.LENGTH_SHORT).show();</span><span class="s1"> 
+</span><span class="s2">//                                    }</span><span class="s1"> 
+                                } 
+                            }); 
+ 
+                        } 
+                    }); 
+ 
+                } 
+                </span><span class="s0">else</span><span class="s1">{ 
+                    Toast.makeText(getActivity(),</span><span class="s3">&quot;Something wrong!&quot;</span><span class="s1">,Toast.LENGTH_SHORT).show(); 
+                } 
+            } 
+        }); 
+ 
+        </span><span class="s0">return </span><span class="s1">view; 
+ 
+</span><span class="s2">//        View rootView = inflater.inflate(R.layout.fragment2, container, false);</span><span class="s1"> 
+</span><span class="s2">//        ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.progressWheel);</span><span class="s1"> 
+</span><span class="s2">//        progress.setSecondaryProgress(80);</span><span class="s1"> 
+</span><span class="s2">//        try {</span><span class="s1"> 
+</span><span class="s2">//            getDisplay(&quot;Sunday&quot;);</span><span class="s1"> 
+</span><span class="s2">//        } catch (ParseException e) {</span><span class="s1"> 
+</span><span class="s2">//            e.printStackTrace();</span><span class="s1"> 
+</span><span class="s2">//        }</span><span class="s1"> 
+</span><span class="s2">//        addTimeViews(rootView, inflater);</span><span class="s1"> 
+</span><span class="s2">//        return rootView;</span><span class="s1"> 
+    } 
+</span><span class="s2">//</span><span class="s1"> 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+        </span><span class="s2">//do what you want to do when button is clicked</span><span class="s1"> 
+        </span><span class="s0">switch </span><span class="s1">(v.getId()) { 
+            </span><span class="s0">case </span><span class="s1">R.id.button_send: 
+ 
+</span><span class="s2">//                ParseQuery&lt;ParseObject&gt; query=ParseQuery.getQuery(&quot;GameScore&quot;);</span><span class="s1"> 
+</span><span class="s2">//                query.getInBackground(&quot;YsHLfJ7tUB&quot;, new GetCallback&lt;ParseObject&gt;() {</span><span class="s1"> 
+</span><span class="s2">//</span><span class="s1"> 
+</span><span class="s2">//                    @Override</span><span class="s1"> 
+</span><span class="s2">//                    public void done(ParseObject arg0, ParseException arg1) {</span><span class="s1"> 
+</span><span class="s2">//                        // TODO Auto-generated method stub</span><span class="s1"> 
+</span><span class="s2">//</span><span class="s1"> 
+</span><span class="s2">//                        if (arg1==null)</span><span class="s1"> 
+</span><span class="s2">//                        {</span><span class="s1"> 
+</span><span class="s2">//                            int score = arg0.getInt(&quot;score&quot;);</span><span class="s1"> 
+</span><span class="s2">//                            playerName = arg0.getString(&quot;playerName&quot;);</span><span class="s1"> 
+</span><span class="s2">//                            boolean cheatMode = arg0.getBoolean(&quot;cheatMode&quot;);</span><span class="s1"> 
+</span><span class="s2">//                            tv.setText(&quot;Updating &quot;+playerName);</span><span class="s1"> 
+</span><span class="s2">//</span><span class="s1"> 
+</span><span class="s2">//                        }</span><span class="s1"> 
+</span><span class="s2">//                        else</span><span class="s1"> 
+</span><span class="s2">//                        {</span><span class="s1"> 
+</span><span class="s2">//                            Log.d(&quot;score&quot;, &quot;Error: &quot; + arg1.getMessage());</span><span class="s1"> 
+</span><span class="s2">//                        }</span><span class="s1"> 
+</span><span class="s2">//                    }</span><span class="s1"> 
+ 
+                Toast.makeText(getActivity(), </span><span class="s3">&quot;Click button&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+                </span><span class="s0">break</span><span class="s1">; 
+        } 
+    } 
+ 
+ 
+ 
+ 
+    </span><span class="s0">private void </span><span class="s1">getDisplay(</span><span class="s0">final </span><span class="s1">String day) </span><span class="s0">throws </span><span class="s1">ParseException { 
+        </span><span class="s0">if </span><span class="s1">(isNetworkConnected()) { 
+</span><span class="s2">//            Toast.makeText(getActivity(), &quot;connect to network&quot;, Toast.LENGTH_LONG).show();</span><span class="s1"> 
+            ParseUser currentUser = ParseUser.getCurrentUser(); 
+</span><span class="s2">//            Toast.makeText(getActivity(), &quot;currentUser: &quot; + currentUser, Toast.LENGTH_LONG).show();</span><span class="s1"> 
+            ParseObject.unpinAllInBackground(</span><span class="s3">&quot;schedules&quot;</span><span class="s1">); 
+            ParseRelation exportContactRelation = currentUser.getRelation( </span><span class="s3">&quot;Prescription&quot; </span><span class="s1">); 
+            Toast.makeText(getActivity(), </span><span class="s3">&quot;exportContactRelation: &quot; </span><span class="s1">+ exportContactRelation, Toast.LENGTH_LONG).show(); 
+            </span><span class="s0">try </span><span class="s1">{ 
+                List&lt;ParseObject&gt; prescriptions = exportContactRelation.getQuery().find(); 
+</span><span class="s2">//                Toast.makeText(getActivity(), &quot;prescriptions: &quot; + prescriptions, Toast.LENGTH_LONG).show();</span><span class="s1"> 
+                </span><span class="s0">for </span><span class="s1">(ParseObject prescription: prescriptions) { 
+                    ParseObject schedule = prescription.getParseObject(</span><span class="s3">&quot;schedule&quot;</span><span class="s1">); 
+                    schedule.fetchIfNeeded(); 
+                    schedule.put(</span><span class="s3">&quot;pillName&quot;</span><span class="s1">, prescription.getString(</span><span class="s3">&quot;pillName&quot;</span><span class="s1">)); 
+                    schedule.pinInBackground(</span><span class="s3">&quot;schedules&quot;</span><span class="s1">); 
+                    JSONObject json = schedule.getJSONObject(day); 
+                    Iterator&lt;String&gt; iter = json.keys(); 
+                    HashMap&lt;String, String&gt; time_pills = </span><span class="s0">new </span><span class="s1">HashMap&lt;String, String&gt;(); 
+                    </span><span class="s0">while </span><span class="s1">(iter.hasNext()) { 
+                        String key = iter.next(); 
+                        </span><span class="s0">try </span><span class="s1">{ 
+                            String value = json.get(key).toString(); 
+                            </span><span class="s0">if </span><span class="s1">(key.length() &lt; </span><span class="s4">8</span><span class="s1">) 
+                                key = </span><span class="s3">&quot;0&quot; </span><span class="s1">+ key; 
+                            key.replace(</span><span class="s3">&quot; &quot;</span><span class="s1">, </span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                            time_pills.put(key, value); 
+ 
+                        } </span><span class="s0">catch </span><span class="s1">(JSONException e) { 
+                            </span><span class="s2">// Something went wrong!</span><span class="s1"> 
+                        } 
+                    } 
+                    display.put(prescription.getString(</span><span class="s3">&quot;pillName&quot;</span><span class="s1">), time_pills); 
+</span><span class="s2">//                    ParseObject ppp = schedule.get(day);</span><span class="s1"> 
+</span><span class="s2">//                    Log.v(TAG, String.valueOf(ppp));</span><span class="s1"> 
+                } 
+            } </span><span class="s0">catch </span><span class="s1">(ParseException e) { 
+                e.printStackTrace(); 
+            } 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            </span><span class="s0">try </span><span class="s1">{ 
+                ParseQuery&lt;ParseObject&gt; query = ParseQuery.getQuery(</span><span class="s3">&quot;Schedule&quot;</span><span class="s1">); 
+                query.fromLocalDatastore(); 
+                List&lt;ParseObject&gt; schedules = query.find(); 
+                </span><span class="s0">if </span><span class="s1">(schedules.size() != </span><span class="s4">0</span><span class="s1">) { 
+                    </span><span class="s0">for </span><span class="s1">(ParseObject schedule : schedules) { 
+                        JSONObject json = schedule.getJSONObject(day); 
+                        Iterator&lt;String&gt; iter = json.keys(); 
+                        HashMap&lt;String, String&gt; time_pills = </span><span class="s0">new </span><span class="s1">HashMap&lt;String, String&gt;(); 
+                        </span><span class="s0">while </span><span class="s1">(iter.hasNext()) { 
+                            String key = iter.next(); 
+                            </span><span class="s0">try </span><span class="s1">{ 
+                                String value = json.get(key).toString(); 
+                                </span><span class="s0">if </span><span class="s1">(key.length() &lt; </span><span class="s4">8</span><span class="s1">) 
+                                    key = </span><span class="s3">&quot;0&quot; </span><span class="s1">+ key; 
+                                key.replace(</span><span class="s3">&quot; &quot;</span><span class="s1">, </span><span class="s3">&quot;&quot;</span><span class="s1">); 
+                                time_pills.put(key, value); 
+ 
+                            } </span><span class="s0">catch </span><span class="s1">(JSONException e1) { 
+                                </span><span class="s2">// Something went wrong!</span><span class="s1"> 
+                            } 
+                        } 
+                        display.put(schedule.getString(</span><span class="s3">&quot;pillName&quot;</span><span class="s1">), time_pills); 
+                    } 
+                } </span><span class="s0">else </span><span class="s1">{ 
+                    Context context = getActivity().getApplicationContext(); 
+                    CharSequence text = </span><span class="s3">&quot;Please check network connection.&quot;</span><span class="s1">; 
+                    </span><span class="s0">int </span><span class="s1">duration = Toast.LENGTH_SHORT; 
+                    Toast toast = Toast.makeText(context, text, duration); 
+                    toast.show(); 
+                } 
+            } </span><span class="s0">catch </span><span class="s1">(Exception e) { 
+            } 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">addTimeViews(View rootView, LayoutInflater timeViewInflater) { 
+        LinearLayout containerView = (LinearLayout) rootView.findViewById(R.id.today_container); 
+        </span><span class="s0">int </span><span class="s1">currenthour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - </span><span class="s4">15</span><span class="s1">; 
+        </span><span class="s0">int </span><span class="s1">currentminute = Calendar.getInstance().get(Calendar.MINUTE); 
+ 
+</span><span class="s2">//        Toast.makeText(getActivity(), &quot;display is: &quot; + display, Toast.LENGTH_LONG).show();</span><span class="s1"> 
+ 
+        </span><span class="s0">for</span><span class="s1">(String key1:display.keySet()){ 
+            System.out.println(key1); 
+ 
+            View timeView = timeViewInflater.inflate(R.layout.time_view, </span><span class="s0">null</span><span class="s1">); 
+            TextView timeStamp = (TextView) timeView.findViewById(R.id.time_stamp); 
+            timeStamp.setText(key1); 
+            LinearLayout pillListContainer = (LinearLayout) timeView.findViewById(R.id.time_pill_list); 
+ 
+            </span><span class="s0">for</span><span class="s1">(String key2:display.get(key1).keySet()){ 
+                String timehour=key2.substring(</span><span class="s4">0</span><span class="s1">,</span><span class="s4">2</span><span class="s1">); 
+                String timeminute=key2.substring(</span><span class="s4">3</span><span class="s1">,</span><span class="s4">5</span><span class="s1">); 
+                String apm=key2.substring(key2.length()-</span><span class="s4">2</span><span class="s1">,key2.length()); 
+                </span><span class="s0">int </span><span class="s1">hourtime=Integer.valueOf(timehour); 
+                </span><span class="s0">int </span><span class="s1">minutetime=Integer.valueOf(timeminute); 
+                </span><span class="s0">if</span><span class="s1">(apm.equals(</span><span class="s3">&quot;am&quot;</span><span class="s1">)&amp;&amp;(hourtime == </span><span class="s4">12</span><span class="s1">)){hourtime -=</span><span class="s4">12</span><span class="s1">;} 
+                </span><span class="s0">if</span><span class="s1">(apm.equals(</span><span class="s3">&quot;pm&quot;</span><span class="s1">)&amp;&amp;(hourtime != </span><span class="s4">12</span><span class="s1">)){hourtime+=</span><span class="s4">12</span><span class="s1">;} 
+                </span><span class="s0">if</span><span class="s1">(hourtime&gt;currenthour || (hourtime == currenthour &amp;&amp; minutetime&gt;=currentminute)){ 
+                    View  pillView = timeViewInflater.inflate(R.layout.pill_list_view, </span><span class="s0">null</span><span class="s1">); 
+                    TextView pillName = (TextView) pillView.findViewById(R.id.pill_name); 
+                    pillName.setText(key2); 
+                    TextView pillCount = (TextView) pillView.findViewById(R.id.pill_count); 
+                    pillCount.setText(display.get(key1).get(key2)); 
+                    pillListContainer.addView(pillView); 
+                } 
+            } 
+            containerView.addView(timeView); 
+        } 
+    } 
+    </span><span class="s0">private boolean </span><span class="s1">isNetworkConnected() { 
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE); 
+        NetworkInfo ni = cm.getActiveNetworkInfo(); 
+        </span><span class="s0">if </span><span class="s1">(ni == </span><span class="s0">null</span><span class="s1">) { 
+            </span><span class="s2">// There are no active networks.</span><span class="s1"> 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } </span><span class="s0">else</span><span class="s1"> 
+            </span><span class="s0">return true</span><span class="s1">; 
+    } 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onAttach(Context context) { 
+        </span><span class="s0">super</span><span class="s1">.onAttach(context); 
+        ((NextActivity) context).onSectionAttached( 
+                getArguments().getInt(ARG_SECTION_NUMBER)); 
+    } 
+    </span><span class="s0">private void </span><span class="s1">showPopupWindow(View view,String times) { 
+ 
+        </span><span class="s2">// 一个自定义的布局，作为显示的内容</span><span class="s1"> 
+        View contentView = LayoutInflater.from(getContext()).inflate( 
+                R.layout.pop_up_window2, </span><span class="s0">null</span><span class="s1">); 
+        times_text= (TextView) contentView.findViewById(R.id.pop_times); 
+        times_text.setText(times); 
+ 
+        </span><span class="s0">final </span><span class="s1">PopupWindow popupWindow = </span><span class="s0">new </span><span class="s1">PopupWindow(contentView, 
+                RecyclerView.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, </span><span class="s0">true</span><span class="s1">); 
+ 
+        popupWindow.setTouchable(</span><span class="s0">true</span><span class="s1">); 
+ 
+        popupWindow.setTouchInterceptor(</span><span class="s0">new </span><span class="s1">View.OnTouchListener() { 
+ 
+            @Override 
+            </span><span class="s0">public boolean </span><span class="s1">onTouch(View v, MotionEvent event) { 
+ 
+                Log.i(</span><span class="s3">&quot;mengdd&quot;</span><span class="s1">, </span><span class="s3">&quot;onTouch : &quot;</span><span class="s1">); 
+ 
+                </span><span class="s0">return false</span><span class="s1">; 
+ 
+            } 
+        }); 
+ 
+ 
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape)); 
+</span><span class="s2">//        popupWindow.setBackgroundDrawable(null);</span><span class="s1"> 
+ 
+ 
+        </span><span class="s2">//       popupWindow.showAsDropDown(view,0,0);</span><span class="s1"> 
+</span><span class="s2">//        popupWindow.showAtLocation(getParentFragment().getView(),0,0);</span><span class="s1"> 
+        View windowContentViewRoot = getView(); 
+        </span><span class="s0">int </span><span class="s1">windowPos[] = calculatePopWindowPos(view, windowContentViewRoot); 
+        </span><span class="s0">int </span><span class="s1">xOff = </span><span class="s4">20</span><span class="s1">; 
+        windowPos[</span><span class="s4">0</span><span class="s1">] -= xOff; 
+        popupWindow.showAtLocation(view, Gravity.TOP | Gravity.START, windowPos[</span><span class="s4">0</span><span class="s1">], windowPos[</span><span class="s4">1</span><span class="s1">]); 
+ 
+    } 
+    </span><span class="s0">private static int</span><span class="s1">[] calculatePopWindowPos(</span><span class="s0">final </span><span class="s1">View anchorView, </span><span class="s0">final </span><span class="s1">View contentView) { 
+        </span><span class="s0">final int </span><span class="s1">windowPos[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">2</span><span class="s1">]; 
+        </span><span class="s0">final int </span><span class="s1">anchorLoc[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">2</span><span class="s1">]; 
+ 
+        anchorView.getLocationOnScreen(anchorLoc); 
+        </span><span class="s0">final int </span><span class="s1">anchorHeight = anchorView.getHeight(); 
+ 
+        </span><span class="s0">final int </span><span class="s1">screenHeight = ScreenUtils.getScreenHeight(anchorView.getContext()); 
+        </span><span class="s0">final int </span><span class="s1">screenWidth = ScreenUtils.getScreenWidth(anchorView.getContext()); 
+        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED); 
+ 
+        </span><span class="s0">final int </span><span class="s1">windowHeight = contentView.getMeasuredHeight(); 
+        </span><span class="s0">final int </span><span class="s1">windowWidth = contentView.getMeasuredWidth(); 
+ 
+        </span><span class="s0">final boolean </span><span class="s1">isNeedShowUp = (screenHeight - anchorLoc[</span><span class="s4">1</span><span class="s1">] - anchorHeight &lt; windowHeight); 
+        </span><span class="s0">if </span><span class="s1">(isNeedShowUp) { 
+            windowPos[</span><span class="s4">0</span><span class="s1">] = screenWidth - windowWidth; 
+            windowPos[</span><span class="s4">1</span><span class="s1">] = anchorLoc[</span><span class="s4">1</span><span class="s1">] - windowHeight; 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            windowPos[</span><span class="s4">0</span><span class="s1">] = screenWidth - windowWidth; 
+            windowPos[</span><span class="s4">1</span><span class="s1">] = anchorLoc[</span><span class="s4">1</span><span class="s1">] + anchorHeight; 
+        } 
+        </span><span class="s0">return </span><span class="s1">windowPos; 
+    } 
+ 
+}</span></pre>
+</body>
+</html>

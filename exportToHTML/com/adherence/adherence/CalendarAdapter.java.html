@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>CalendarAdapter.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+CalendarAdapter.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.graphics.Color; 
+</span><span class="s0">import </span><span class="s1">android.graphics.Typeface; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup; 
+</span><span class="s0">import </span><span class="s1">android.widget.ArrayAdapter; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar; 
+</span><span class="s0">import </span><span class="s1">java.util.Date; 
+</span><span class="s0">import </span><span class="s1">java.util.HashSet; 
+ 
+</span><span class="s0">public class </span><span class="s1">CalendarAdapter </span><span class="s0">extends </span><span class="s1">ArrayAdapter&lt;Date&gt; { 
+ 
+    </span><span class="s2">// days with events</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s1">HashSet&lt;Date&gt; eventDays; 
+ 
+    </span><span class="s2">// for view inflation</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s1">LayoutInflater inflater; 
+ 
+    </span><span class="s0">public </span><span class="s1">CalendarAdapter(Context context, ArrayList&lt;Date&gt; days, HashSet&lt;Date&gt; eventDays) 
+    { 
+        </span><span class="s0">super</span><span class="s1">(context, R.layout.calendar_day, days); 
+        </span><span class="s0">this</span><span class="s1">.eventDays = eventDays; 
+        inflater = LayoutInflater.from(context); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">View getView(</span><span class="s0">int </span><span class="s1">position, View view, ViewGroup parent) 
+    { 
+        </span><span class="s2">// day in question</span><span class="s1"> 
+        Date date = getItem(position); 
+        </span><span class="s0">int </span><span class="s1">day = date.getDay(); 
+        </span><span class="s0">int </span><span class="s1">month = date.getMonth(); 
+        </span><span class="s0">int </span><span class="s1">year = date.getYear(); 
+        Calendar cal = Calendar.getInstance(); 
+        eventDays = </span><span class="s0">new </span><span class="s1">HashSet&lt;Date&gt;(); 
+        eventDays.add(cal.getTime()); 
+ 
+ 
+        </span><span class="s2">// today</span><span class="s1"> 
+        Date today = </span><span class="s0">new </span><span class="s1">Date(); 
+ 
+        </span><span class="s2">// inflate item if it does not exist yet</span><span class="s1"> 
+        </span><span class="s0">if </span><span class="s1">(view == </span><span class="s0">null</span><span class="s1">) 
+            view = inflater.inflate(R.layout.calendar_day, parent, </span><span class="s0">false</span><span class="s1">); 
+ 
+        </span><span class="s2">// if this day has an event, specify event image</span><span class="s1"> 
+        </span><span class="s0">if </span><span class="s1">(eventDays != </span><span class="s0">null</span><span class="s1">) { 
+            </span><span class="s0">for </span><span class="s1">(Date eventDate : eventDays) { 
+                </span><span class="s0">if </span><span class="s1">(eventDate.getDate() == day &amp;&amp; 
+                        eventDate.getMonth() == month &amp;&amp; 
+                        eventDate.getYear() == year) { 
+                    </span><span class="s2">// mark this day for event</span><span class="s1"> 
+                    view.setBackgroundResource(R.mipmap.reminder); 
+                    </span><span class="s0">break</span><span class="s1">; 
+                } 
+            } 
+        } 
+ 
+        </span><span class="s2">// clear styling</span><span class="s1"> 
+        ((TextView) view).setTypeface(</span><span class="s0">null</span><span class="s1">, Typeface.NORMAL); 
+        ((TextView) view).setTextColor(Color.BLACK); 
+ 
+        </span><span class="s0">if </span><span class="s1">(date.getMonth() != today.getMonth() || 
+                date.getYear() != today.getYear()) 
+        { 
+            </span><span class="s2">// if this day is outside current month, grey it out</span><span class="s1"> 
+            ((TextView) view).setTextColor(getContext().getResources().getColor(android.R.color.darker_gray)); 
+        } 
+        </span><span class="s0">else if </span><span class="s1">(date.getDate() == today.getDate()) 
+        { 
+            </span><span class="s2">// if it is today, set it to blue/bold</span><span class="s1"> 
+            ((TextView) view).setTypeface(</span><span class="s0">null</span><span class="s1">, Typeface.BOLD); 
+            ((TextView) view).setTextColor(getContext().getResources().getColor(R.color.material_blue_500)); 
+        } 
+ 
+        </span><span class="s2">// set text</span><span class="s1"> 
+        ((TextView) view).setText(String.valueOf(date.getDate())); 
+ 
+        </span><span class="s0">return </span><span class="s1">view; 
+    } 
+} 
+</span></pre>
+</body>
+</html>

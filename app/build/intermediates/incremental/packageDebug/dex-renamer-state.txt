@@ -1,0 +1,7 @@
+#Thu Dec 22 00:48:43 CST 2016
+base.0=/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_d71808fe053db468d462d9285b83d0cf070f2fe9
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_6bf7067b7600008f0fe54f27e06bbef055489d8c/classes.dex
+base.1=/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_6bf7067b7600008f0fe54f27e06bbef055489d8c
+file.0=/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_d71808fe053db468d462d9285b83d0cf070f2fe9/classes.dex

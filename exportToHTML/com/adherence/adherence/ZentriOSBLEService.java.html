@@ -1,0 +1,366 @@
+<html>
+<head>
+<title>ZentriOSBLEService.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+ZentriOSBLEService.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.Service; 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.os.Binder; 
+</span><span class="s0">import </span><span class="s1">android.os.IBinder; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.content.LocalBroadcastManager; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+ 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.BLECallbacks; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.Command; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.ErrorCode; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.Result; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.ZentriOSBLEManager; 
+ 
+</span><span class="s0">import </span><span class="s1">java.io.Serializable; 
+ 
+</span><span class="s0">public class </span><span class="s1">ZentriOSBLEService </span><span class="s0">extends </span><span class="s1">Service </span><span class="s0">implements </span><span class="s1">Serializable 
+{ 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_SCAN_RESULT = </span><span class="s2">&quot;ACTION_SCAN_RESULT&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_CONNECTED = </span><span class="s2">&quot;ACTION_CONNECTED&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_DISCONNECTED = </span><span class="s2">&quot;ACTION_DISCONNECTED&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_MODE_WRITE = </span><span class="s2">&quot;ACTION_MODE_WRITE&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_MODE_READ = </span><span class="s2">&quot;ACTION_MODE_READ&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_STRING_DATA_WRITE = </span><span class="s2">&quot;ACTION_STRING_DATA_WRITE&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_BINARY_DATA_WRITE = </span><span class="s2">&quot;ACTION_BINARY_DATA_WRITE&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_STRING_DATA_READ = </span><span class="s2">&quot;ACTION_STRING_DATA_READ&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_BINARY_DATA_READ = </span><span class="s2">&quot;ACTION_BINARY_DATA_READ&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_COMMAND_SENT = </span><span class="s2">&quot;ACTION_COMMAND_SENT&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_COMMAND_RESULT = </span><span class="s2">&quot;ACTION_COMMAND_RESULT&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_VERSION_READ = </span><span class="s2">&quot;ACTION_VERSION_READ&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_ERROR = </span><span class="s2">&quot;ACTION_ERROR&quot;</span><span class="s1">; 
+ 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_INIT = </span><span class="s2">&quot;ACTION_OTA_INIT&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_CHECK = </span><span class="s2">&quot;ACTION_OTA_CHECK&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_ABORT = </span><span class="s2">&quot;ACTION_OTA_ABORT&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_START = </span><span class="s2">&quot;ACTION_OTA_START&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_DATA_SENT = </span><span class="s2">&quot;ACTION_OTA_DATA_SENT&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_DONE = </span><span class="s2">&quot;ACTION_OTA_DONE&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String ACTION_OTA_ERROR = </span><span class="s2">&quot;ACTION_OTA_ERROR&quot;</span><span class="s1">; 
+ 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_MODE = </span><span class="s2">&quot;EXTRA_MODE&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_DATA = </span><span class="s2">&quot;EXTRA_DATA&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_ID = </span><span class="s2">&quot;EXTRA_ID&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_COMMAND = </span><span class="s2">&quot;EXTRA_COMMAND&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_RESPONSE_CODE = </span><span class="s2">&quot;EXTRA_RESPONSE_CODE&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_ERROR = </span><span class="s2">&quot;EXTRA_ERROR&quot;</span><span class="s1">; 
+ 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_VERSION = </span><span class="s2">&quot;EXTRA_VERSION&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_NAME = </span><span class="s2">&quot;EXTRA_NAME&quot;</span><span class="s1">; 
+    </span><span class="s0">public static final </span><span class="s1">String EXTRA_IS_UP_TO_DATE = </span><span class="s2">&quot;EXTRA_IS_UP_TO_DATE&quot;</span><span class="s1">; 
+ 
+    </span><span class="s0">public static final int </span><span class="s1">SERVICES_NONE = </span><span class="s3">0</span><span class="s1">; 
+    </span><span class="s0">public static final int </span><span class="s1">SERVICES_TRUCONNECT_ONLY = </span><span class="s3">1</span><span class="s1">; 
+    </span><span class="s0">public static final int </span><span class="s1">SERVICES_OTA_ONLY = </span><span class="s3">2</span><span class="s1">; 
+    </span><span class="s0">public static final int </span><span class="s1">SERVICES_BOTH = </span><span class="s3">3</span><span class="s1">; 
+ 
+    </span><span class="s0">private static final boolean </span><span class="s1">DISABLE_TX_NOTIFY = </span><span class="s0">true</span><span class="s1">; 
+ 
+    </span><span class="s0">private final </span><span class="s1">String TAG = </span><span class="s2">&quot;ZentriOSBLEService&quot;</span><span class="s1">; 
+ 
+    </span><span class="s0">private final boolean </span><span class="s1">TX_NOTIFY_DISABLE = </span><span class="s0">true</span><span class="s1">; 
+ 
+    </span><span class="s0">private final int </span><span class="s1">mStartMode = START_NOT_STICKY; 
+    </span><span class="s0">private final </span><span class="s1">IBinder mBinder = </span><span class="s0">new </span><span class="s1">LocalBinder(); 
+    </span><span class="s0">boolean </span><span class="s1">mAllowRebind = </span><span class="s0">true</span><span class="s1">; 
+    </span><span class="s0">private </span><span class="s1">ZentriOSBLEManager mZentriOSBLEManager; 
+ 
+    </span><span class="s0">private </span><span class="s1">BLECallbacks mCallbacks; 
+    </span><span class="s0">private </span><span class="s1">LocalBroadcastManager mBroadcastManager; 
+ 
+    </span><span class="s0">public class </span><span class="s1">LocalBinder </span><span class="s0">extends </span><span class="s1">Binder 
+    { 
+        ZentriOSBLEService getService() 
+        { 
+            </span><span class="s4">// Return this instance of LocalService so clients can call public methods</span><span class="s1"> 
+            </span><span class="s0">return </span><span class="s1">ZentriOSBLEService.</span><span class="s0">this</span><span class="s1">; 
+        } 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onCreate() 
+    { 
+        </span><span class="s4">// The service is being created</span><span class="s1"> 
+        Log.d(TAG, </span><span class="s2">&quot;Creating service&quot;</span><span class="s1">); 
+ 
+        mZentriOSBLEManager = </span><span class="s0">new </span><span class="s1">ZentriOSBLEManager(); 
+        mBroadcastManager = LocalBroadcastManager.getInstance(</span><span class="s0">this</span><span class="s1">); 
+ 
+        initCallbacks(); 
+        initTruconnectManager(); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public int </span><span class="s1">onStartCommand(Intent intent, </span><span class="s0">int </span><span class="s1">flags, </span><span class="s0">int </span><span class="s1">startId) 
+    { 
+        </span><span class="s4">// The service is starting, due to a call to startService()</span><span class="s1"> 
+        </span><span class="s0">return </span><span class="s1">mStartMode; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">IBinder onBind(Intent intent) 
+    { 
+        </span><span class="s4">// A client is binding to the service with bindService()</span><span class="s1"> 
+        </span><span class="s0">return </span><span class="s1">mBinder; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public boolean </span><span class="s1">onUnbind(Intent intent) 
+    { 
+        </span><span class="s4">// All clients have unbound with unbindService()</span><span class="s1"> 
+        </span><span class="s0">return </span><span class="s1">mAllowRebind; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onRebind(Intent intent) 
+    { 
+        </span><span class="s4">// A client is binding to the service with bindService(),</span><span class="s1"> 
+        </span><span class="s4">// after onUnbind() has already been called</span><span class="s1"> 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onDestroy() 
+    { 
+        </span><span class="s4">// The service is no longer used and is being destroyed</span><span class="s1"> 
+        Log.d(TAG, </span><span class="s2">&quot;Destroying service&quot;</span><span class="s1">); 
+ 
+        </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager != </span><span class="s0">null</span><span class="s1">) 
+        { 
+            mZentriOSBLEManager.stopScan(); 
+            mZentriOSBLEManager.disconnect(DISABLE_TX_NOTIFY);</span><span class="s4">//ensure all connections are terminated</span><span class="s1"> 
+            mZentriOSBLEManager.deinit(); 
+        } 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">ZentriOSBLEManager getManager() 
+    { 
+        </span><span class="s0">return </span><span class="s1">mZentriOSBLEManager; 
+    } 
+ 
+    </span><span class="s0">public boolean </span><span class="s1">initTruconnectManager() 
+    { 
+        </span><span class="s0">return </span><span class="s1">mZentriOSBLEManager.init(ZentriOSBLEService.</span><span class="s0">this</span><span class="s1">, mCallbacks); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">initCallbacks() 
+    { 
+        mCallbacks = </span><span class="s0">new </span><span class="s1">BLECallbacks() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onScanResult(String deviceName, String address) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onScanResult&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_SCAN_RESULT); 
+                intent.putExtra(EXTRA_DATA, deviceName); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onFirmwareVersionRead(String deviceName, String version) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onFirmwareVersionRead: &quot; </span><span class="s1">+ deviceName + </span><span class="s2">&quot; version: &quot; </span><span class="s1">+ version); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onConnected(String deviceName, </span><span class="s0">int </span><span class="s1">services) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onConnected&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_CONNECTED); 
+ 
+                intent.putExtra(EXTRA_NAME, deviceName); 
+                intent.putExtra(EXTRA_DATA, services); 
+ 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onDisconnected() 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onDisconnected&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_DISCONNECTED); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onModeWritten(</span><span class="s0">int </span><span class="s1">mode) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onModeWritten&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_MODE_WRITE); 
+                intent.putExtra(EXTRA_MODE, mode); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onModeRead(</span><span class="s0">int </span><span class="s1">mode) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onModeRead&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_MODE_READ); 
+                intent.putExtra(EXTRA_MODE, mode); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onStringDataWritten(String data) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onStringDataWritten - &quot; </span><span class="s1">+ data); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_STRING_DATA_WRITE); 
+                intent.putExtra(EXTRA_DATA, data); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onBinaryDataWritten(</span><span class="s0">byte</span><span class="s1">[] data) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onBinaryDataWritten - Wrote &quot; </span><span class="s1">+ data.length + </span><span class="s2">&quot; bytes&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_BINARY_DATA_WRITE); 
+                intent.putExtra(EXTRA_DATA, data); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onStringDataRead(String data) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onDataRead - &quot; </span><span class="s1">+ data); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_STRING_DATA_READ); 
+                intent.putExtra(EXTRA_DATA, data); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onBinaryDataRead(</span><span class="s0">byte</span><span class="s1">[] data) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onBinaryDataRead&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_BINARY_DATA_READ); 
+                intent.putExtra(EXTRA_DATA, data); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onCommandSent(</span><span class="s0">int </span><span class="s1">ID, Command command) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onCommandSent&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_COMMAND_SENT); 
+                intent.putExtra(EXTRA_ID, ID); 
+                intent.putExtra(EXTRA_COMMAND, command); 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onCommandResult(</span><span class="s0">int </span><span class="s1">ID, Command command, Result result) 
+            { 
+                Log.d(TAG, </span><span class="s2">&quot;onCommandResult&quot;</span><span class="s1">); 
+ 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_COMMAND_RESULT); 
+                intent.putExtra(EXTRA_COMMAND, command); 
+ 
+                </span><span class="s0">if </span><span class="s1">(result != </span><span class="s0">null</span><span class="s1">) 
+                { 
+                    intent.putExtra(EXTRA_ID, ID); 
+                    intent.putExtra(EXTRA_RESPONSE_CODE, result.getResponseCode()); 
+                    intent.putExtra(EXTRA_DATA, result.getData()); 
+                } 
+ 
+                mBroadcastManager.sendBroadcast(intent); 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onError(ErrorCode error) 
+            { 
+                Intent intent = </span><span class="s0">new </span><span class="s1">Intent(ACTION_ERROR); 
+                intent.putExtra(EXTRA_ERROR, error); 
+                mBroadcastManager.sendBroadcast(intent); 
+ 
+                Log.d(TAG, </span><span class="s2">&quot;onError - &quot; </span><span class="s1">+ error); 
+ 
+            } 
+        }; 
+    } 
+ 
+    </span><span class="s0">public static int </span><span class="s1">getMode(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getIntExtra(EXTRA_MODE, </span><span class="s3">0</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">public static </span><span class="s1">String getData(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getStringExtra(EXTRA_DATA); 
+    } 
+ 
+    </span><span class="s0">public static byte</span><span class="s1">[] getBinaryData(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getByteArrayExtra(EXTRA_DATA); 
+    } 
+ 
+    </span><span class="s0">public static int </span><span class="s1">getID(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getIntExtra(EXTRA_ID, ZentriOSBLEManager.ID_INVALID); 
+    } 
+ 
+    </span><span class="s0">public static </span><span class="s1">Command getCommand(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">(Command)intent.getSerializableExtra(EXTRA_COMMAND); 
+    } 
+ 
+    </span><span class="s0">public static int </span><span class="s1">getResponseCode(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getIntExtra(EXTRA_RESPONSE_CODE, -</span><span class="s3">1</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">public static </span><span class="s1">ErrorCode getErrorCode(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">(ErrorCode)intent.getSerializableExtra(EXTRA_ERROR); 
+    } 
+ 
+    </span><span class="s0">public static </span><span class="s1">String getVersion(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getStringExtra(EXTRA_VERSION); 
+    } 
+ 
+    </span><span class="s0">public static </span><span class="s1">String getDeviceName(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getStringExtra(EXTRA_NAME); 
+    } 
+ 
+    </span><span class="s0">public static int </span><span class="s1">getIntData(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getIntExtra(EXTRA_DATA, -</span><span class="s3">1</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">public static byte </span><span class="s1">getByteData(Intent intent) 
+    { 
+        </span><span class="s0">return </span><span class="s1">intent.getByteExtra(EXTRA_DATA, (</span><span class="s0">byte</span><span class="s1">) </span><span class="s3">0</span><span class="s1">); 
+    } 
+}</span></pre>
+</body>
+</html>

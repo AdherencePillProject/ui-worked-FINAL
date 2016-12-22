@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>ParseInitialize.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,0); }
+.s1 { color: rgb(0,0,128); font-weight: bold; }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+ParseInitialize.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0"> 
+</span><span class="s1">package </span><span class="s0">com.adherence.adherence; 
+ 
+</span><span class="s1">import </span><span class="s0">com.parse.Parse; 
+ 
+</span><span class="s2">/** 
+ * Created by barnabaskim on 10/19/16. 
+ */</span><span class="s0"> 
+ 
+</span><span class="s1">public class </span><span class="s0">ParseInitialize </span><span class="s1">extends </span><span class="s0">android.app.Application { 
+    @Override 
+    </span><span class="s1">public void </span><span class="s0">onCreate() { 
+        </span><span class="s1">super</span><span class="s0">.onCreate(); 
+        Parse.initialize(</span><span class="s1">new </span><span class="s0">Parse.Configuration.Builder(</span><span class="s1">this</span><span class="s0">).applicationId(</span><span class="s3">&quot;myAppId&quot;</span><span class="s0">).server(</span><span class="s3">&quot;http://129.105.36.93:5000/parse&quot;</span><span class="s0">).build()); 
+    } 
+} 
+</span></pre>
+</body>
+</html>

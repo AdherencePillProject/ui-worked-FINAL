@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>TodayFragment.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+TodayFragment.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.Fragment; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.FragmentManager; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup; 
+</span><span class="s0">import </span><span class="s1">android.widget.ProgressBar; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.view.View.OnClickListener; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.FragmentTransaction; 
+ 
+ 
+</span><span class="s0">public class </span><span class="s1">TodayFragment </span><span class="s0">extends </span><span class="s1">Fragment{ 
+    </span><span class="s0">private </span><span class="s1">Button btn; 
+    </span><span class="s2">/** 
+     * The fragment argument representing the section number for this 
+     * fragment. 
+     */</span><span class="s1"> 
+    </span><span class="s0">private static final </span><span class="s1">String ARG_SECTION_NUMBER = </span><span class="s3">&quot;section_number&quot;</span><span class="s1">; 
+ 
+    </span><span class="s2">/** 
+     * Returns a new instance of this fragment for the given section 
+     * number. 
+     */</span><span class="s1"> 
+    </span><span class="s0">public static </span><span class="s1">TodayFragment newInstance(</span><span class="s0">int </span><span class="s1">sectionNumber) { 
+        TodayFragment fragment = </span><span class="s0">new </span><span class="s1">TodayFragment(); 
+        Bundle args = </span><span class="s0">new </span><span class="s1">Bundle(); 
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber); 
+        fragment.setArguments(args); 
+        </span><span class="s0">return </span><span class="s1">fragment; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">View onCreateView(LayoutInflater inflater, ViewGroup container, 
+                             Bundle savedInstanceState) { 
+        View rootView = inflater.inflate(R.layout.fragment_today, container, </span><span class="s0">false</span><span class="s1">); 
+        ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.progressWheel); 
+        progress.setSecondaryProgress(</span><span class="s4">80</span><span class="s1">); 
+        btn = (Button) rootView.findViewById(R.id.detailButton); 
+        btn.setOnClickListener(</span><span class="s0">new </span><span class="s1">OnClickListener() { 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                FragmentManager fm = getFragmentManager(); 
+                FragmentTransaction ft = fm.beginTransaction(); 
+                TodayFragment2 tf2 = </span><span class="s0">new </span><span class="s1">TodayFragment2(); 
+                ft.replace(R.id.detailButton,tf2).commit(); 
+            } 
+        }); 
+        </span><span class="s0">return </span><span class="s1">rootView; 
+    } 
+ 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onAttach(Context context) { 
+        </span><span class="s0">super</span><span class="s1">.onAttach(context); 
+        ((NextActivity) context).onSectionAttached( 
+                getArguments().getInt(ARG_SECTION_NUMBER)); 
+    } 
+ 
+ 
+} 
+</span></pre>
+</body>
+</html>

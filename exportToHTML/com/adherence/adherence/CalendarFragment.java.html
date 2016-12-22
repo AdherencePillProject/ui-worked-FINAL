@@ -1,0 +1,239 @@
+<html>
+<head>
+<title>CalendarFragment.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+CalendarFragment.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.Activity; 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.graphics.Color; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.support.annotation.NonNull; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.app.Fragment; 
+</span><span class="s0">import </span><span class="s1">android.util.DisplayMetrics; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+</span><span class="s0">import </span><span class="s1">android.view.LayoutInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.view.ViewGroup; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">com.prolificinteractive.materialcalendarview.CalendarDay; 
+</span><span class="s0">import </span><span class="s1">com.prolificinteractive.materialcalendarview.DayViewDecorator; 
+</span><span class="s0">import </span><span class="s1">com.prolificinteractive.materialcalendarview.DayViewFacade; 
+</span><span class="s0">import </span><span class="s1">com.prolificinteractive.materialcalendarview.MaterialCalendarView; 
+</span><span class="s0">import </span><span class="s1">com.prolificinteractive.materialcalendarview.spans.DotSpan; 
+ 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.Arrays; 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar; 
+</span><span class="s0">import </span><span class="s1">java.util.Collection; 
+</span><span class="s0">import </span><span class="s1">java.util.Collections; 
+</span><span class="s0">import </span><span class="s1">java.util.HashSet; 
+</span><span class="s0">import </span><span class="s1">java.util.Iterator; 
+</span><span class="s0">import </span><span class="s1">java.util.List; 
+</span><span class="s0">import </span><span class="s1">java.util.concurrent.ThreadLocalRandom; 
+ 
+</span><span class="s0">import static </span><span class="s1">android.R.attr.max; 
+ 
+</span><span class="s2">/** 
+ * Created by suhon_000 on 10/29/2015. 
+ */</span><span class="s1"> 
+</span><span class="s0">public class </span><span class="s1">CalendarFragment </span><span class="s0">extends </span><span class="s1">Fragment { 
+    </span><span class="s0">private static final </span><span class="s1">String ARG_SECTION_NUMBER = </span><span class="s3">&quot;section_number&quot;</span><span class="s1">; 
+ 
+    </span><span class="s2">/** 
+     * Returns a new instance of this fragment for the given section 
+     * number. 
+     */</span><span class="s1"> 
+    </span><span class="s0">public static </span><span class="s1">CalendarFragment newInstance(</span><span class="s0">int </span><span class="s1">sectionNumber) { 
+        CalendarFragment fragment = </span><span class="s0">new </span><span class="s1">CalendarFragment(); 
+        Bundle args = </span><span class="s0">new </span><span class="s1">Bundle(); 
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber); 
+        fragment.setArguments(args); 
+        </span><span class="s0">return </span><span class="s1">fragment; 
+    } 
+    </span><span class="s2">//TODO: Coloring days based solely on overall pills taken doesn't factor in the possibility of multiple pills being taken or not. Technically, user could have taken 90% of total pills, yet not taken any of their crucial pills, etc</span><span class="s1"> 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">View onCreateView(LayoutInflater inflater, ViewGroup container, 
+                             Bundle savedInstanceState) { 
+        View rootView = inflater.inflate(R.layout.calendarview, container, </span><span class="s0">false</span><span class="s1">); 
+        MaterialCalendarView materialCalendarView= (MaterialCalendarView) rootView.findViewById(R.id.matCal); 
+        materialCalendarView.setShowOtherDates(MaterialCalendarView.SHOW_ALL); 
+        </span><span class="s0">int </span><span class="s1">currentWidth= materialCalendarView.getTileWidth(); </span><span class="s2">// Set the proper width so that all 7 days of the week are showing</span><span class="s1"> 
+        materialCalendarView.setTileWidth(currentWidth-</span><span class="s4">2</span><span class="s1">);</span><span class="s2">// Don't know why tilewidth is showing as -10. The arithmetic for TileWidth seems buggy, but it works</span><span class="s1"> 
+ 
+        </span><span class="s2">//Get list of sample dates to fill in</span><span class="s1"> 
+        List&lt;CalendarDay&gt; calendars= </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        </span><span class="s0">final </span><span class="s1">Calendar new_date= Calendar.getInstance(); 
+        </span><span class="s0">final </span><span class="s1">CalendarDay current_date= CalendarDay.from(new_date); 
+        List&lt;Byte&gt; percentages= </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;();</span><span class="s2">//This array functions as storage for the percentages of pills taken per day.</span><span class="s1"> 
+ 
+        materialCalendarView.setSelectedDate(new_date.getTime()); </span><span class="s2">// Colors the current date green</span><span class="s1"> 
+ 
+        </span><span class="s2">//Create sample 10 day ArrayList of CalendarDay which can be parsed depending on pill percentage</span><span class="s1"> 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; i&lt;</span><span class="s4">10</span><span class="s1">;i++){ 
+            new_date.add(Calendar.DATE,</span><span class="s4">1</span><span class="s1">); 
+            CalendarDay calendarDay= CalendarDay.from(new_date); 
+            calendars.add(calendarDay); 
+        } 
+ 
+        </span><span class="s2">//Create array of size 3 that contains the 3 different colors to represent pill percentages</span><span class="s1"> 
+        </span><span class="s0">int</span><span class="s1">[] colors=</span><span class="s0">new int</span><span class="s1">[</span><span class="s4">3</span><span class="s1">]; 
+        colors[</span><span class="s4">0</span><span class="s1">]= -</span><span class="s4">65536</span><span class="s1">; </span><span class="s2">//This is red; represents &quot;less than 50% of pills taken that day&quot;</span><span class="s1"> 
+        colors[</span><span class="s4">1</span><span class="s1">]= -</span><span class="s4">16711936</span><span class="s1">; </span><span class="s2">//This is green; represents &quot;more than 50%, but less than 85% of pills taken that day&quot;</span><span class="s1"> 
+        colors[</span><span class="s4">2</span><span class="s1">]=-</span><span class="s4">16776961</span><span class="s1">;</span><span class="s2">// This is blue; represents &quot;all pills taken&quot;</span><span class="s1"> 
+ 
+        </span><span class="s2">//Generate a randomized array of pill &quot;percentages&quot;. When data is received from the backend team, this array can be replaced with actual pill data.</span><span class="s1"> 
+        </span><span class="s0">byte </span><span class="s1">switcher=</span><span class="s4">1</span><span class="s1">; 
+        </span><span class="s0">int </span><span class="s1">counter=</span><span class="s4">0</span><span class="s1">; 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; i&lt;</span><span class="s4">10</span><span class="s1">; i++){ 
+            switcher *= -</span><span class="s4">1</span><span class="s1">; 
+            counter++; 
+            </span><span class="s0">if </span><span class="s1">(counter % </span><span class="s4">3 </span><span class="s1">==</span><span class="s4">0</span><span class="s1">){ 
+                percentages.add((</span><span class="s0">byte</span><span class="s1">) </span><span class="s4">0</span><span class="s1">); 
+            } 
+            </span><span class="s0">else</span><span class="s1">{ 
+                percentages.add(switcher); 
+            } 
+        } 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; i&lt;percentages.size(); i++){ 
+            Log.d(</span><span class="s3">&quot;Percentages&quot;</span><span class="s1">,</span><span class="s3">&quot;&quot;</span><span class="s1">+percentages.get(i)); 
+        } 
+        Collections.shuffle(percentages); </span><span class="s2">//Randomize the hardcoded array</span><span class="s1"> 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; i&lt;percentages.size(); i++){ 
+            Log.d(</span><span class="s3">&quot;Shuffled Percentages&quot;</span><span class="s1">,</span><span class="s3">&quot;&quot;</span><span class="s1">+percentages.get(i)); 
+        } 
+        </span><span class="s2">//Go through percentages array</span><span class="s1"> 
+        List&lt;CalendarDay&gt; calendars_too_few= </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        List&lt;CalendarDay&gt; calendars_most_taken= </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+        List&lt;CalendarDay&gt; calendars_all_taken= </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+ 
+ 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; i&lt;percentages.size(); i++){ 
+            </span><span class="s2">//Depending on what the % value is, set collection to specified date and add decorator</span><span class="s1"> 
+            </span><span class="s0">if </span><span class="s1">(percentages.get(i) == -</span><span class="s4">1 </span><span class="s1">) </span><span class="s2">// Simulates &quot;too few&quot; percentage; can be changed easily when actual data is passed</span><span class="s1"> 
+            { 
+                calendars_too_few.add(calendars.get(i)); 
+            } 
+            </span><span class="s0">else if </span><span class="s1">(percentages.get(i) == </span><span class="s4">0</span><span class="s1">) </span><span class="s2">// Simulates taking most pills</span><span class="s1"> 
+            { 
+                calendars_most_taken.add(calendars.get(i)); 
+            } </span><span class="s0">else if </span><span class="s1">(percentages.get(i) == </span><span class="s4">1</span><span class="s1">) </span><span class="s2">// Simulates taking all pills</span><span class="s1"> 
+            { 
+                calendars_all_taken.add(calendars.get(i)); 
+            } 
+        } 
+        materialCalendarView.addDecorators(</span><span class="s0">new </span><span class="s1">EventDecorator(colors[</span><span class="s4">0</span><span class="s1">],calendars_too_few)); 
+        materialCalendarView.addDecorators(</span><span class="s0">new </span><span class="s1">EventDecorator(colors[</span><span class="s4">1</span><span class="s1">],calendars_most_taken)); 
+        materialCalendarView.addDecorators(</span><span class="s0">new </span><span class="s1">EventDecorator(colors[</span><span class="s4">2</span><span class="s1">],calendars_all_taken)); 
+ 
+        </span><span class="s0">return </span><span class="s1">rootView; 
+ 
+    } 
+ 
+    </span><span class="s0">public class </span><span class="s1">EventDecorator </span><span class="s0">implements </span><span class="s1">DayViewDecorator { 
+ 
+        </span><span class="s0">private final int </span><span class="s1">color; 
+        </span><span class="s0">private final </span><span class="s1">HashSet&lt;CalendarDay&gt; dates; 
+ 
+        </span><span class="s0">public </span><span class="s1">EventDecorator(</span><span class="s0">int </span><span class="s1">color, Collection&lt;CalendarDay&gt; dates) { 
+            </span><span class="s0">this</span><span class="s1">.color = color; 
+            </span><span class="s0">this</span><span class="s1">.dates = </span><span class="s0">new </span><span class="s1">HashSet&lt;&gt;(dates); 
+        } 
+ 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">shouldDecorate(CalendarDay day) { 
+            </span><span class="s0">return </span><span class="s1">dates.contains(day); 
+        } 
+ 
+        @Override 
+        </span><span class="s0">public void </span><span class="s1">decorate(DayViewFacade view) { 
+            view.addSpan(</span><span class="s0">new </span><span class="s1">DotSpan(</span><span class="s4">5</span><span class="s1">, color)); 
+        } 
+    } 
+ 
+    </span><span class="s0">private </span><span class="s1">Collection&lt;CalendarDay&gt; calendarDays = </span><span class="s0">new </span><span class="s1">Collection&lt;CalendarDay&gt;() { 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">add(CalendarDay object) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">addAll(Collection&lt;? </span><span class="s0">extends </span><span class="s1">CalendarDay&gt; collection) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public void </span><span class="s1">clear() { 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">contains(Object object) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">containsAll(Collection&lt;?&gt; collection) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">isEmpty() { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @NonNull 
+        @Override 
+        </span><span class="s0">public </span><span class="s1">Iterator&lt;CalendarDay&gt; iterator() { 
+            </span><span class="s0">return null</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">remove(Object object) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">removeAll(Collection&lt;?&gt; collection) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public boolean </span><span class="s1">retainAll(Collection&lt;?&gt; collection) { 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+        @Override 
+        </span><span class="s0">public int </span><span class="s1">size() { 
+            </span><span class="s0">return </span><span class="s4">0</span><span class="s1">; 
+        } 
+        @NonNull 
+        @Override 
+        </span><span class="s0">public </span><span class="s1">Object[] toArray() { 
+            </span><span class="s0">return new </span><span class="s1">Object[</span><span class="s4">0</span><span class="s1">]; 
+        } 
+        @NonNull 
+        @Override 
+        </span><span class="s0">public </span><span class="s1">&lt;T&gt; T[] toArray(T[] array) { 
+            </span><span class="s0">return null</span><span class="s1">; 
+        } 
+    }; 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onAttach(Context context) { 
+        </span><span class="s0">super</span><span class="s1">.onAttach(context); 
+        </span><span class="s0">if </span><span class="s1">(context </span><span class="s0">instanceof </span><span class="s1">NextActivity){ 
+            ((NextActivity) context).onSectionAttached( 
+                    getArguments().getInt(ARG_SECTION_NUMBER)); 
+        } 
+    } 
+} 
+</span></pre>
+</body>
+</html>

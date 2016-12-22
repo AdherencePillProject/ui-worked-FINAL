@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>DeviceList.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+DeviceList.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.widget.ArrayAdapter; 
+</span><span class="s0">import </span><span class="s1">android.widget.ListView; 
+ 
+</span><span class="s0">import </span><span class="s1">java.io.Serializable; 
+ 
+</span><span class="s0">public class </span><span class="s1">DeviceList </span><span class="s0">implements </span><span class="s1">Serializable 
+{ 
+ 
+    ArrayAdapter&lt;String&gt; mDeviceAdapter; 
+ 
+    </span><span class="s0">public </span><span class="s1">DeviceList(ArrayAdapter&lt;String&gt; adapter, ListView view) 
+    { 
+        mDeviceAdapter = adapter; 
+        view.setAdapter(mDeviceAdapter); 
+        mDeviceAdapter.clear(); 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">add(String name) 
+    { 
+        String deviceName = findDeviceWithName(name); 
+ 
+        </span><span class="s0">if </span><span class="s1">(deviceName == </span><span class="s0">null</span><span class="s1">)</span><span class="s2">//only add if not already in the list</span><span class="s1"> 
+        { 
+            </span><span class="s0">if </span><span class="s1">(name != </span><span class="s0">null</span><span class="s1">) 
+            { 
+                mDeviceAdapter.add(name); 
+            } 
+        } 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">String get(</span><span class="s0">int </span><span class="s1">position) 
+    { 
+        </span><span class="s0">return </span><span class="s1">mDeviceAdapter.getItem(position); 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">remove(String name) 
+    { 
+        String toRemove = findDeviceWithName(name); 
+ 
+        </span><span class="s0">if </span><span class="s1">(toRemove != </span><span class="s0">null</span><span class="s1">) 
+        { 
+            mDeviceAdapter.remove(toRemove); 
+        } 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">clear() 
+    { 
+        mDeviceAdapter.clear(); 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">String findDeviceWithName(String name) 
+    { 
+        String deviceName = </span><span class="s0">null</span><span class="s1">; 
+        </span><span class="s0">int </span><span class="s1">count = mDeviceAdapter.getCount(); 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s1">; i&lt;count; i++) 
+        { 
+            String nextName = mDeviceAdapter.getItem(i); 
+ 
+            </span><span class="s0">if </span><span class="s1">(nextName.equals(name)) 
+            { 
+                deviceName = nextName; 
+                </span><span class="s0">break</span><span class="s1">; 
+            } 
+        } 
+        </span><span class="s0">return </span><span class="s1">deviceName; 
+    } 
+ 
+    </span><span class="s0">public int </span><span class="s1">count () { 
+        </span><span class="s0">int </span><span class="s1">count = mDeviceAdapter.getCount(); 
+        </span><span class="s0">return </span><span class="s1">count; 
+    } 
+} 
+</span></pre>
+</body>
+</html>

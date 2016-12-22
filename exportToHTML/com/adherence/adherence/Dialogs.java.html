@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>Dialogs.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Dialogs.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.Activity; 
+</span><span class="s0">import </span><span class="s1">android.app.AlertDialog; 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.content.DialogInterface; 
+</span><span class="s0">import </span><span class="s1">android.content.pm.PackageManager; 
+</span><span class="s0">import </span><span class="s1">android.view.Gravity; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+ 
+</span><span class="s0">import </span><span class="s1">java.io.Serializable; 
+ 
+</span><span class="s0">public class </span><span class="s1">Dialogs </span><span class="s0">implements </span><span class="s1">Serializable 
+{ 
+    </span><span class="s0">public static </span><span class="s1">AlertDialog makeAboutDialog(Activity activity) 
+    { 
+        AlertDialog dialog = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(activity) 
+                .setTitle(R.string.about) 
+                .setCancelable(</span><span class="s0">false</span><span class="s1">) 
+                .setPositiveButton(R.string.ok, </span><span class="s0">new </span><span class="s1">DialogInterface.OnClickListener() 
+                { 
+                    </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">id) 
+                    { 
+                        dialog.dismiss(); 
+                    } 
+                }) 
+                .create(); 
+ 
+        </span><span class="s0">return </span><span class="s1">setAboutDialogContents(activity, dialog); 
+    } 
+ 
+    </span><span class="s0">private static </span><span class="s1">AlertDialog setAboutDialogContents(Activity activity, AlertDialog dialog) 
+    { 
+        String app_name = activity.getString(R.string.app_name); 
+        String link = activity.getString(R.string.about_link); 
+        String version = getAppVersion(activity.getApplicationContext()); 
+ 
+        String msg = String.format(</span><span class="s2">&quot;%s</span><span class="s0">\n</span><span class="s2">v%s</span><span class="s0">\n</span><span class="s2">%s&quot;</span><span class="s1">, app_name, version, link); 
+ 
+        TextView messageView = </span><span class="s0">new </span><span class="s1">TextView(activity); 
+        messageView.setText(msg); 
+        messageView.setGravity(Gravity.CENTER_HORIZONTAL); 
+        messageView.setTextSize(</span><span class="s3">20.0f</span><span class="s1">); 
+        dialog.setView(messageView); 
+ 
+        </span><span class="s0">return </span><span class="s1">dialog; 
+    } 
+ 
+    </span><span class="s0">private static </span><span class="s1">String getAppVersion(Context context) 
+    { 
+        PackageManager packageManager = context.getPackageManager(); 
+        String packageName = context.getPackageName(); 
+ 
+        String versionName = </span><span class="s2">&quot;&quot;</span><span class="s1">; </span><span class="s4">// initialize String</span><span class="s1"> 
+ 
+        </span><span class="s0">if </span><span class="s1">(packageManager != </span><span class="s0">null </span><span class="s1">&amp;&amp; packageName != </span><span class="s0">null</span><span class="s1">) 
+        { 
+            </span><span class="s0">try</span><span class="s1"> 
+            { 
+                versionName = packageManager.getPackageInfo(packageName, </span><span class="s3">0</span><span class="s1">).versionName; 
+            } 
+            </span><span class="s0">catch </span><span class="s1">(PackageManager.NameNotFoundException e) 
+            { 
+            } 
+        } 
+ 
+        </span><span class="s0">return </span><span class="s1">versionName; 
+    } 
+ 
+}</span></pre>
+</body>
+</html>

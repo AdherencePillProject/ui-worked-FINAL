@@ -1,0 +1,1440 @@
+<html>
+<head>
+<title>MainActivity2.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,0,255); }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(128,128,128); font-style: italic; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity2.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.Activity; 
+</span><span class="s0">import </span><span class="s1">android.app.AlertDialog; 
+</span><span class="s0">import </span><span class="s1">android.app.ProgressDialog; 
+</span><span class="s0">import </span><span class="s1">android.bluetooth.BluetoothAdapter; 
+</span><span class="s0">import </span><span class="s1">android.content.BroadcastReceiver; 
+</span><span class="s0">import </span><span class="s1">android.content.ComponentName; 
+</span><span class="s0">import </span><span class="s1">android.content.Context; 
+</span><span class="s0">import </span><span class="s1">android.content.DialogInterface; 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.content.IntentFilter; 
+</span><span class="s0">import </span><span class="s1">android.content.ServiceConnection; 
+</span><span class="s0">import </span><span class="s1">android.graphics.Bitmap; 
+</span><span class="s0">import </span><span class="s1">android.graphics.BitmapFactory; 
+</span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+</span><span class="s0">import </span><span class="s1">android.os.Environment; 
+</span><span class="s0">import </span><span class="s1">android.os.Handler; 
+</span><span class="s0">import </span><span class="s1">android.os.IBinder; 
+</span><span class="s0">import </span><span class="s1">android.support.v4.content.LocalBroadcastManager; 
+</span><span class="s0">import </span><span class="s1">android.util.Log; 
+</span><span class="s0">import </span><span class="s1">android.view.Menu; 
+</span><span class="s0">import </span><span class="s1">android.view.MenuInflater; 
+</span><span class="s0">import </span><span class="s1">android.view.MenuItem; 
+</span><span class="s0">import </span><span class="s1">android.view.View; 
+</span><span class="s0">import </span><span class="s1">android.widget.AdapterView; 
+</span><span class="s0">import </span><span class="s1">android.widget.ArrayAdapter; 
+</span><span class="s0">import </span><span class="s1">android.widget.Button; 
+</span><span class="s0">import </span><span class="s1">android.widget.EditText; 
+</span><span class="s0">import </span><span class="s1">android.widget.ImageView; 
+</span><span class="s0">import </span><span class="s1">android.widget.ListView; 
+</span><span class="s0">import </span><span class="s1">android.widget.ScrollView; 
+</span><span class="s0">import </span><span class="s1">android.widget.TextView; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+</span><span class="s0">import </span><span class="s1">android.widget.ToggleButton; 
+ 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseObject; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble.BLECallbacks.ReceiveMode; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.Command; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.CommandMode; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.ErrorCode; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.GPIODirection; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.GPIOFunction; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.Result; 
+</span><span class="s0">import </span><span class="s1">com.zentri.zentri_ble_command.ZentriOSBLEManager; 
+ 
+</span><span class="s0">import </span><span class="s1">java.io.File; 
+</span><span class="s0">import </span><span class="s1">java.io.FileOutputStream; 
+</span><span class="s0">import </span><span class="s1">java.io.IOException; 
+</span><span class="s0">import </span><span class="s1">java.io.PrintWriter; 
+</span><span class="s0">import </span><span class="s1">java.text.SimpleDateFormat; 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar; 
+</span><span class="s0">import </span><span class="s1">java.util.Date; 
+</span><span class="s0">import </span><span class="s1">java.util.HashMap; 
+</span><span class="s0">import </span><span class="s1">java.util.HashSet; 
+</span><span class="s0">import </span><span class="s1">java.util.Set; 
+</span><span class="s0">import </span><span class="s1">java.util.Timer; 
+</span><span class="s0">import </span><span class="s1">java.util.TimerTask; 
+ 
+</span><span class="s0">public class </span><span class="s1">MainActivity2 </span><span class="s0">extends </span><span class="s1">Activity </span><span class="s0">implements </span><span class="s1">com.adherence.adherence.ServiceCallbacks 
+{ 
+    </span><span class="s0">private static final long </span><span class="s1">SCAN_PERIOD = </span><span class="s2">5000</span><span class="s1">; 
+    </span><span class="s0">private static final long </span><span class="s1">CONNECT_TIMEOUT_MS = </span><span class="s2">20000</span><span class="s1">; 
+    </span><span class="s0">private static final </span><span class="s1">String TAG = </span><span class="s3">&quot;SmartCap&quot;</span><span class="s1">; 
+    </span><span class="s0">private final int </span><span class="s1">BLE_ENABLE_REQ_CODE = </span><span class="s2">1</span><span class="s1">; 
+ 
+    </span><span class="s0">private final boolean </span><span class="s1">NO_TX_NOTIFY_DISABLE = </span><span class="s0">false</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">ProgressDialog mConnectProgressDialog; 
+    </span><span class="s0">private </span><span class="s1">DeviceList mDeviceList; 
+    </span><span class="s0">private </span><span class="s1">Button mScanButton; 
+ 
+    </span><span class="s0">private </span><span class="s1">Handler mHandler; 
+    </span><span class="s0">private </span><span class="s1">Runnable mStopScanTask; 
+    </span><span class="s0">private </span><span class="s1">Runnable mConnectTimeoutTask; 
+ 
+    </span><span class="s0">private </span><span class="s1">ZentriOSBLEManager mZentriOSBLEManager; 
+    </span><span class="s0">private boolean </span><span class="s1">mConnecting = </span><span class="s0">false</span><span class="s1">; 
+    </span><span class="s0">private boolean </span><span class="s1">mConnected = </span><span class="s0">false</span><span class="s1">; 
+    </span><span class="s0">private boolean </span><span class="s1">mErrorDialogShowing = </span><span class="s0">false</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">String mCurrentDeviceName; 
+ 
+    </span><span class="s0">private </span><span class="s1">ServiceConnection mConnection; 
+    </span><span class="s0">private </span><span class="s1">ZentriOSBLEService mService; 
+    </span><span class="s0">private boolean </span><span class="s1">mBound = </span><span class="s0">false</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">MyService myService; 
+    </span><span class="s0">private boolean </span><span class="s1">bound = </span><span class="s0">false</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">LocalBroadcastManager mLocalBroadcastManager; 
+    </span><span class="s0">private </span><span class="s1">BroadcastReceiver mBroadcastReceiver; 
+    </span><span class="s0">private </span><span class="s1">IntentFilter mReceiverIntentFilter; 
+ 
+    </span><span class="s4">// Connected stuff</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s1">ToggleButton mModeButton; 
+    </span><span class="s0">private int </span><span class="s1">mCurrentMode; 
+    </span><span class="s0">private </span><span class="s1">Button mSendTextButton; 
+    </span><span class="s0">private </span><span class="s1">Button AutoPhoto; 
+    </span><span class="s0">private </span><span class="s1">EditText mTextToSendBox; 
+    </span><span class="s0">private </span><span class="s1">TextView mReceivedDataTextBox; 
+    </span><span class="s0">private </span><span class="s1">ScrollView mScrollView; 
+    </span><span class="s0">private </span><span class="s1">Button mClearTextButton; 
+    </span><span class="s0">private </span><span class="s1">ToggleButton mToggleIm; 
+    </span><span class="s0">private </span><span class="s1">Button mShowIm; 
+    </span><span class="s0">private </span><span class="s1">ImageView imView; 
+ 
+    </span><span class="s0">private </span><span class="s1">ProgressDialog mDisconnectDialog; 
+    </span><span class="s0">private boolean </span><span class="s1">mDisconnecting = </span><span class="s0">false</span><span class="s1">; 
+    </span><span class="s0">private </span><span class="s1">Runnable mDisconnectTimeoutTask; 
+ 
+    </span><span class="s0">private boolean </span><span class="s1">x = </span><span class="s0">false</span><span class="s1">; 
+ 
+    </span><span class="s0">private boolean </span><span class="s1">mRecording = </span><span class="s0">false</span><span class="s1">; 
+    </span><span class="s0">private </span><span class="s1">String mFileNameLog; 
+    </span><span class="s0">private byte</span><span class="s1">[] imBytesSplit; 
+    </span><span class="s0">private byte</span><span class="s1">[] imBytes; 
+    </span><span class="s0">private int </span><span class="s1">count_bytes; 
+    </span><span class="s0">private int </span><span class="s1">len_image; 
+    </span><span class="s0">private int </span><span class="s1">val; 
+    </span><span class="s0">private boolean </span><span class="s1">header_done = </span><span class="s0">false</span><span class="s1">; 
+ 
+    </span><span class="s0">private </span><span class="s1">String temp = </span><span class="s3">&quot;&quot;</span><span class="s1">; 
+    </span><span class="s0">private </span><span class="s1">Boolean gi = </span><span class="s0">false</span><span class="s1">; 
+ 
+    Calendar timeNow; 
+ 
+    </span><span class="s0">private </span><span class="s1">Set&lt;String&gt; ValidDevice = </span><span class="s0">new </span><span class="s1">HashSet&lt;&gt;();    </span><span class="s4">//GL: use a set to store the valid device name</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s1">HashMap&lt;String, Long&gt; TimeTable = </span><span class="s0">new </span><span class="s1">HashMap&lt;&gt;();  </span><span class="s4">//time of latest data requirement</span><span class="s1"> 
+ 
+    </span><span class="s0">int </span><span class="s1">RSSI; 
+    ArrayList&lt;String&gt; values = </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(); 
+    ArrayAdapter&lt;String&gt; newadapter; 
+ 
+    DBHelper mydb; 
+ 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) 
+    { 
+        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+        setContentView(R.layout.activity_main2); 
+        ValidDevice.add(</span><span class="s3">&quot;SCv31b1&quot;</span><span class="s1">); 
+        initScanButton(); 
+        initDeviceList(); 
+        initBroadcastManager(); 
+        initServiceConnection(); 
+        initBroadcastReceiver(); 
+        initReceiverIntentFilter(); 
+ 
+        startService(</span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, ZentriOSBLEService.</span><span class="s0">class</span><span class="s1">)); 
+ 
+        mHandler = </span><span class="s0">new </span><span class="s1">Handler(); 
+ 
+        mStopScanTask = </span><span class="s0">new </span><span class="s1">Runnable() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() 
+            { 
+                stopScan(); 
+            } 
+        }; 
+ 
+        mConnectTimeoutTask = </span><span class="s0">new </span><span class="s1">Runnable() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() 
+            { 
+                runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">run() { 
+                        showErrorDialog(R.string.error, R.string.con_timeout_message); 
+                        dismissConnectDialog(); 
+                        </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager != </span><span class="s0">null </span><span class="s1">&amp;&amp; mZentriOSBLEManager.isConnected()) { 
+                            disconnect(NO_TX_NOTIFY_DISABLE); 
+                        } 
+                    } 
+                }); 
+            } 
+        }; 
+</span><span class="s4">//</span><span class="s1"> 
+        mModeButton = (ToggleButton) findViewById(R.id.toggle_str_comm); 
+        mModeButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) 
+            { 
+                </span><span class="s0">if </span><span class="s1">(mModeButton.isChecked()) 
+                { 
+                    mCurrentMode = ZentriOSBLEManager.MODE_STREAM; 
+                } 
+                </span><span class="s0">else</span><span class="s1"> 
+                { 
+                    mCurrentMode = ZentriOSBLEManager.MODE_COMMAND_REMOTE; 
+                } 
+                x = mZentriOSBLEManager.setMode(mCurrentMode); 
+                Log.d(TAG, </span><span class="s3">&quot;Mode set to: &quot; </span><span class="s1">+ mCurrentMode); 
+                Log.d(TAG, </span><span class="s3">&quot;Truconnect Manager returned: &quot; </span><span class="s1">+ x); 
+            } 
+        }); 
+ 
+ 
+ 
+        AutoPhoto = (Button) findViewById(R.id.autobutton); 
+        AutoPhoto.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s1">; i &lt; values.size(); i++) { 
+                    mCurrentDeviceName = values.get(i); 
+                    </span><span class="s0">if</span><span class="s1">(mDeviceList.findDeviceWithName(mCurrentDeviceName) != </span><span class="s0">null</span><span class="s1">) { 
+ 
+                        showToast(</span><span class="s3">&quot;work at here&quot;</span><span class="s1">, Toast.LENGTH_SHORT); 
+ 
+                        </span><span class="s0">if </span><span class="s1">(!mConnecting) { 
+                            mConnecting = </span><span class="s0">true</span><span class="s1">; 
+ 
+                            stopScan(); 
+                            Log.d(TAG, </span><span class="s3">&quot;Connecting to BLE device &quot; </span><span class="s1">+ mCurrentDeviceName); 
+                            mZentriOSBLEManager.connect(mCurrentDeviceName); 
+                            Log.d(TAG,</span><span class="s3">&quot;dfasfasdfasdfasdfasdfadsfdsafa&quot; </span><span class="s1">+ mCurrentDeviceName); 
+ 
+</span><span class="s4">//                    showConnectingDialog(view.getContext());</span><span class="s1"> 
+ 
+                            mHandler.postDelayed(mConnectTimeoutTask, CONNECT_TIMEOUT_MS); 
+                        } 
+                    } 
+                } 
+ 
+ 
+            } 
+        }); 
+ 
+        mTextToSendBox = (EditText) findViewById(R.id.editText); 
+        mSendTextButton = (Button) findViewById(R.id.button_send); 
+        mSendTextButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) 
+            { 
+                String data = mTextToSendBox.getText().toString(); 
+                String dataToSend = </span><span class="s3">&quot;0&quot;</span><span class="s1">; 
+                </span><span class="s0">if </span><span class="s1">(mCurrentMode == ZentriOSBLEManager.MODE_STREAM &amp;&amp; data != </span><span class="s0">null </span><span class="s1">&amp;&amp; !data.isEmpty()) 
+                { 
+                    </span><span class="s0">if </span><span class="s1">(data.equals(</span><span class="s3">&quot;R&quot;</span><span class="s1">)) { </span><span class="s4">// READ RTC</span><span class="s1"> 
+                        dataToSend = </span><span class="s3">&quot;*R#&quot;</span><span class="s1">; 
+                        mZentriOSBLEManager.writeData(dataToSend); 
+                        Log.d(TAG, </span><span class="s3">&quot;Sent: &quot; </span><span class="s1">+ dataToSend); 
+                    } 
+                    </span><span class="s0">else if </span><span class="s1">(data.equals(</span><span class="s3">&quot;T&quot;</span><span class="s1">)) { </span><span class="s4">// SET RTC</span><span class="s1"> 
+                        timeNow = Calendar.getInstance(); 
+                        </span><span class="s0">int </span><span class="s1">second = timeNow.get(Calendar.SECOND); 
+                        </span><span class="s0">int </span><span class="s1">minute = timeNow.get(Calendar.MINUTE); 
+                        </span><span class="s0">int </span><span class="s1">hour = timeNow.get(Calendar.HOUR_OF_DAY); 
+                        </span><span class="s0">int </span><span class="s1">dayOfWeek = timeNow.get(Calendar.DAY_OF_WEEK); 
+                        </span><span class="s0">int </span><span class="s1">dayOfMonth = timeNow.get(Calendar.DAY_OF_MONTH); 
+                        </span><span class="s0">int </span><span class="s1">month = timeNow.get(Calendar.MONTH); 
+                        </span><span class="s0">int </span><span class="s1">year = timeNow.get(Calendar.YEAR); 
+                        </span><span class="s4">//String rtc_data = Integer.toString(second) + Integer.toString(minute) + Integer.toString(hour) + Integer.toString(dayOfWeek) + Integer.toString(dayOfMonth) + Integer.toString(month) + Integer.toString(year);</span><span class="s1"> 
+                        String rtc_data = String.format(</span><span class="s3">&quot;%02d%02d%02d%d%02d%02d%04d&quot;</span><span class="s1">,second,minute,hour,dayOfWeek,dayOfMonth,month+</span><span class="s2">1</span><span class="s1">,year); 
+                        dataToSend = </span><span class="s3">&quot;*T&quot; </span><span class="s1">+ rtc_data + </span><span class="s3">&quot;#&quot;</span><span class="s1">; 
+                        mZentriOSBLEManager.writeData(dataToSend); 
+                        Log.d(TAG, </span><span class="s3">&quot;Sent: &quot; </span><span class="s1">+ dataToSend); 
+ 
+ 
+                    } 
+                    </span><span class="s0">else if </span><span class="s1">(data.equals(</span><span class="s3">&quot;C&quot;</span><span class="s1">)) { </span><span class="s4">// TAKE IMAGE</span><span class="s1"> 
+                        dataToSend = </span><span class="s3">&quot;*C#&quot;</span><span class="s1">; 
+                        mZentriOSBLEManager.writeData(dataToSend); 
+                        Log.d(TAG, </span><span class="s3">&quot;Sent: &quot; </span><span class="s1">+ dataToSend); 
+                    } 
+                    </span><span class="s0">else if </span><span class="s1">(data.startsWith(</span><span class="s3">&quot;*&quot;</span><span class="s1">)) { </span><span class="s4">// Own command</span><span class="s1"> 
+                        dataToSend = data; 
+                        mZentriOSBLEManager.writeData(dataToSend); 
+                        Log.d(TAG, </span><span class="s3">&quot;Sent: &quot; </span><span class="s1">+ dataToSend); 
+                    } 
+                    </span><span class="s0">else </span><span class="s1">{ 
+                        dataToSend = data; 
+                        mZentriOSBLEManager.writeData(dataToSend); 
+                        Log.d(TAG, </span><span class="s3">&quot;Sent: &quot; </span><span class="s1">+ dataToSend); 
+                    } 
+                } 
+ 
+                </span><span class="s0">if </span><span class="s1">(mCurrentMode == ZentriOSBLEManager.MODE_COMMAND_REMOTE) { 
+                    </span><span class="s0">if </span><span class="s1">(data.isEmpty()) { 
+                        </span><span class="s4">//mZentriOSBLEManager.GPIOGetUsage();</span><span class="s1"> 
+                    } 
+                    </span><span class="s0">else if </span><span class="s1">(Integer.parseInt(data) == </span><span class="s2">1</span><span class="s1">) { 
+                        mZentriOSBLEManager.GPIOFunctionSet(</span><span class="s2">10</span><span class="s1">, GPIOFunction.CONN_GPIO); 
+                        mZentriOSBLEManager.GPIOFunctionSet(</span><span class="s2">11</span><span class="s1">, GPIOFunction.STDIO); 
+                        mZentriOSBLEManager.GPIODirectionSet(</span><span class="s2">11</span><span class="s1">, GPIODirection.HIGH_IMPEDANCE); 
+                    } 
+                    </span><span class="s0">else if </span><span class="s1">(Integer.parseInt(data) == </span><span class="s2">0</span><span class="s1">) { 
+                        mZentriOSBLEManager.save(); 
+                        mZentriOSBLEManager.reboot(); 
+                    } 
+                } 
+ 
+                mTextToSendBox.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">);</span><span class="s4">//clear input after send</span><span class="s1"> 
+            } 
+        }); 
+ 
+        mClearTextButton = (Button) findViewById(R.id.clear_button); 
+        mClearTextButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) 
+            { 
+                </span><span class="s4">//  StartBack();</span><span class="s1"> 
+                </span><span class="s0">new </span><span class="s1">Handler().postDelayed(</span><span class="s0">new </span><span class="s1">Runnable() { 
+ 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">run() { 
+                        startb();                               </span><span class="s4">//LG: start background running</span><span class="s1"> 
+                    } 
+                }, </span><span class="s2">500</span><span class="s1">); 
+                clearReceivedTextBox(); 
+            } 
+        }); 
+ 
+        mToggleIm = (ToggleButton) findViewById(R.id.toggle_im); 
+        mToggleIm.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) 
+            { 
+                </span><span class="s0">if </span><span class="s1">(mToggleIm.isChecked()) 
+                { 
+                    </span><span class="s4">// TODO start logging</span><span class="s1"> 
+                    doStartRecording(); 
+                    startRecording(); 
+                    count_bytes = </span><span class="s2">0</span><span class="s1">; 
+                    header_done = </span><span class="s0">false</span><span class="s1">; 
+                } 
+                </span><span class="s0">else</span><span class="s1"> 
+                { 
+                    </span><span class="s4">// TODO stop logging</span><span class="s1"> 
+                    doStopRecording(); 
+                    stopRecording(); 
+                } 
+                Log.d(TAG, </span><span class="s3">&quot;Image recording: &quot; </span><span class="s1">+ mRecording); 
+            } 
+        }); 
+ 
+ 
+        mReceivedDataTextBox = (TextView) findViewById(R.id.receivedDataBox); 
+        mScrollView = (ScrollView) findViewById(R.id.scroll_view); 
+ 
+        GUISetCommandMode();</span><span class="s4">//set up gui for command mode initially</span><span class="s1"> 
+ 
+ 
+        mDisconnectTimeoutTask = </span><span class="s0">new </span><span class="s1">Runnable() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() 
+            { 
+                dismissProgressDialog(); 
+                showErrorDialog(R.string.error, R.string.discon_timeout_message); 
+            } 
+        }; 
+ 
+</span><span class="s4">//        original hard code data</span><span class="s1"> 
+ 
+        ListView currentView = (ListView) findViewById(R.id.currentList); 
+ 
+        values.add(</span><span class="s3">&quot;SC35-02&quot;</span><span class="s1">); 
+        values.add(</span><span class="s3">&quot;SC36-01&quot;</span><span class="s1">); 
+        values.add(</span><span class="s3">&quot;SC36-05&quot;</span><span class="s1">); 
+ 
+ 
+        newadapter = </span><span class="s0">new </span><span class="s1">ArrayAdapter&lt;String&gt;(</span><span class="s0">this</span><span class="s1">, 
+                android.R.layout.simple_list_item_1, android.R.id.text1, values); 
+ 
+ 
+        currentView.setAdapter(newadapter); 
+        initialiseListviewListener(currentView); 
+ 
+</span><span class="s4">//        data from shared preference</span><span class="s1"> 
+ 
+</span><span class="s4">//        ListView currentView = (ListView) findViewById(R.id.currentList);</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);</span><span class="s1"> 
+</span><span class="s4">//        SharedPreferences.Editor editor = preferences.edit();</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//        Set&lt;String&gt; set = preferences.getStringSet(&quot;key&quot;, null);</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//        values = new ArrayList&lt;String&gt;(set);</span><span class="s1"> 
+ 
+ 
+</span><span class="s4">//        set.addAll(values);</span><span class="s1"> 
+</span><span class="s4">//        editor.putStringSet(&quot;key&quot;, set);</span><span class="s1"> 
+</span><span class="s4">//        editor.commit();</span><span class="s1"> 
+ 
+</span><span class="s4">//        newadapter = new ArrayAdapter&lt;String&gt;(this,</span><span class="s1"> 
+</span><span class="s4">//                android.R.layout.simple_list_item_1, android.R.id.text1, values);</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//        currentView.setAdapter(newadapter);</span><span class="s1"> 
+</span><span class="s4">//        initialiseListviewListener(currentView);</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+        </span><span class="s0">new </span><span class="s1">Handler().postDelayed(</span><span class="s0">new </span><span class="s1">Runnable() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                auto_connect(); 
+            } 
+        }, </span><span class="s2">8000</span><span class="s1">); 
+ 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">auto_connect() { 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s1">; i &lt; values.size(); i++) { 
+            mCurrentDeviceName = values.get(i); 
+            </span><span class="s0">if</span><span class="s1">(mDeviceList.findDeviceWithName(mCurrentDeviceName) != </span><span class="s0">null</span><span class="s1">) { 
+ 
+                showToast(</span><span class="s3">&quot;work at here&quot;</span><span class="s1">, Toast.LENGTH_SHORT); 
+ 
+                </span><span class="s0">if </span><span class="s1">(!mConnecting) { 
+                    mConnecting = </span><span class="s0">true</span><span class="s1">; 
+ 
+                    stopScan(); 
+                    Log.d(TAG, </span><span class="s3">&quot;Connecting to BLE device &quot; </span><span class="s1">+ mCurrentDeviceName); 
+                    mZentriOSBLEManager.connect(mCurrentDeviceName); 
+                    Log.d(TAG,</span><span class="s3">&quot;dfasfasdfasdfasdfasdfadsfdsafa&quot; </span><span class="s1">+ mCurrentDeviceName); 
+ 
+                    mHandler.postDelayed(mConnectTimeoutTask, CONNECT_TIMEOUT_MS); 
+                } 
+            } 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">startb(){ 
+        startc(); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">startc(){ 
+        Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, MyService.</span><span class="s0">class</span><span class="s1">); 
+        startService(intent); 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">auto_photo(){ 
+        Log.d(TAG, </span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   auto_photo&quot;</span><span class="s1">); 
+        String dataToSend = </span><span class="s3">&quot;*gn#&quot;</span><span class="s1">; 
+        mZentriOSBLEManager.writeData(dataToSend); 
+        Log.d(TAG, </span><span class="s3">&quot;Sent: &quot; </span><span class="s1">+ dataToSend); 
+        </span><span class="s4">// try{ Thread.sleep(10000); }catch(InterruptedException e){ }</span><span class="s1"> 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public boolean </span><span class="s1">onCreateOptionsMenu(Menu menu) 
+    { 
+        MenuInflater inflater = getMenuInflater(); 
+        inflater.inflate(R.menu.menu_main, menu); 
+        </span><span class="s0">return true</span><span class="s1">; 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public boolean </span><span class="s1">onOptionsItemSelected(MenuItem item) 
+    { 
+        </span><span class="s4">// Handle item selection</span><span class="s1"> 
+        </span><span class="s0">switch </span><span class="s1">(item.getItemId()) 
+        { 
+            </span><span class="s0">case </span><span class="s1">R.id.action_about: 
+                openAboutDialog(); 
+                </span><span class="s0">return true</span><span class="s1">; 
+            </span><span class="s0">default</span><span class="s1">: 
+                </span><span class="s0">return super</span><span class="s1">.onOptionsItemSelected(item); 
+        } 
+    } 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onStart() 
+    { 
+        </span><span class="s0">super</span><span class="s1">.onStart(); 
+ 
+        mDeviceList.clear(); 
+        mConnected = </span><span class="s0">false</span><span class="s1">; 
+        mConnecting = </span><span class="s0">false</span><span class="s1">; 
+        Intent intent1 = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, MyService.</span><span class="s0">class</span><span class="s1">); 
+        bindService(intent1, serviceConnection, Context.BIND_AUTO_CREATE); 
+ 
+        Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, ZentriOSBLEService.</span><span class="s0">class</span><span class="s1">); 
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE); 
+ 
+        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, mReceiverIntentFilter); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onResume() 
+    { 
+        </span><span class="s0">super</span><span class="s1">.onResume(); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onPause() 
+    { 
+        </span><span class="s0">super</span><span class="s1">.onPause(); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onStop() 
+    { 
+        mHandler.removeCallbacks(mStopScanTask); 
+        cancelConnectTimeout(); 
+        dismissConnectDialog(); 
+        </span><span class="s0">if </span><span class="s1">(bound) { 
+            myService.setCallbacks(</span><span class="s0">null</span><span class="s1">); </span><span class="s4">// unregister</span><span class="s1"> 
+            unbindService(serviceConnection); 
+            bound = </span><span class="s0">false</span><span class="s1">; 
+        } 
+        </span><span class="s0">if </span><span class="s1">(mBound) 
+        { 
+            mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver); 
+            unbindService(mConnection); 
+            mBound = </span><span class="s0">false</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s0">super</span><span class="s1">.onStop(); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onDestroy() 
+    { 
+        </span><span class="s0">super</span><span class="s1">.onDestroy(); 
+ 
+        stopService(</span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this</span><span class="s1">, ZentriOSBLEService.</span><span class="s0">class</span><span class="s1">)); 
+    } 
+ 
+    </span><span class="s0">private </span><span class="s1">ServiceConnection serviceConnection = </span><span class="s0">new </span><span class="s1">ServiceConnection() { 
+ 
+        @Override 
+        </span><span class="s0">public void </span><span class="s1">onServiceConnected(ComponentName className, IBinder service) { 
+            </span><span class="s4">// cast the IBinder and get MyService instance</span><span class="s1"> 
+            MyService.LocalBinder binder = (MyService.LocalBinder) service; 
+            myService = binder.getService(); 
+            bound = </span><span class="s0">true</span><span class="s1">; 
+            myService.setCallbacks(MainActivity2.</span><span class="s0">this</span><span class="s1">); </span><span class="s4">// register</span><span class="s1"> 
+        } 
+ 
+        @Override 
+        </span><span class="s0">public void </span><span class="s1">onServiceDisconnected(ComponentName arg0) { 
+            bound = </span><span class="s0">false</span><span class="s1">; 
+        } 
+    }; 
+ 
+    </span><span class="s4">/* 
+    LG:  Background service run this algorithm 
+     */</span><span class="s1"> 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">doSomething() { 
+        </span><span class="s4">// try{ Thread.sleep(3000); }catch(InterruptedException e){ }</span><span class="s1"> 
+        Timer mTimer = </span><span class="s0">new </span><span class="s1">Timer(); 
+        mTimer.schedule(</span><span class="s0">new </span><span class="s1">TimerTask() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+                    </span><span class="s0">public void </span><span class="s1">run() { 
+                        ChooseAndConnect(); </span><span class="s4">// do your work right here</span><span class="s1"> 
+                    } 
+                }); 
+            } 
+        }, </span><span class="s2">20000</span><span class="s1">, </span><span class="s2">20000</span><span class="s1">);                           </span><span class="s4">//scan time</span><span class="s1"> 
+</span><span class="s4">//    }, 20, 20);                           //scan time</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">//LG: iterate the bluetooth device list and choose the valid device name</span><span class="s1"> 
+    </span><span class="s0">private void </span><span class="s1">ChooseAndConnect() { 
+        startScan(); 
+        </span><span class="s0">int </span><span class="s1">Len = mDeviceList.count(); 
+        </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s1">; i &lt; Len; i++) { 
+            String name = mDeviceList.get(i); 
+            </span><span class="s0">if </span><span class="s1">(ValidDevice.contains(name)) {    </span><span class="s4">//if it has been 2000 since last connected, connected.</span><span class="s1"> 
+                </span><span class="s0">if</span><span class="s1">(TimeTable.containsKey(name)) { 
+                    </span><span class="s0">long </span><span class="s1">time = System.currentTimeMillis(); 
+                    </span><span class="s0">long </span><span class="s1">lasttime = TimeTable.get(name); 
+                    </span><span class="s0">if </span><span class="s1">(lasttime - time &gt; </span><span class="s2">2000</span><span class="s1">) { 
+                        TimeTable.put(name, time); 
+                        auto(name); 
+                    } 
+                } 
+                </span><span class="s0">else </span><span class="s1">{ 
+                    TimeTable.put(name, System.currentTimeMillis()); 
+                    auto(name); 
+                } 
+            } 
+        } 
+    } 
+ 
+    </span><span class="s4">//LG: connect to the specific device (chose by name)</span><span class="s1"> 
+    </span><span class="s0">private void </span><span class="s1">auto(String name){ 
+        </span><span class="s4">// while (!mConnecting) {</span><span class="s1"> 
+        stopScan(); 
+        </span><span class="s0">if</span><span class="s1">(mDeviceList.findDeviceWithName(name) != </span><span class="s0">null</span><span class="s1">) { 
+            Log.d(TAG, </span><span class="s3">&quot;Connecting to BLE device &quot; </span><span class="s1">+ name); 
+            mCurrentDeviceName = name; 
+            mZentriOSBLEManager.connect(mCurrentDeviceName); 
+            </span><span class="s4">// showConnectingDialog(view.getContext());</span><span class="s1"> 
+            mHandler.postDelayed(mConnectTimeoutTask, CONNECT_TIMEOUT_MS); 
+            mConnecting = </span><span class="s0">true</span><span class="s1">; 
+            Log.d(TAG,</span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   111&quot;</span><span class="s1">); 
+        } 
+        </span><span class="s4">//    }</span><span class="s1"> 
+ 
+        Log.d(TAG,</span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   connected&quot;</span><span class="s1">); 
+        </span><span class="s0">while</span><span class="s1">(mZentriOSBLEManager == </span><span class="s0">null </span><span class="s1">|| !mZentriOSBLEManager.isConnected()) { 
+ 
+        } 
+        </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager != </span><span class="s0">null </span><span class="s1">&amp;&amp; mZentriOSBLEManager.isConnected()) { 
+            Log.d(TAG, </span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   entered&quot;</span><span class="s1">); 
+            mCurrentMode = ZentriOSBLEManager.MODE_STREAM; 
+            mZentriOSBLEManager.setMode(mCurrentMode); 
+            Log.d(TAG, </span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   mode&quot;</span><span class="s1">); 
+            String dataToSend = </span><span class="s3">&quot;*gn#&quot;</span><span class="s1">; 
+ 
+            </span><span class="s0">new </span><span class="s1">Handler().postDelayed(</span><span class="s0">new </span><span class="s1">Runnable() { 
+ 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">run() { 
+                    auto_photo(); 
+                } 
+            }, </span><span class="s2">4500</span><span class="s1">); 
+            </span><span class="s4">//try{ Thread.sleep(3000); }catch(InterruptedException e){ }</span><span class="s1"> 
+            </span><span class="s4">//auto_photo();</span><span class="s1"> 
+ 
+        } 
+        Log.d(TAG, </span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   out&quot;</span><span class="s1">); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">protected void </span><span class="s1">onActivityResult(</span><span class="s0">int </span><span class="s1">requestCode, </span><span class="s0">int </span><span class="s1">resultCode, Intent data) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(requestCode == BLE_ENABLE_REQ_CODE) 
+        { 
+            mService.initTruconnectManager();</span><span class="s4">//try again</span><span class="s1"> 
+            </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager.isInitialised()) 
+            { 
+                startScan(); 
+            } 
+            </span><span class="s0">else</span><span class="s1"> 
+            { 
+                showUnrecoverableErrorDialog(R.string.init_fail_title, R.string.init_fail_msg); 
+            } 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">initScanButton() 
+    { 
+        mScanButton = (Button) findViewById(R.id.button_scan); 
+        mScanButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onClick(View v) { 
+                mDeviceList.clear(); 
+                startScan(); 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">initDeviceList() 
+    { 
+        ListView deviceListView = (ListView) findViewById(R.id.listView); 
+        ArrayAdapter&lt;String&gt; adapter = </span><span class="s0">new </span><span class="s1">ArrayAdapter&lt;String&gt;(</span><span class="s0">this</span><span class="s1">, R.layout.listitem, R.id.textView); 
+ 
+        initialiseListviewListener(deviceListView); 
+        mDeviceList = </span><span class="s0">new </span><span class="s1">DeviceList(adapter, deviceListView); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">initServiceConnection() 
+    { 
+        mConnection = </span><span class="s0">new </span><span class="s1">ServiceConnection() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onServiceConnected(ComponentName className, IBinder service) 
+            { 
+                ZentriOSBLEService.LocalBinder binder = (ZentriOSBLEService.LocalBinder) service; 
+                mService = binder.getService(); 
+                mBound = </span><span class="s0">true</span><span class="s1">; 
+ 
+                mZentriOSBLEManager = mService.getManager(); 
+                </span><span class="s0">if</span><span class="s1">(!mZentriOSBLEManager.isInitialised()) 
+                { 
+                    startBLEEnableIntent(); 
+                } 
+                </span><span class="s0">else</span><span class="s1"> 
+                { 
+                    startScan(); 
+                } 
+            } 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onServiceDisconnected(ComponentName arg0) 
+            { 
+                mBound = </span><span class="s0">false</span><span class="s1">; 
+            } 
+        }; 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">initBroadcastReceiver() 
+    { 
+        mBroadcastReceiver = </span><span class="s0">new </span><span class="s1">BroadcastReceiver() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onReceive(Context context, Intent intent) 
+            { 
+                </span><span class="s4">// Get extra data included in the Intent</span><span class="s1"> 
+                String action = intent.getAction(); 
+ 
+                Log.d(TAG, </span><span class="s3">&quot;Received intent &quot; </span><span class="s1">+ intent); 
+ 
+                </span><span class="s0">switch </span><span class="s1">(action) 
+                { 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_SCAN_RESULT: 
+                        addDeviceToList(ZentriOSBLEService.getData(intent)); 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_CONNECTED: 
+                        String deviceName = ZentriOSBLEService.getDeviceName(intent); 
+                        </span><span class="s0">int </span><span class="s1">services = ZentriOSBLEService.getIntData(intent); 
+ 
+                        cancelConnectTimeout(); 
+                        dismissConnectDialog(); 
+ 
+                        </span><span class="s4">//RSSI = intent.getShortExtra(mBroadcastReceiver.EXTRA_RSSI,Short.MIN_VALUE);</span><span class="s1"> 
+ 
+                        </span><span class="s4">//if no truconnect services</span><span class="s1"> 
+                        </span><span class="s0">if </span><span class="s1">(services == ZentriOSBLEService.SERVICES_NONE || 
+                                services == ZentriOSBLEService.SERVICES_OTA_ONLY) 
+                        { 
+                            showErrorDialog(R.string.error, R.string.error_service_disc); 
+                            disconnect(NO_TX_NOTIFY_DISABLE); 
+                        } 
+                        </span><span class="s0">else if </span><span class="s1">(!mConnected) 
+                        { 
+                            mConnected = </span><span class="s0">true</span><span class="s1">; 
+                            showToast(</span><span class="s3">&quot;Connected to &quot; </span><span class="s1">+ deviceName, Toast.LENGTH_SHORT); 
+                            Log.d(TAG, </span><span class="s3">&quot;Connected to &quot; </span><span class="s1">+ deviceName); 
+ 
+                            startDeviceInfoActivity(); 
+                        } 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_DISCONNECTED: 
+                        setDisconnectedState(); 
+                        dismissConnectDialog(); 
+                        cancelConnectTimeout(); 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_COMMAND_SENT: 
+                        String command = ZentriOSBLEService.getCommand(intent).toString(); 
+                        Log.d(TAG, </span><span class="s3">&quot;Command &quot; </span><span class="s1">+ command + </span><span class="s3">&quot; sent&quot;</span><span class="s1">); 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+ 
+ 
+ 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_COMMAND_RESULT: 
+                        handleCommandResponse(intent); 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_MODE_WRITE: 
+                        </span><span class="s0">int </span><span class="s1">mode = ZentriOSBLEService.getMode(intent); 
+                        </span><span class="s0">if </span><span class="s1">(mode == ZentriOSBLEManager.MODE_STREAM) 
+                        { 
+                            </span><span class="s4">//disable buttons while in stream mode (must be in rem command to work)</span><span class="s1"> 
+                            GUISetStreamMode(); 
+                        } 
+                        </span><span class="s0">else</span><span class="s1"> 
+                        { 
+                            GUISetCommandMode(); 
+                        } 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_STRING_DATA_READ: 
+                        </span><span class="s4">//if (mCurrentMode == ZentriOSBLEManager.MODE_STREAM)</span><span class="s1"> 
+                        </span><span class="s4">//{</span><span class="s1"> 
+                        String text = ZentriOSBLEService.getData(intent); 
+                        updateReceivedTextBox(text); 
+                        </span><span class="s0">if </span><span class="s1">(text.equals(</span><span class="s3">&quot;I&quot;</span><span class="s1">)) { 
+                            mZentriOSBLEManager.setReceiveMode(ReceiveMode.BINARY); 
+                            count_bytes = </span><span class="s2">0</span><span class="s1">; 
+                            header_done = </span><span class="s0">false</span><span class="s1">; 
+</span><span class="s4">//                            mZentriOSBLEManager.writeData(&quot;0&quot;);</span><span class="s1"> 
+                            </span><span class="s0">break</span><span class="s1">; 
+                        } 
+ 
+                        </span><span class="s0">if </span><span class="s1">(text.equals(</span><span class="s3">&quot;N&quot;</span><span class="s1">)) { 
+                            </span><span class="s0">break</span><span class="s1">; 
+                        } 
+ 
+ 
+ 
+                        temp = text; 
+ 
+                        </span><span class="s0">if </span><span class="s1">(temp.contains(</span><span class="s3">&quot;:&quot;</span><span class="s1">)) { 
+                            ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s3">&quot;TestXZ&quot;</span><span class="s1">); 
+                            testObject.put(</span><span class="s3">&quot;TIME&quot;</span><span class="s1">, temp); 
+                            testObject.put(</span><span class="s3">&quot;NAME&quot;</span><span class="s1">, mCurrentDeviceName); 
+                            testObject.saveEventually(); 
+                        } 
+ 
+                        Log.d(TAG, </span><span class="s3">&quot;text = : &quot; </span><span class="s1">+ text); 
+ 
+</span><span class="s4">//                        if(mRecording) {</span><span class="s1"> 
+</span><span class="s4">//                            writeLog(text);</span><span class="s1"> 
+</span><span class="s4">//                            if (count_bytes == 0) {</span><span class="s1"> 
+</span><span class="s4">//                                val = Integer.parseInt(text);</span><span class="s1"> 
+</span><span class="s4">//                                len_image = val;</span><span class="s1"> 
+</span><span class="s4">//                                count_bytes++;</span><span class="s1"> 
+</span><span class="s4">//                            }</span><span class="s1"> 
+</span><span class="s4">//                            else if (count_bytes == 1) {</span><span class="s1"> 
+</span><span class="s4">//                                val = Integer.parseInt(text);</span><span class="s1"> 
+</span><span class="s4">//                                len_image += val*256;</span><span class="s1"> 
+</span><span class="s4">//                                imBytesSplit = new byte[2*len_image];</span><span class="s1"> 
+</span><span class="s4">//                                count_bytes++;</span><span class="s1"> 
+</span><span class="s4">//                                header_done = true;</span><span class="s1"> 
+</span><span class="s4">//                            }</span><span class="s1"> 
+</span><span class="s4">//                            else {</span><span class="s1"> 
+</span><span class="s4">//                                byte[] block = text.getBytes(Charset.forName(&quot;UTF-8&quot;));</span><span class="s1"> 
+</span><span class="s4">//                                //byte[] block = ZentriOSBLEService.getByteData(intent);</span><span class="s1"> 
+</span><span class="s4">//                                System.arraycopy(block,0,imBytesSplit,count_bytes-2,block.length);</span><span class="s1"> 
+</span><span class="s4">//                                    /*for (int ii=0;ii&lt;block.length;ii++) {</span><span class="s1"> 
+</span><span class="s4">//                                        imBytes[count_bytes-2+ii] = block[ii];</span><span class="s1"> 
+</span><span class="s4">//                                    }*/</span><span class="s1"> 
+</span><span class="s4">//                                count_bytes += block.length;</span><span class="s1"> 
+</span><span class="s4">//                                //imBytes[count_bytes-2] = (byte) val;</span><span class="s1"> 
+</span><span class="s4">//                            }</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//                            if (count_bytes &lt; len_image*2) mZentriOSBLEManager.writeData(&quot;0&quot;);</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//                            //count_bytes++;</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//                            if (count_bytes&gt;=(2*len_image) &amp;&amp; header_done) {</span><span class="s1"> 
+</span><span class="s4">//                                imBytes = new byte[len_image];</span><span class="s1"> 
+</span><span class="s4">//                                for (int ii=0;ii&lt;len_image;ii++) {</span><span class="s1"> 
+</span><span class="s4">//                                    imBytes[ii] = (byte) (imBytesSplit[2*ii] + (imBytesSplit[(2*ii)+1]*16));</span><span class="s1"> 
+</span><span class="s4">//                                }</span><span class="s1"> 
+</span><span class="s4">//                                saveImage(imBytes);</span><span class="s1"> 
+</span><span class="s4">//                                mToggleIm.setChecked(false);</span><span class="s1"> 
+</span><span class="s4">//                                doStopRecording();</span><span class="s1"> 
+</span><span class="s4">//                                stopRecording();</span><span class="s1"> 
+</span><span class="s4">//                            }</span><span class="s1"> 
+</span><span class="s4">//                        }</span><span class="s1"> 
+ 
+ 
+</span><span class="s4">//                                String dataToSend = &quot;*gi#&quot;;</span><span class="s1"> 
+</span><span class="s4">//                                mZentriOSBLEManager.writeData(dataToSend);</span><span class="s1"> 
+ 
+                            </span><span class="s0">if </span><span class="s1">(gi == </span><span class="s0">true</span><span class="s1">) { 
+                                String dataToSend = </span><span class="s3">&quot;*ai#&quot;</span><span class="s1">; 
+                                mZentriOSBLEManager.writeData(dataToSend); 
+                                gi = </span><span class="s0">false</span><span class="s1">; 
+                            } 
+                            </span><span class="s0">else </span><span class="s1">{ 
+                                String dataToSend = </span><span class="s3">&quot;*gi#&quot;</span><span class="s1">; 
+                                mZentriOSBLEManager.writeData(dataToSend); 
+                                gi = </span><span class="s0">true</span><span class="s1">; 
+                            } 
+ 
+                        Log.d(TAG, </span><span class="s3">&quot;Bytes: &quot; </span><span class="s1">+ count_bytes); 
+                        </span><span class="s4">//}</span><span class="s1"> 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_BINARY_DATA_READ: 
+                        </span><span class="s0">byte</span><span class="s1">[] block = ZentriOSBLEService.getBinaryData(intent); 
+                        </span><span class="s0">if</span><span class="s1">(mRecording) { 
+                            writeLog(block.toString()); 
+                        } 
+                        </span><span class="s0">if </span><span class="s1">(!header_done) { 
+                            </span><span class="s0">if </span><span class="s1">(block.length == </span><span class="s2">1 </span><span class="s1">&amp;&amp; count_bytes == </span><span class="s2">0</span><span class="s1">) { 
+                                len_image = block[</span><span class="s2">0</span><span class="s1">]; 
+                                count_bytes++; 
+                            } 
+                            </span><span class="s0">else if </span><span class="s1">(block.length == </span><span class="s2">1 </span><span class="s1">&amp;&amp; count_bytes == </span><span class="s2">1</span><span class="s1">) { 
+                                len_image += block[</span><span class="s2">0</span><span class="s1">]*</span><span class="s2">256</span><span class="s1">; 
+                                count_bytes--; 
+                                header_done = </span><span class="s0">true</span><span class="s1">; 
+                                imBytes = </span><span class="s0">new byte</span><span class="s1">[len_image]; 
+                            } 
+                            </span><span class="s0">else if </span><span class="s1">(block.length &gt; </span><span class="s2">1</span><span class="s1">) { 
+                                len_image = (block[</span><span class="s2">0</span><span class="s1">] &amp; </span><span class="s2">0x00FF</span><span class="s1">) | ((block[</span><span class="s2">1</span><span class="s1">] &lt;&lt; </span><span class="s2">8</span><span class="s1">) &amp; </span><span class="s2">0xFF00</span><span class="s1">); 
+                                header_done = </span><span class="s0">true</span><span class="s1">; 
+                                imBytes = </span><span class="s0">new byte</span><span class="s1">[len_image]; 
+ 
+                                </span><span class="s0">if </span><span class="s1">(block.length &gt; </span><span class="s2">2</span><span class="s1">) { 
+                                    System.arraycopy(block, </span><span class="s2">2</span><span class="s1">, imBytes, count_bytes, block.length - </span><span class="s2">2</span><span class="s1">); 
+                                    count_bytes += block.length - </span><span class="s2">2</span><span class="s1">; 
+                                } 
+                            } 
+                        } 
+                        </span><span class="s0">else </span><span class="s1">{ 
+                            </span><span class="s0">if </span><span class="s1">(count_bytes + block.length &gt; len_image) { 
+                                System.arraycopy(block, </span><span class="s2">0</span><span class="s1">, imBytes, count_bytes, len_image-count_bytes); 
+                                count_bytes += (len_image-count_bytes); 
+                            } 
+                            </span><span class="s0">else </span><span class="s1">{ 
+                                System.arraycopy(block, </span><span class="s2">0</span><span class="s1">, imBytes, count_bytes, block.length); 
+                                count_bytes += block.length; 
+                            } 
+                        } 
+ 
+                        </span><span class="s4">//if (count_bytes &lt; len_image) mZentriOSBLEManager.writeData(&quot;0&quot;);</span><span class="s1"> 
+                        </span><span class="s4">//mZentriOSBLEManager.writeData(&quot;0&quot;);</span><span class="s1"> 
+ 
+                        </span><span class="s0">if </span><span class="s1">(count_bytes&gt;</span><span class="s2">2 </span><span class="s1">&amp;&amp; imBytes[count_bytes-</span><span class="s2">2</span><span class="s1">]==-</span><span class="s2">1 </span><span class="s1">&amp;&amp; imBytes[count_bytes-</span><span class="s2">1</span><span class="s1">]==-</span><span class="s2">39</span><span class="s1">) { 
+                            </span><span class="s4">//if (count_bytes&gt;=(len_image) &amp;&amp; header_done) {</span><span class="s1"> 
+                            saveImage(imBytes); 
+                            mToggleIm.setChecked(</span><span class="s0">false</span><span class="s1">); 
+                            doStopRecording(); 
+                            stopRecording(); 
+                            clearReceivedTextBox(); 
+                            Log.d(TAG, </span><span class="s3">&quot;SDFADSFASDFASFASFASFASFA   photo show&quot;</span><span class="s1">); 
+                            imView = (ImageView) findViewById(R.id.imageView); 
+                            Bitmap bmp = BitmapFactory.decodeByteArray(imBytes, </span><span class="s2">0</span><span class="s1">, len_image); 
+                            imView.setImageBitmap(bmp); 
+                            mZentriOSBLEManager.setReceiveMode(ReceiveMode.STRING); 
+                            </span><span class="s4">//mZentriOSBLEManager.writeData(&quot;*000#&quot;);</span><span class="s1"> 
+                            </span><span class="s4">//mZentriOSBLEManager.writeData(&quot;*R#&quot;);</span><span class="s1"> 
+                            </span><span class="s4">//mZentriOSBLEManager.writeData(&quot;*W#&quot;);</span><span class="s1"> 
+                        } 
+                        Log.d(TAG, </span><span class="s3">&quot;Bytes: &quot; </span><span class="s1">+ count_bytes + </span><span class="s3">&quot;Val: &quot; </span><span class="s1">+ block[</span><span class="s2">0</span><span class="s1">]); 
+ 
+                        </span><span class="s0">break</span><span class="s1">; 
+ 
+                    </span><span class="s0">case </span><span class="s1">ZentriOSBLEService.ACTION_ERROR: 
+                        ErrorCode errorCode = ZentriOSBLEService.getErrorCode(intent); 
+                        </span><span class="s4">//handle errors</span><span class="s1"> 
+                        </span><span class="s0">switch </span><span class="s1">(errorCode) 
+                        { 
+                            </span><span class="s0">case </span><span class="s1">CONNECT_FAILED: 
+                                setDisconnectedState(); 
+                                dismissConnectDialog(); 
+                                cancelConnectTimeout(); 
+                                showErrorDialog(R.string.error, R.string.con_err_message); 
+                                </span><span class="s0">break</span><span class="s1">; 
+ 
+                            </span><span class="s0">case </span><span class="s1">DEVICE_ERROR: 
+                                cancelConnectTimeout(); 
+                                dismissConnectDialog(); 
+                                </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager != </span><span class="s0">null </span><span class="s1">&amp;&amp; mZentriOSBLEManager.isConnected()) 
+                                { 
+                                    disconnect(NO_TX_NOTIFY_DISABLE); 
+                                } 
+                                </span><span class="s0">break</span><span class="s1">; 
+ 
+                            </span><span class="s0">case </span><span class="s1">SET_NOTIFY_FAILED: 
+                                cancelConnectTimeout(); 
+                                dismissConnectDialog(); 
+                                disconnect(NO_TX_NOTIFY_DISABLE); 
+                                showErrorDialog(R.string.error, R.string.error_configuration); 
+                                </span><span class="s0">break</span><span class="s1">; 
+ 
+                            </span><span class="s0">case </span><span class="s1">SERVICE_DISCOVERY_ERROR: 
+                                </span><span class="s4">//need to disconnect</span><span class="s1"> 
+                                cancelConnectTimeout(); 
+                                dismissConnectDialog(); 
+                                disconnect(NO_TX_NOTIFY_DISABLE); 
+                                showErrorDialog(R.string.error, R.string.error_service_disc); 
+                                </span><span class="s0">break</span><span class="s1">; 
+ 
+                            </span><span class="s0">case </span><span class="s1">DISCONNECT_FAILED: 
+                                </span><span class="s0">if </span><span class="s1">(!isFinishing()) 
+                                { 
+                                    showUnrecoverableErrorDialog(R.string.error, R.string.discon_err_message); 
+                                } 
+                                </span><span class="s0">break</span><span class="s1">; 
+                        } 
+                        </span><span class="s0">break</span><span class="s1">; 
+                } 
+            } 
+        }; 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">initBroadcastManager() 
+    { 
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext()); 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">initReceiverIntentFilter() 
+    { 
+        mReceiverIntentFilter = </span><span class="s0">new </span><span class="s1">IntentFilter(); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_SCAN_RESULT); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_CONNECTED); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_DISCONNECTED); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_ERROR); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_COMMAND_RESULT); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_STRING_DATA_READ); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_BINARY_DATA_READ); 
+        mReceiverIntentFilter.addAction(ZentriOSBLEService.ACTION_MODE_WRITE); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">startBLEEnableIntent() 
+    { 
+        Intent enableBtIntent = </span><span class="s0">new </span><span class="s1">Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE); 
+        startActivityForResult(enableBtIntent, BLE_ENABLE_REQ_CODE); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">initialiseListviewListener(ListView listView) 
+    { 
+        listView.setOnItemClickListener(</span><span class="s0">new </span><span class="s1">AdapterView.OnItemClickListener() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">onItemClick(AdapterView&lt;?&gt; parent, View view, 
+                                    </span><span class="s0">int </span><span class="s1">position, </span><span class="s0">long </span><span class="s1">id) { 
+                mCurrentDeviceName = mDeviceList.get(position); 
+                values.add(mCurrentDeviceName); 
+                newadapter.notifyDataSetChanged(); 
+ 
+ 
+                </span><span class="s0">if </span><span class="s1">(!mConnecting) { 
+                    mConnecting = </span><span class="s0">true</span><span class="s1">; 
+ 
+                    stopScan(); 
+                    Log.d(TAG, </span><span class="s3">&quot;Connecting to BLE device &quot; </span><span class="s1">+ mCurrentDeviceName); 
+                    mZentriOSBLEManager.connect(mCurrentDeviceName); 
+                    Log.d(TAG,</span><span class="s3">&quot;dfasfasdfasdfasdfasdfadsfdsafa&quot; </span><span class="s1">+ mCurrentDeviceName); 
+ 
+                    showConnectingDialog(view.getContext()); 
+ 
+                    mHandler.postDelayed(mConnectTimeoutTask, CONNECT_TIMEOUT_MS); 
+                } 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">startScan() 
+    { 
+ 
+        </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager != </span><span class="s0">null</span><span class="s1">) 
+        { 
+            Toast.makeText(getApplicationContext(),</span><span class="s3">&quot;Manager is not null&quot;</span><span class="s1">,Toast.LENGTH_LONG).show(); 
+            runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">run() { 
+                    mZentriOSBLEManager.startScan(); 
+                } 
+            }); 
+            </span><span class="s4">//startProgressBar();</span><span class="s1"> 
+            disableScanButton(); 
+            mHandler.postDelayed(mStopScanTask, SCAN_PERIOD); 
+        } 
+        </span><span class="s0">else </span><span class="s1">{Toast.makeText(getApplicationContext(),</span><span class="s3">&quot;Manager is null&quot;</span><span class="s1">,Toast.LENGTH_LONG).show();} 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">stopScan() 
+    { 
+        </span><span class="s0">if </span><span class="s1">(mZentriOSBLEManager != </span><span class="s0">null </span><span class="s1">&amp;&amp; mZentriOSBLEManager.stopScan()) 
+        { 
+            </span><span class="s4">//stopProgressBar();</span><span class="s1"> 
+            enableScanButton(); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">startDeviceInfoActivity() 
+    { 
+        </span><span class="s4">//GUISetCommandMode();</span><span class="s1"> 
+        mZentriOSBLEManager.setMode(ZentriOSBLEManager.MODE_COMMAND_REMOTE); 
+        mZentriOSBLEManager.setSystemCommandMode(CommandMode.MACHINE); 
+        mZentriOSBLEManager.getVersion(); 
+        </span><span class="s4">//startActivity(new Intent(getApplicationContext(), DeviceInfoActivity.class));</span><span class="s1"> 
+        mDeviceList.clear(); 
+        mDeviceList.add(mCurrentDeviceName); 
+ 
+        mCurrentMode = ZentriOSBLEManager.MODE_STREAM; 
+        x = mZentriOSBLEManager.setMode(mCurrentMode); 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+</span><span class="s4">//        Log.d(TAG, &quot;Mode set to: &quot; + mCurrentMode);</span><span class="s1"> 
+</span><span class="s4">//</span><span class="s1"> 
+        Toast.makeText(getApplicationContext(), </span><span class="s3">&quot;here!&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+ 
+</span><span class="s4">//        String dataToSend = &quot;*gn#&quot;;</span><span class="s1"> 
+</span><span class="s4">//        mZentriOSBLEManager.writeData(dataToSend);</span><span class="s1"> 
+ 
+        </span><span class="s0">new </span><span class="s1">Handler().postDelayed(</span><span class="s0">new </span><span class="s1">Runnable() { 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+</span><span class="s4">//                auto(mCurrentDeviceName);</span><span class="s1"> 
+                auto_photo(); 
+            } 
+        }, </span><span class="s2">2500</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">enableScanButton() 
+    { 
+        runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                mScanButton.setEnabled(</span><span class="s0">true</span><span class="s1">); 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">disableScanButton() 
+    { 
+        runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                mScanButton.setEnabled(</span><span class="s0">false</span><span class="s1">); 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">showToast(</span><span class="s0">final </span><span class="s1">String msg, </span><span class="s0">final int </span><span class="s1">duration) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(!isFinishing()) 
+        { 
+            runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() 
+            { 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">run() 
+                { 
+                    Toast.makeText(getApplicationContext(), msg, duration).show(); 
+                } 
+            }); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">showErrorDialog(</span><span class="s0">final int </span><span class="s1">titleID, </span><span class="s0">final int </span><span class="s1">msgID) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(!mErrorDialogShowing &amp;&amp; !isFinishing()) 
+        { 
+            mErrorDialogShowing = </span><span class="s0">true</span><span class="s1">; 
+ 
+            runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() 
+            { 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">run() 
+                { 
+                    AlertDialog.Builder builder = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(MainActivity2.</span><span class="s0">this</span><span class="s1">); 
+                    builder.setTitle(titleID) 
+                            .setMessage(msgID) 
+                            .setPositiveButton(R.string.ok, </span><span class="s0">new </span><span class="s1">DialogInterface.OnClickListener() 
+                            { 
+                                @Override 
+                                </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">which) 
+                                { 
+                                    dialog.dismiss(); 
+                                    mErrorDialogShowing = </span><span class="s0">false</span><span class="s1">; 
+                                } 
+                            }) 
+                            .create() 
+                            .show(); 
+                } 
+            }); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">showUnrecoverableErrorDialog(</span><span class="s0">final int </span><span class="s1">titleID, </span><span class="s0">final int </span><span class="s1">msgID) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(!isFinishing()) 
+        { 
+            runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">run() { 
+                    AlertDialog.Builder builder = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(MainActivity2.</span><span class="s0">this</span><span class="s1">); 
+ 
+                    builder.setTitle(titleID) 
+                            .setMessage(msgID) 
+                            .setPositiveButton(R.string.exit, </span><span class="s0">new </span><span class="s1">DialogInterface.OnClickListener() { 
+                                @Override 
+                                </span><span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog, </span><span class="s0">int </span><span class="s1">which) { 
+                                    dialog.dismiss(); 
+                                    finish(); 
+                                } 
+                            }) 
+                            .create() 
+                            .show(); 
+                } 
+            }); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">dismissConnectDialog() 
+    { 
+        runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() 
+        { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() 
+            { 
+                </span><span class="s0">if </span><span class="s1">(mConnectProgressDialog != </span><span class="s0">null</span><span class="s1">) 
+                { 
+                    mConnectProgressDialog.dismiss(); 
+                    mConnectProgressDialog = </span><span class="s0">null</span><span class="s1">; 
+                } 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s4">//Only adds to the list if not already in it</span><span class="s1"> 
+    </span><span class="s0">private void </span><span class="s1">addDeviceToList(</span><span class="s0">final </span><span class="s1">String name) 
+    { 
+        runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                mDeviceList.add(name); 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">showConnectingDialog(</span><span class="s0">final </span><span class="s1">Context context) 
+    { 
+        </span><span class="s0">if </span><span class="s1">(!isFinishing()) 
+        { 
+            runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() 
+            { 
+                @Override 
+                </span><span class="s0">public void </span><span class="s1">run() 
+                { 
+                    </span><span class="s0">final </span><span class="s1">ProgressDialog dialog = </span><span class="s0">new </span><span class="s1">ProgressDialog(MainActivity2.</span><span class="s0">this</span><span class="s1">); 
+                    String title = getString(R.string.progress_title); 
+                    String msg = getString(R.string.progress_message); 
+                    dialog.setIndeterminate(</span><span class="s0">true</span><span class="s1">);</span><span class="s4">//Dont know how long connection could take.....</span><span class="s1"> 
+                    dialog.setCancelable(</span><span class="s0">true</span><span class="s1">); 
+ 
+                    mConnectProgressDialog = dialog.show(context, title, msg); 
+                    mConnectProgressDialog.setCancelable(</span><span class="s0">true</span><span class="s1">); 
+                    mConnectProgressDialog.setOnCancelListener(</span><span class="s0">new </span><span class="s1">DialogInterface.OnCancelListener() 
+                    { 
+                        @Override 
+                        </span><span class="s0">public void </span><span class="s1">onCancel(DialogInterface dialogInterface) 
+                        { 
+                            dialogInterface.dismiss(); 
+                        } 
+                    }); 
+                } 
+            }); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">setDisconnectedState() 
+    { 
+        mConnected = </span><span class="s0">false</span><span class="s1">; 
+        mConnecting = </span><span class="s0">false</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">cancelConnectTimeout() 
+    { 
+        mHandler.removeCallbacks(mConnectTimeoutTask); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">disconnect(</span><span class="s0">boolean </span><span class="s1">disableTxNotify) 
+    { 
+        setDisconnectedState(); 
+        mZentriOSBLEManager.disconnect(disableTxNotify); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">openAboutDialog() 
+    { 
+        runOnUiThread(</span><span class="s0">new </span><span class="s1">Runnable() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                Dialogs.makeAboutDialog(MainActivity2.</span><span class="s0">this</span><span class="s1">).show(); 
+            } 
+        }); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">dismissProgressDialog() 
+    { 
+        </span><span class="s0">if </span><span class="s1">(mDisconnectDialog != </span><span class="s0">null</span><span class="s1">) 
+        { 
+            mDisconnectDialog.dismiss(); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">handleCommandResponse(Intent intent) 
+    { 
+        Command command = ZentriOSBLEService.getCommand(intent); 
+        </span><span class="s0">int </span><span class="s1">ID = ZentriOSBLEService.getID(intent); 
+        </span><span class="s0">int </span><span class="s1">code = ZentriOSBLEService.getResponseCode(intent); 
+        String result = ZentriOSBLEService.getData(intent); 
+        String message = </span><span class="s3">&quot;&quot;</span><span class="s1">; 
+ 
+        Log.d(TAG, </span><span class="s3">&quot;Command &quot; </span><span class="s1">+ command + </span><span class="s3">&quot; result&quot;</span><span class="s1">); 
+ 
+        </span><span class="s0">if </span><span class="s1">(code == Result.SUCCESS) 
+        { 
+            </span><span class="s0">switch </span><span class="s1">(command) 
+            { 
+                </span><span class="s0">case </span><span class="s1">ADC: 
+                    </span><span class="s4">/*if (ID == mCurrentADCCommandID) 
+                    { 
+                        message = String.format(&quot;ADC: %s&quot;, result); 
+                        mADCTextView.setText(message); 
+                    } 
+                    else 
+                    { 
+                        Log.d(TAG, &quot;Invalid ADC command ID!&quot;); 
+                    }*/</span><span class="s1"> 
+                    </span><span class="s0">break</span><span class="s1">; 
+ 
+                </span><span class="s0">case </span><span class="s1">GPIO_GET: 
+                    </span><span class="s4">/*if (ID == mCurrentGPIOCommandID) 
+                    { 
+                        message = String.format(&quot;GPIO: %s&quot;, result); 
+                        mGPIOTextView.setText(message); 
+                    } 
+                    else 
+                    { 
+                        Log.d(TAG, &quot;Invalid GPIO command ID!&quot;); 
+                    }*/</span><span class="s1"> 
+                    </span><span class="s0">break</span><span class="s1">; 
+ 
+                </span><span class="s0">case </span><span class="s1">GPIO_SET: 
+                    </span><span class="s0">break</span><span class="s1">; 
+            } 
+        } 
+        </span><span class="s0">else</span><span class="s1"> 
+        { 
+            message = String.format(</span><span class="s3">&quot;ERROR %d - %s&quot;</span><span class="s1">, code, result); 
+            showToast(message, Toast.LENGTH_SHORT); 
+        } 
+    } 
+ 
+ 
+ 
+ 
+    </span><span class="s4">//set up gui elements for command mode operation</span><span class="s1"> 
+    </span><span class="s0">private void </span><span class="s1">GUISetCommandMode() 
+    { 
+        </span><span class="s4">//mSendTextButton.setEnabled(false);</span><span class="s1"> 
+        </span><span class="s4">//mTextToSendBox.setVisibility(View.INVISIBLE);</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">//set up gui elements for command mode operation</span><span class="s1"> 
+    </span><span class="s0">private void </span><span class="s1">GUISetStreamMode() 
+    { 
+        mSendTextButton.setEnabled(</span><span class="s0">true</span><span class="s1">); 
+        mTextToSendBox.setVisibility(View.VISIBLE); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">updateReceivedTextBox(String newData) 
+    { 
+        mReceivedDataTextBox.append(newData); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">clearReceivedTextBox() 
+    { 
+        mReceivedDataTextBox.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">doStartRecording() { 
+        File sdCard = Environment.getExternalStorageDirectory(); 
+ 
+        SimpleDateFormat format = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s3">&quot;yyyyMMdd_HHmmss&quot;</span><span class="s1">); 
+        String currentDateTimeString = format.format(</span><span class="s0">new </span><span class="s1">Date()); 
+        String fileName = sdCard.getAbsolutePath() + </span><span class="s3">&quot;/ams001_&quot; </span><span class="s1">+ currentDateTimeString + </span><span class="s3">&quot;.log&quot;</span><span class="s1">; 
+ 
+        </span><span class="s0">this</span><span class="s1">.setFileNameLog(fileName); 
+        </span><span class="s0">this</span><span class="s1">.startRecording(); 
+ 
+        showToast(</span><span class="s3">&quot;Logging Started&quot;</span><span class="s1">, Toast.LENGTH_SHORT); 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">doStopRecording() { 
+        </span><span class="s0">this</span><span class="s1">.stopRecording(); 
+</span><span class="s4">//        showToast(&quot;Logging Stopped&quot;, Toast.LENGTH_SHORT);</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">setFileNameLog( String fileNameLog ) { 
+        mFileNameLog = fileNameLog; 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">startRecording() { 
+        mRecording = </span><span class="s0">true</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">stopRecording() { 
+        mRecording = </span><span class="s0">false</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s0">private boolean </span><span class="s1">writeLog(String buffer) { 
+        String state = Environment.getExternalStorageState(); 
+        File logFile = </span><span class="s0">new </span><span class="s1">File ( mFileNameLog ); 
+ 
+        </span><span class="s0">if </span><span class="s1">(Environment.MEDIA_MOUNTED.equals(state)) { 
+ 
+            </span><span class="s0">try </span><span class="s1">{ 
+                FileOutputStream f = </span><span class="s0">new </span><span class="s1">FileOutputStream( logFile, </span><span class="s0">true </span><span class="s1">); 
+ 
+                PrintWriter pw = </span><span class="s0">new </span><span class="s1">PrintWriter(f); 
+                pw.print( buffer ); 
+                pw.flush(); 
+                pw.close(); 
+ 
+                f.close(); 
+            } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
+                e.printStackTrace(); 
+            } 
+        } 
+        </span><span class="s0">else if </span><span class="s1">(Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) { 
+            </span><span class="s0">this</span><span class="s1">.stopRecording(); 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } </span><span class="s0">else </span><span class="s1">{ 
+            </span><span class="s0">this</span><span class="s1">.stopRecording(); 
+            </span><span class="s0">return false</span><span class="s1">; 
+        } 
+ 
+        </span><span class="s0">return true</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">saveImage(</span><span class="s0">byte</span><span class="s1">[] data) { 
+        File sdCard = Environment.getExternalStorageDirectory(); 
+        String fileName = sdCard.getAbsolutePath() + </span><span class="s3">&quot;/ams001_image.jpg&quot;</span><span class="s1">; 
+        File testimage = </span><span class="s0">new </span><span class="s1">File(fileName); 
+ 
+        </span><span class="s0">if </span><span class="s1">(testimage.exists()) { 
+            testimage.delete(); 
+        } 
+ 
+        </span><span class="s0">try </span><span class="s1">{ 
+            FileOutputStream fos = </span><span class="s0">new </span><span class="s1">FileOutputStream(testimage.getPath()); 
+            fos.write(data); 
+            fos.close(); 
+        } </span><span class="s0">catch </span><span class="s1">(IOException e) { 
+            e.printStackTrace(); 
+        } 
+    } 
+}</span></pre>
+</body>
+</html>

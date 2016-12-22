@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>MyService.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MyService.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.adherence.adherence; 
+ 
+</span><span class="s0">import </span><span class="s1">android.app.Service; 
+</span><span class="s0">import </span><span class="s1">android.content.Intent; 
+</span><span class="s0">import </span><span class="s1">android.os.Binder; 
+</span><span class="s0">import </span><span class="s1">android.os.Handler; 
+</span><span class="s0">import </span><span class="s1">android.os.IBinder; 
+</span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+ 
+</span><span class="s0">import </span><span class="s1">com.parse.ParseObject; 
+ 
+</span><span class="s0">import </span><span class="s1">java.text.SimpleDateFormat; 
+</span><span class="s0">import </span><span class="s1">java.util.Date; 
+</span><span class="s0">import </span><span class="s1">java.util.Random; 
+ 
+</span><span class="s2">/** 
+ * Created by caffery on 4/25/16. 
+ */</span><span class="s1"> 
+</span><span class="s0">public class </span><span class="s1">MyService </span><span class="s0">extends </span><span class="s1">Service { 
+    </span><span class="s2">// Binder given to clients</span><span class="s1"> 
+    </span><span class="s0">private final </span><span class="s1">IBinder binder = </span><span class="s0">new </span><span class="s1">LocalBinder(); 
+    </span><span class="s2">// Registered callbacks</span><span class="s1"> 
+    </span><span class="s0">private </span><span class="s1">ServiceCallbacks serviceCallbacks; 
+ 
+    </span><span class="s0">private final </span><span class="s1">Random mGenerator = </span><span class="s0">new </span><span class="s1">Random(); 
+ 
+    </span><span class="s2">// Class used for the client Binder.</span><span class="s1"> 
+    </span><span class="s0">public class </span><span class="s1">LocalBinder </span><span class="s0">extends </span><span class="s1">Binder { 
+        MyService getService() { 
+            </span><span class="s2">// Return this instance of MyService so clients can call public methods</span><span class="s1"> 
+            </span><span class="s0">return </span><span class="s1">MyService.</span><span class="s0">this</span><span class="s1">; 
+        } 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public </span><span class="s1">IBinder onBind(Intent intent) { 
+        </span><span class="s0">return </span><span class="s1">binder; 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">setCallbacks(ServiceCallbacks callbacks) { 
+        serviceCallbacks = callbacks; 
+    } 
+    </span><span class="s2">/** method for clients */</span><span class="s1"> 
+    </span><span class="s0">public int </span><span class="s1">getRandomNumber() { 
+        </span><span class="s0">return </span><span class="s1">mGenerator.nextInt(</span><span class="s3">100</span><span class="s1">); 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">onCreate() { 
+ 
+    } 
+ 
+    </span><span class="s2">//LG: CALL THE SERVICE</span><span class="s1"> 
+    @Override 
+    </span><span class="s0">public int </span><span class="s1">onStartCommand(Intent intent, </span><span class="s0">int </span><span class="s1">flags, </span><span class="s0">int </span><span class="s1">startId) { 
+        Toast.makeText(getApplicationContext(),</span><span class="s4">&quot;On start command&quot;</span><span class="s1">,Toast.LENGTH_LONG).show(); 
+        </span><span class="s0">if </span><span class="s1">(serviceCallbacks != </span><span class="s0">null</span><span class="s1">) { 
+</span><span class="s2">//            Toast.makeText(getApplicationContext(),&quot;In service&quot;,Toast.LENGTH_LONG).show();</span><span class="s1"> 
+            callservice(); 
+</span><span class="s2">//            Toast.makeText(getApplicationContext(),&quot;Call service&quot;,Toast.LENGTH_LONG).show();</span><span class="s1"> 
+        } 
+        </span><span class="s0">return </span><span class="s3">1</span><span class="s1">; 
+    } 
+    </span><span class="s2">//LG: within the background service, call the fuction of main active to connec the deivce</span><span class="s1"> 
+    </span><span class="s0">public void </span><span class="s1">callservice( ) { 
+        </span><span class="s0">new </span><span class="s1">Handler().postDelayed(</span><span class="s0">new </span><span class="s1">Runnable() { 
+ 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                serviceCallbacks.doSomething(); 
+                Date now = </span><span class="s0">new </span><span class="s1">Date(); 
+                String timestamp = </span><span class="s0">new </span><span class="s1">SimpleDateFormat(</span><span class="s4">&quot;yyyy/MM/dd&quot;</span><span class="s1">).format(now); 
+                ParseObject testObject = </span><span class="s0">new </span><span class="s1">ParseObject(</span><span class="s4">&quot;TestXZ_BK&quot;</span><span class="s1">); 
+                testObject.put(</span><span class="s4">&quot;TIME&quot;</span><span class="s1">, timestamp); 
+                testObject.put(</span><span class="s4">&quot;NAME&quot;</span><span class="s1">, </span><span class="s4">&quot;Lipitor&quot;</span><span class="s1">); 
+                testObject.saveEventually(); 
+                Toast.makeText(getApplicationContext(), </span><span class="s4">&quot;Test&quot;</span><span class="s1">, Toast.LENGTH_LONG).show(); 
+            } 
+        }, </span><span class="s3">3500</span><span class="s1">);                   </span><span class="s2">//call the dosomething() in main activity</span><span class="s1"> 
+    } 
+} 
+</span></pre>
+</body>
+</html>
