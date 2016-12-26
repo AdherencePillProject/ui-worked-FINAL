@@ -1,10 +1,10 @@
 [
     {
-        "merged": "/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/reminder.png",
-        "source": "/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/src/main/res/mipmap-xxxhdpi/reminder.png"
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/reminder.png",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/src/main/res/mipmap-xxxhdpi/reminder.png"
     },
     {
-        "merged": "/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher.png",
-        "source": "/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher.png",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     }
 ]

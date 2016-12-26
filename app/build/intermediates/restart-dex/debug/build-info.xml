@@ -4,32 +4,32 @@
     density="hdpi"
     format="8"
     plugin-version="2.2.0"
-    timestamp="26077048817034"
-    token="-528505292141153303"
+    timestamp="17494581123949"
+    token="-5036173070348463102"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="1217" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="665" />
     <task
         name="verifier"
-        duration="0" />
+        duration="80" />
 
     <artifact
-        location="/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/outputs/apk/app-debug.apk"
+        location="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/outputs/apk/app-debug.apk"
         type="MAIN" />
 
     <build
-        timestamp="26077048817034"
+        timestamp="17494581123949"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/Users/caoye/Documents/workspace/Android/499_AndroidApp-master_Worked-master/app/build/outputs/apk/app-debug.apk"
+            location="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
     </build>
 
