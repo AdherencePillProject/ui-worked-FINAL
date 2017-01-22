@@ -23,7 +23,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:id="@+id/listView"
+        android:id="@+id/scanList"
         android:layout_gravity="center" />
 
 
@@ -128,6 +128,13 @@
             android:layout_weight="1.0"/>
 
     </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finished Adding!"
+        android:id="@+id/finishAdd"
+        android:layout_gravity="center_horizontal"/>
 
     <ImageView
         android:layout_width="match_parent"

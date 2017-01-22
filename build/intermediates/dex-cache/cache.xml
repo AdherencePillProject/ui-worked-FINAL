@@ -2,193 +2,229 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_ee48ead3175a6be3e0a59c980dac6e1551e92676/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_2cdb9fb41326a4b81fbf95d59f615f3d0aa321c2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-applinks-1.4.0_ccb441e4cbdbe77998752c836fe9566fc7ca778c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_4a40bc3a4b7db08c2806efa94382e663dfae4b3b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.2.1_1a60436fa74764aecc7be572fc0eb50195a93939/classes.dex" />
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-22.2.1_703943137135511f19c1fa4b9dba9594d6f5989d.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="c6d79137693d494dee16372d3921f919eb724ced">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-22.0.0_de7c53dbaa0191e2aff56a48c267f1712c52f830/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_cf8f7b7803e08dce6ca66d956b81fd414143f22b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_51506350f3e8e50bd005e58faa954aaef5ee24ae/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-tasks-1.4.0_d4913c5576f17c75d5e880bdffda7a74a15def11/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_79e4f519b1937abf87388f8ea13d526681be7566/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_beb0e443963921f8d3e1d35fe70f10ba335d64cb/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_3cba1826e285b8cc9903a728f0819cdab407818f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_f31306c9cf24788f4c61137ae5f505616dab3b8a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_2eacad8ad14641f5d0eaa0aab5a92b298374cf62/classes.dex" />
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-24.2.1_880324086fbf48c3e13760f048b86761a81fe861.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_d94f5fa91f9aab280d90bc5c8eb9677837cea404/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/.gradle/caches/modules-2/files-2.1/com.parse/parse-android/1.13.1/5f645bf60e3b88ccc02bd2a4018c5e3ef2f77d0a/parse-android-1.13.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="5f645bf60e3b88ccc02bd2a4018c5e3ef2f77d0a">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/parse-android-1.13.1_b83756994b8d4e8df8a98c59d12a5a2290b7dcfb/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="ae5d2a0d9e7462f1c0c3a3ec1e92c913ecaf3163">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_3d9d5d50607ed08b250e15362ba23fdc08bd3fe7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.prolificinteractive/material-calendarview/1.4.2/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="0d86ad5b79ed5d4394b3f4011ec90a7d9b876fcb">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.prolificinteractive-material-calendarview-1.4.2_3346b38a97b9b8cc1a3c0c9d50bff300fc8ddc60/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.1"
-        sha1="3951e061447727e404b93e9e0a2da72120ea9d71">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_b73ebbce1ba6dd48d29672ba414405c4abd9ba44/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_2cd77a7cbbaab497ae0d64d51ae9781ad93febb9/classes.dex" />
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_18f1544b77f2c080d6d6188b840ab85f44a54167.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-22.2.0_95c585924400e90c34d483c3f089f77ba432ce5d/classes.dex" />
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-design-22.2.0_d5d830a7c0d6ca4c8c20fd1026a512f2c7033763.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/.gradle/caches/modules-2/files-2.1/com.parse/parse-android/1.13.1/5f645bf60e3b88ccc02bd2a4018c5e3ef2f77d0a/parse-android-1.13.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5f645bf60e3b88ccc02bd2a4018c5e3ef2f77d0a">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/parse-android-1.13.1_df5a8ef7ef122e3e88aa72b8b457915784a5cafb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-24.2.1_e3fa8a3c04df8dd2d4a08037fed701c113a551e7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_c1f8fee706f724580b6c9f50796c187adaf28f86.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.2.1_0031d368ad41f551f0452b06f4f171405ca2475c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/ui-worked-FINAL/zentri_ble_command/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="4d34e116b24748a585f3c1612aa123a46f161006">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/ui-worked-FINAL-zentri_ble_command-unspecified_27ab9178a64109ba532440cd1aa78081b6dc3757.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_9fa160c1c123ff2d7752a7b3025f08c20f449f18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/ui-worked-FINAL/zentri_ble/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9e6c0aa35e53d3daab0a53f15f1b24176569858f">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/ui-worked-FINAL-zentri_ble-unspecified_edcaabf4956120169bea230e0b443d68476c4025.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/support-annotations-24.2.1_a5eb8d78ead1465e3cc47f509ac5d0874ea6550b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_ac0713c023781c655cba578943c4ef5f8c121aad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.prolificinteractive/material-calendarview/1.4.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="0d86ad5b79ed5d4394b3f4011ec90a7d9b876fcb">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.prolificinteractive-material-calendarview-1.4.2_60bdb03d22535698e0898826e61202bc79cee415.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-22.0.0_6dc49cd04f7a8af7ad2adcdd52c3e3a9576a10b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-24.2.1_9c2b76a4f187be4741dfc22e288eaacdba70f53d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-24.2.1_38b4f71d6722aad081b39bf0fceabb0091c164b5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_d39a9ee78d539572ddc63e9edd8e7c54b37ad582.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.volley-volley-1.0.0_9530629064d57661f410729ebf1a2189850d6086.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-24.2.1_f790eb0b00bd46796fce728ba91c34c0b6c6614c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_fd59ecc67e552056e34bad1272a934d026d3837d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_60f135d090b3abed5a5377439df466eb32365e22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_3c49b3a99de25f984d3d4023a1f57fac991540a6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_1a12f8f718a2be997416f885f96f6a2df67cfd12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_426d0ff3625f11ac853ade426fa94493e71ade50.jar" />
     </item>
 
 </items>

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="zentri_ble-unspecified">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/ui-worked-FINAL/zentri_ble/unspecified/res" />
       <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/ui-worked-FINAL/zentri_ble/unspecified/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/ui-worked-FINAL/zentri_ble/unspecified/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

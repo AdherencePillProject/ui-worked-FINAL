@@ -1,10 +1,18 @@
 [
     {
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/mcv_action_previous.png",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.prolificinteractive/material-calendarview/1.4.2/res/drawable-xxxhdpi-v4/mcv_action_previous.png"
+    },
+    {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/mcv_action_next.png",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.prolificinteractive/material-calendarview/1.4.2/res/drawable-xxxhdpi-v4/mcv_action_next.png"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/mcv_action_previous.png",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.prolificinteractive/material-calendarview/1.4.2/res/drawable-xxxhdpi-v4/mcv_action_previous.png"
+    },
+    {
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/mcv_action_next.png",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.prolificinteractive/material-calendarview/1.4.2/res/drawable-xxxhdpi-v4/mcv_action_next.png"
     }
 ]

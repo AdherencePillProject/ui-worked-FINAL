@@ -4,32 +4,53 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.android.volley.*;
+
+import org.json.JSONObject;
 
 import static android.R.attr.name;
 import static com.adherence.adherence.R.id.pwd;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RequestQueue mRequestQueue;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button conformButton = (Button) this.findViewById(R.id.conformButton);
-        Button cancelButton= (Button) this.findViewById(R.id.cancelButton);
+        Button cancelButton = (Button) this.findViewById(R.id.cancelButton);
         OnClickListener ocl = new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -41,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Button button = (Button) findViewById(R.id.button_send);
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 Date now = new Date();
@@ -55,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button button1 = (Button) findViewById(R.id.Jarandice);
-        button1.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 Date now = new Date();
@@ -69,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button button2 = (Button) findViewById(R.id.Truvada);
-        button2.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 Date now = new Date();
@@ -83,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button button3 = (Button) findViewById(R.id.Asprin);
-        button3.setOnClickListener(new View.OnClickListener() {
+        button3.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 Date now = new Date();
@@ -97,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button button4 = (Button) findViewById(R.id.Lipitor);
-        button4.setOnClickListener(new View.OnClickListener() {
+        button4.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
                 Date now = new Date();
@@ -111,24 +132,58 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void Login(View arg0){
-        EditText name=(EditText)findViewById(R.id.username);
-        EditText pwd=(EditText)findViewById(R.id.pwd);
-        Button bt=(Button)findViewById(arg0.getId());
-        String text=bt.getText().toString();
-        String name1=name.getText().toString();
-        String pwd1=pwd.getText().toString();
-            if (name1.equals("patient0@patient.com") && pwd1.equals("1234")){
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, NextActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
-            else{
-            name.setText("");
-            pwd.setText("");
-            }
+    public void Login(View arg0) {
+        EditText name = (EditText) findViewById(R.id.username);
+        EditText pwd = (EditText) findViewById(R.id.pwd);
+        Button bt = (Button) findViewById(arg0.getId());
+        String text = bt.getText().toString();
+//        String name1=name.getText().toString();
+//        String pwd1=pwd.getText().toString();
+//            if (name1.equals("patient0@patient.com") && pwd1.equals("1234")){
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, NextActivity.class);
+//                MainActivity.this.startActivity(intent);
+//            }
+//            else{
+//            name.setText("");
+//            pwd.setText("");
+//            }
+        if (text.equals("login")) {
+            Log.d("login", "hi");
+            loginParse();
+        }
+    }
+
+    private void loginParse() {
+        mRequestQueue = Volley.newRequestQueue(this);
+        String url = "http://129.105.36.93:5000/login";
+
+        Map<String, String> map = new HashMap<>();
+        map.put("username", "d@d");
+        map.put("password", "d");
+        JSONObject jsonObject = new JSONObject(map);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject res) {
+                        Log.d("res", res.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        );
+        mRequestQueue.add(jsonObjectRequest);
     }
     /*
     private void loginparse(String name, String password) {
@@ -172,5 +227,41 @@ public class MainActivity extends AppCompatActivity {
             return false;
         } else
             return true;
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 }
