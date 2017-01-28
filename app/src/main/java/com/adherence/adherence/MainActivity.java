@@ -155,23 +155,26 @@ public class MainActivity extends AppCompatActivity {
 //            }
         if (text.equals("login")) {
             Log.d("login", "hi");
-            loginParse();
+            loginParse(name,pwd);
         }
     }
 
-    private void loginParse() {
+    private void loginParse(final EditText name, final EditText password) {
         mRequestQueue = Volley.newRequestQueue(this);
         String url = "http://129.105.36.93:5000/login";
 
         Map<String, String> map = new HashMap<>();
-        map.put("username", "d@d");
-        map.put("password", "d");
+        map.put("username", name.getText().toString());
+        map.put("password", password.getText().toString());
         JSONObject jsonObject = new JSONObject(map);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject res) {
                         Log.d("res", res.toString());
+                        Intent intent=new Intent();
+                        intent.setClass(MainActivity.this, NextActivity.class);
+                        MainActivity.this.startActivity(intent);
                     }
                 },
                 new Response.ErrorListener() {
@@ -179,7 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(getApplicationContext(),"wrong username or password!",Toast.LENGTH_SHORT).show();
+                        name.setText("");
+                        password.setText("");
                     }
                 }
         );

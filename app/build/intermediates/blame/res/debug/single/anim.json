@@ -4,12 +4,12 @@
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/anim/snackbar_in.xml"
     },
     {
-        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/anim/snackbar_out.xml",
-        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/anim/snackbar_out.xml"
-    },
-    {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/anim/snackbar_in.xml",
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/anim/snackbar_in.xml"
+    },
+    {
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/anim/snackbar_out.xml",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/anim/snackbar_out.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/anim/fab_out.xml",

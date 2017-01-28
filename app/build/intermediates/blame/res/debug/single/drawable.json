@@ -4,6 +4,10 @@
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_text_dark.xml"
     },
     {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_dark.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_icon_dark.xml"
+    },
+    {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_full_material.xml",
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_ratingbar_full_material.xml"
     },
@@ -28,6 +32,10 @@
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_item_background_holo_light.xml"
     },
     {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_light.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_icon_light.xml"
+    },
+    {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_radio_material.xml"
     },
@@ -40,16 +48,16 @@
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_icon_light.xml"
     },
     {
-        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/circle_status.xml",
-        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/src/main/res/drawable/circle_status.xml"
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_holo_light.xml"
     },
     {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/snackbar_background.xml",
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/drawable/snackbar_background.xml"
     },
     {
-        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
-        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_holo_light.xml"
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/circle_status.xml",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/src/main/res/drawable/circle_status.xml"
     },
     {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
@@ -62,6 +70,10 @@
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/circle.xml",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/src/main/res/drawable/circle.xml"
+    },
+    {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_light.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_text_light.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
@@ -78,6 +90,10 @@
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/fab_background.xml",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/drawable/fab_background.xml"
+    },
+    {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
@@ -104,6 +120,10 @@
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
     },
     {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_dark.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_text_dark.xml"
+    },
+    {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_list_selector_holo_dark.xml"
     },
@@ -122,6 +142,14 @@
     {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_icon_dark.xml"
     },
     {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_icon_light.xml",
@@ -190,6 +218,10 @@
     {
         "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_dark.xml",
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",

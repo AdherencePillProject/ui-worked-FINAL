@@ -4,12 +4,12 @@
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/src/main/res/layout/calendar.xml"
     },
     {
-        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/time_view.xml",
-        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/src/main/res/layout/time_view.xml"
-    },
-    {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/time_view.xml",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/src/main/res/layout/time_view.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",
@@ -20,16 +20,16 @@
         "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/notification_template_big_media_narrow.xml"
     },
     {
-        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
-        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/abc_action_menu_item_layout.xml"
+        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
+        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/abc_screen_toolbar.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
         "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/abc_screen_content_include.xml"
     },
     {
-        "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
-        "source": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/abc_screen_toolbar.xml"
+        "merged": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/yichengwang/SHvsMK_GitHub/ui-worked-FINAL/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/layout/abc_action_menu_item_layout.xml"
     },
     {
         "merged": "/Users/caoye/Documents/workspace/Android/ui-worked-FINAL/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
