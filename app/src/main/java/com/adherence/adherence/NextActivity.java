@@ -31,7 +31,7 @@ public class NextActivity extends AppCompatActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private String sessionToken;
     /**
      * Used to store the last screen title. For use in      */
     private CharSequence mTitle;
@@ -64,6 +64,10 @@ public class NextActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
         toolbar.setTitle(mTitle);
+        Intent intent=getIntent();
+        sessionToken=intent.getStringExtra("sessionToken");
+        Log.d("nextactivity session",sessionToken);
+
         //test calendar of history pills taken percentage
 //        listView=(ListView) findViewById(R.id.listView_test);
 //        String[] arr_data={"123","123","123","123"};

@@ -31,6 +31,7 @@ import java.util.Map;
 
 import com.android.volley.*;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.R.attr.name;
@@ -142,19 +143,8 @@ public class MainActivity extends AppCompatActivity {
         EditText pwd = (EditText) findViewById(R.id.pwd);
         Button bt = (Button) findViewById(arg0.getId());
         String text = bt.getText().toString();
-//        String name1=name.getText().toString();
-//        String pwd1=pwd.getText().toString();
-//            if (name1.equals("patient0@patient.com") && pwd1.equals("1234")){
-//                Intent intent = new Intent();
-//                intent.setClass(MainActivity.this, NextActivity.class);
-//                MainActivity.this.startActivity(intent);
-//            }
-//            else{
-//            name.setText("");
-//            pwd.setText("");
-//            }
         if (text.equals("login")) {
-            Log.d("login", "hi");
+
             loginParse(name,pwd);
         }
     }
@@ -171,10 +161,21 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject res) {
-                        Log.d("res", res.toString());
-                        Intent intent=new Intent();
-                        intent.setClass(MainActivity.this, NextActivity.class);
-                        MainActivity.this.startActivity(intent);
+                        Log.d("res",res.toString());
+
+                        try {
+                            String sessionToken=res.getString("sessionToken");
+                            Log.d("sessiontoken", sessionToken);
+                            Intent intent=new Intent();
+                            intent.putExtra("sessionToken",sessionToken);
+                            intent.setClass(MainActivity.this, NextActivity.class);
+                            MainActivity.this.startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d("res","get token wrong!");
+                        }
+
+
                     }
                 },
                 new Response.ErrorListener() {
