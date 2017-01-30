@@ -68,30 +68,9 @@ public class NextActivity extends AppCompatActivity
         sessionToken=intent.getStringExtra("sessionToken");
         Log.d("nextactivity session",sessionToken);
 
-        //test calendar of history pills taken percentage
-//        listView=(ListView) findViewById(R.id.listView_test);
-//        String[] arr_data={"123","123","123","123"};
-//
-//        arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,arr_data);
-//        listView.setAdapter(arrayAdapter);
 
-        // Create delayed Notification test
         createDelayedNotification();
 
-//        CalendarDBHelper calendarDBHelper=new CalendarDBHelper(NextActivity.this,"test.db");
-//        SQLiteDatabase sqLiteDatabase=calendarDBHelper.getWritableDatabase();
-//        Cursor cursor=sqLiteDatabase.rawQuery("select * from calendartb",null);
-//        if(cursor!=null){
-//            String[] cols=cursor.getColumnNames();
-//            while(cursor.moveToNext()){
-//                for(String column:cols){
-//       //             Toast.makeText(this,column+": "+cursor.getString(cursor.getColumnIndex(column)),Toast.LENGTH_SHORT);
-//                    Log.i("info",cursor.getString(cursor.getColumnIndex(column)));
-//                }
-//            }
-//            cursor.close();
-//        }
-//        sqLiteDatabase.close();
 
     }
 
@@ -122,7 +101,7 @@ public class NextActivity extends AppCompatActivity
                 String[] medicineList = getResources().getStringArray(R.array.medicine_hardcode);
                 String[] detailList = getResources().getStringArray(R.array. detail_hardcode);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, MedicationFragment.newInstance(medicineList,detailList,position + 1))
+                        .replace(R.id.container, MedicationFragment.newInstance(medicineList,detailList,sessionToken,position + 1))
                         .commit();
                 break;
             case 2:

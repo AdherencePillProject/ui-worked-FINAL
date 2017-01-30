@@ -1,5 +1,6 @@
 package com.adherence.adherence;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,15 +26,27 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 
 
-
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MedicationFragment extends Fragment {
@@ -41,6 +54,7 @@ public class MedicationFragment extends Fragment {
     private static final String ARG_MEDICINE_LIST = "medicine list";
     private static final String ARG_MEDICINE_DETAIL = "medicine detail";
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SESSION_TOKEN="session_token";
 
     private RecyclerView mRecyclerView;
     private MedicationListAdapter mAdapter;
@@ -48,6 +62,7 @@ public class MedicationFragment extends Fragment {
 
     private String[] medicineListHardcode;
     private String[] detailListHardcode;
+    private String sessionToken;
 
     private Context mContext=null;
 
@@ -55,24 +70,18 @@ public class MedicationFragment extends Fragment {
     private TextView pop_pillinfo;
     private TextView pop_pillinstruction;
 
+    private RequestQueue mRequestQueue;
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static MedicationFragment newInstance(String[] medicineList,String[] detailList, int sectionNumber) {
+    public static MedicationFragment newInstance(String[] medicineList,String[] detailList, String sessionToken, int sectionNumber) {
         MedicationFragment fragment = new MedicationFragment();
         Bundle args = new Bundle();
-//        ParseQuery<ParseObject> query2=ParseQuery.getQuery("Prescription");
-//        query2.whereGreaterThan("numberLeft",0);
-//        query2.findInBackground(new FindCallback<ParseObject>() {
-//            @Override
-//            public void done(List<ParseObject> objects, ParseException e) {
-//                Log.i("objects.size:  ",objects.size()+"");
-//
-//            }
-//        });
         args.putStringArray(ARG_MEDICINE_LIST, medicineList);
         args.putStringArray(ARG_MEDICINE_DETAIL, detailList);
+        args.putString(ARG_SESSION_TOKEN,sessionToken);
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
@@ -83,7 +92,8 @@ public class MedicationFragment extends Fragment {
         super.onCreate(savedInstanceState);
         medicineListHardcode = getArguments().getStringArray(ARG_MEDICINE_LIST);
         detailListHardcode = getArguments().getStringArray(ARG_MEDICINE_DETAIL);
-
+        sessionToken=getArguments().getString(ARG_SESSION_TOKEN);
+        Log.d("medication fragment session",sessionToken);
         mContext = this.getContext();
 
 
@@ -96,7 +106,29 @@ public class MedicationFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.medication_list);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        ParseQuery<ParseObject> query2=ParseQuery.getQuery("Prescription");
+        mRequestQueue= Volley.newRequestQueue(getActivity());
+        String url="http://129.105.36.93:5000/patient/prescription";
+        JsonArrayRequest request=new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Toast.makeText(getActivity(),response.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error",error.toString());
+            }
+        }){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("x-parse-session-token",sessionToken);
+                return headers;
+            }
+        };
+        mRequestQueue.add(request);
+
+     /*   ParseQuery<ParseObject> query2=ParseQuery.getQuery("Prescription");
         query2.whereNotEqualTo("pill",null);
         query2.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -167,7 +199,7 @@ public class MedicationFragment extends Fragment {
                     }
                 });
             }
-        });
+        });*/
 //        mAdapter = new MedicationListAdapter(detailListHardcode,detailListHardcode);
 //        mRecyclerView.setAdapter(mAdapter);
 
